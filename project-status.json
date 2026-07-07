@@ -5,7 +5,7 @@
   "lastUpdated": "2026-07-08",  // 011 merged (fd9c034 + tag core-platform-001-011-complete)
   "phase": "Phase A — Core Platform",
   "nextModule": "012",  // 011 merged; follow one-module-at-a-time.
-  "checkpointTag": "core-platform-001-009-complete",
+  "checkpointTag": "core-platform-001-011-complete",
   "architectureFrozen": true,
   "corePlatformSpecsFrozen": true,
   "implementationStarted": true,
