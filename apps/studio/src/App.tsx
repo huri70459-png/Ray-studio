@@ -13,6 +13,14 @@ import {
   fsListDirectory,
   updateFsRoots,
 } from './fs/useFileSystem'
+import {
+  getFileWatcher,
+  initFileWatcher,
+  updateWatcherRoots,
+  subscribeToFsChanges,
+  getWatcherState,
+  getWatcherRoots,
+} from './watcher/useFileWatcher'
 
 interface Command {
   id: string
@@ -155,6 +163,55 @@ export default function App() {
         } catch (e) {
           alert('FS validate error')
         }
+        setIsPaletteOpen(false)
+      },
+    },
+    // 012 File Watcher demos (ponytail: direct until 013; only on 011-validated roots)
+    {
+      id: 'watcher-activate',
+      title: 'Watcher: Watch current project root (012)',
+      keywords: ['watcher', 'watch', 'fs', '012'],
+      action: async () => {
+        try {
+          const root = 'F:/Projects/Ray-studio Creations/Ray Studio'
+          updateFsRoots(root, root)
+          await initFileSystem(root, root)
+          await initFileWatcher([root])
+          alert('Watcher active on validated root. Changes will log to console.')
+          // Auto-subscribe a demo listener that surfaces via alert (first change)
+          const unsub = subscribeToFsChanges((e) => {
+            console.warn('[watcher-demo-event]', e)
+            alert(`FS change: ${e.type} ${e.path.split(/[\\/]/).pop()}`)
+            unsub()
+          })
+        } catch (e) {
+          alert('Watcher activate error: ' + (e as Error).message)
+        }
+        setIsPaletteOpen(false)
+      },
+    },
+    {
+      id: 'watcher-status',
+      title: 'Watcher: Status + roots',
+      keywords: ['watcher', 'status', '012'],
+      action: () => {
+        const state = getWatcherState()
+        const roots = getWatcherRoots()
+        alert(`Watcher state: ${state} | roots: ${roots.length}`)
+        setIsPaletteOpen(false)
+      },
+    },
+    {
+      id: 'watcher-dispose',
+      title: 'Watcher: Dispose all watches',
+      keywords: ['watcher', 'dispose', '012'],
+      action: () => {
+        try {
+          // Note: the thin wrapper dispose
+          const w = getFileWatcher()
+          w.dispose()
+          alert('Watcher disposed')
+        } catch {}
         setIsPaletteOpen(false)
       },
     },

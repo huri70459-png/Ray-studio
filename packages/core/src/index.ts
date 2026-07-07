@@ -4,5 +4,6 @@
  */
 export * from './project/index.js';
 export * from './fs/index.js';
+export * from './watcher/index.js';
 // NOTE: workspace/ sources were not present in src at 011 start (only dist artifacts). Re-add via recovery if needed for consumers.
 
