@@ -51,7 +51,7 @@ Current reality:
 | 001 Studio Shell        | ✅ Merged (9.7/10 Architecture Review PASS; immutable except defect fixes) |
 | 009 Workspace Manager   | ✅ Merged (9.8/10 Architecture Review PASS; immutable except defect fixes) |
 | 010 Project Manager     | ✅ Merged (9.9/10 Arch Review PASS; no drift; separation clean) |
-| 011 File System Service | ✅ Commits created (feat 63e9ac0 + docs b5571a5). Awaiting merge to main |
+| 011 File System Service | ✅ Commits created (feat 63e9ac0 + docs b5571a5 + f4102ee). Awaiting merge to main |
 | 012 File Watcher        | Architecture Approved                       |
 | 013 IPC Framework       | Architecture Approved                       |
 | 016 SQLite Layer        | Architecture Approved                       |
@@ -62,7 +62,7 @@ Phase A Core Platform (001/009–016 Layer 2 + Layer 4 validation specs) is comp
 - 001: merged 2026-07-08, score 9.7, commit 8bd3940..., tag core-platform-001-009-complete
 - 009: merged 2026-07-08, score 9.8, commit 8bd3940..., tag core-platform-001-009-complete
 - 010: merged 2026-07-08, score 9.9/10, commit TBD, tag core-platform-001-010-complete (pending)
-- 011: Commits created on before-011-merge (feat 63e9ac0, docs b5571a5). Awaiting merge + tag. Tag: core-platform-001-011-complete (pending)
+- 011: Commits created on before-011-merge (feat 63e9ac0, docs b5571a5 + f4102ee). Awaiting merge + tag. Tag: core-platform-001-011-complete (pending)
 
 Process (Arch → Spec → Review → Impl → Indep Review → Merge) validated for reuse.
 

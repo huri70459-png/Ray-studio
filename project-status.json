@@ -31,7 +31,7 @@
   "module001Status": "✅ Merged (9.7/10 Arch Review PASS; no drift; immutable except defects)",
   "module009Status": "✅ Merged (9.8/10 Arch Review PASS; dependency inversion + state machine + ponytail; immutable except defects)",
   "module010Status": "✅ Merged (9.9/10 Arch Review PASS; no drift; workspace/project lifecycle separation clean; immutable except defects)",
-  "module011Status": "✅ Commits on before-011-merge (feat 63e9ac0, docs b5571a5). Awaiting merge to main. (2026-07-08)",
+  "module011Status": "✅ Commits on before-011-merge (feat 63e9ac0, docs b5571a5 + f4102ee). Awaiting merge to main. (2026-07-08)",
   "mergeMetadata": {
     "001": {
       "module": "001",
