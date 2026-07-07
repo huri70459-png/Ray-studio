@@ -1,5 +1,18 @@
 import { useState, useEffect, useCallback } from 'react'
-import { Search, Terminal, Globe, Settings, Zap } from 'lucide-react'
+import { Search, Terminal, Globe, Settings, Zap, FolderOpen } from 'lucide-react'
+import {
+  getProjectManager,
+  activateProject,
+} from './project/useProject'
+import {
+  getFileSystemService,
+  initFileSystem,
+  fsValidatePath,
+  fsReadFile,
+  fsWriteFile,
+  fsListDirectory,
+  updateFsRoots,
+} from './fs/useFileSystem'
 
 interface Command {
   id: string
@@ -86,6 +99,62 @@ export default function App() {
       keywords: ['settings', 'preferences'],
       action: () => {
         setCurrentSurface('settings')
+        setIsPaletteOpen(false)
+      },
+    },
+    // 011 File System Service demos (ponytail: direct until 013 IPC)
+    {
+      id: 'fs-activate-demo',
+      title: 'FS: Activate demo workspace + project',
+      keywords: ['fs', 'activate', 'workspace', 'project', '011'],
+      action: async () => {
+        const ws = 'F:/Projects/Ray-studio Creations/Ray Studio'
+        const proj = ws // use root as demo project for now
+        try {
+          await activateProject(ws, proj)
+          updateFsRoots(ws, proj)
+          await initFileSystem(ws, proj)
+          alert('FS roots activated (demo). Use other FS commands.')
+        } catch (e) {
+          alert('FS activate error: ' + (e as Error).message)
+        }
+        setIsPaletteOpen(false)
+      },
+    },
+    {
+      id: 'fs-list',
+      title: 'FS: List current project root',
+      keywords: ['fs', 'list', 'dir', '011'],
+      action: async () => {
+        try {
+          const svc = getFileSystemService()
+          // ensure roots if not
+          updateFsRoots('F:/Projects/Ray-studio Creations/Ray Studio', 'F:/Projects/Ray-studio Creations/Ray Studio')
+          await svc.initialize('F:/Projects/Ray-studio Creations/Ray Studio', 'F:/Projects/Ray-studio Creations/Ray Studio')
+          const res = await fsListDirectory('F:/Projects/Ray-studio Creations/Ray Studio')
+          if ('entries' in res) {
+            alert('Listed ' + res.entries.length + ' entries (first: ' + (res.entries[0]?.name || 'n/a') + ')')
+          } else {
+            alert('List error: ' + (res as any).message)
+          }
+        } catch (e) {
+          alert('FS list error')
+        }
+        setIsPaletteOpen(false)
+      },
+    },
+    {
+      id: 'fs-validate',
+      title: 'FS: Validate path (in/out of scope)',
+      keywords: ['fs', 'validate', 'scope', '011'],
+      action: async () => {
+        try {
+          const inScope = await fsValidatePath('F:/Projects/Ray-studio Creations/Ray Studio/README.md')
+          const outScope = await fsValidatePath('C:/Windows/System32/notepad.exe')
+          alert(`In-scope: ${inScope.valid} | Out-of-scope: ${outScope.valid} (should be false)`)
+        } catch (e) {
+          alert('FS validate error')
+        }
         setIsPaletteOpen(false)
       },
     },
