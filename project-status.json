@@ -2,7 +2,7 @@
   "schemaVersion": "1.0",
   "repositoryVersion": "0.1.0",
   "constitutionVersion": "1.0.0",
-  "lastUpdated": "2026-07-08",
+  "lastUpdated": "2026-07-08",  // 011 commits created (feat 63e9ac0). Awaiting merge on before-011-merge.
   "phase": "Phase A — Core Platform",
   "nextModule": "011",  // 010 merged; follow one-module-at-a-time. Next after merge.
   "checkpointTag": "core-platform-001-009-complete",
@@ -31,6 +31,7 @@
   "module001Status": "✅ Merged (9.7/10 Arch Review PASS; no drift; immutable except defects)",
   "module009Status": "✅ Merged (9.8/10 Arch Review PASS; dependency inversion + state machine + ponytail; immutable except defects)",
   "module010Status": "✅ Merged (9.9/10 Arch Review PASS; no drift; workspace/project lifecycle separation clean; immutable except defects)",
+  "module011Status": "✅ Commits on before-011-merge (feat 63e9ac0 + docs). Awaiting merge to main. (2026-07-08)",
   "mergeMetadata": {
     "001": {
       "module": "001",

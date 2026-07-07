@@ -1,9 +1,9 @@
 # Handoff
 
 **Project:** Ray Studio  
-**Date:** 2026-07-08 (post 001+009 merge + 010 implementation complete)  
+**Date:** 2026-07-08 (post 011 validation PASS)  
 **Status:** Sprint 1 — Core Platform Implementation  
-**Last Updated By:** Grok (consolidated from session)
+**Last Updated By:** Grok (post 011 validation)
 
 ## Resume From Here
 
@@ -51,7 +51,7 @@ Current reality:
 | 001 Studio Shell        | ✅ Merged (9.7/10 Architecture Review PASS; immutable except defect fixes) |
 | 009 Workspace Manager   | ✅ Merged (9.8/10 Architecture Review PASS; immutable except defect fixes) |
 | 010 Project Manager     | ✅ Merged (9.9/10 Arch Review PASS; no drift; separation clean) |
-| 011 File System Service | Architecture Approved                       |
+| 011 File System Service | ✅ Commits created (feat 63e9ac0). Awaiting merge to main |
 | 012 File Watcher        | Architecture Approved                       |
 | 013 IPC Framework       | Architecture Approved                       |
 | 016 SQLite Layer        | Architecture Approved                       |
@@ -62,6 +62,7 @@ Phase A Core Platform (001/009–016 Layer 2 + Layer 4 validation specs) is comp
 - 001: merged 2026-07-08, score 9.7, commit 8bd3940..., tag core-platform-001-009-complete
 - 009: merged 2026-07-08, score 9.8, commit 8bd3940..., tag core-platform-001-009-complete
 - 010: merged 2026-07-08, score 9.9/10, commit TBD, tag core-platform-001-010-complete (pending)
+- 011: Commits created on before-011-merge (feat 63e9ac0 + docs). Awaiting merge + tag. Tag: core-platform-001-011-complete (pending)
 
 Process (Arch → Spec → Review → Impl → Indep Review → Merge) validated for reuse.
 
@@ -101,7 +102,7 @@ No Ray Studio-specific handoff existed previously in `F:\Projects\session\` or i
 1. **For any agent starting work**: Read Constitution + docs/000-current-status.md + this handoff. Call mempalace graph tools first.
 2. **Modules 001 + 009 + 010 Merged**: ✅ 001/009/010 complete. 010: separation clean (ProjectManager does NOT own workspace lifecycle), 9.8–10.0/10. New tag pending commit.
 3. **Create Git tag/checkpoint**: `core-platform-001-009-complete` exists. After 010 merge: `core-platform-001-010-complete`.
-4. **Next active (strictly one at a time)**: After 010 merge, Module 011 File System Service. Do not start until merge complete.
+4. **Next active (strictly one at a time)**: 011 Commits on before-011-merge (63e9ac0). Awaiting merge to main. Do not start 012 until 011 merged.
 5. **Process improvement (adopted + executed)**: `history/` directory created with 001.md + 009.md + 010.md. 010 merged. After merge: update handoff/status with final metadata.
 6. **Workflow improvement (adopted for future)**: Before any implementation begins, explicitly produce a Scope Declaration:
    - Active Module: 010 Project Manager

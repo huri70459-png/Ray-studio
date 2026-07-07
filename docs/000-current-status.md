@@ -1,7 +1,7 @@
 # 000 — Current Status (Complete Project Information)
 
 **Status:** Living Reference (Sprint 1)  
-**Date:** 2026-07-08 (updated post 010 Project Manager implementation — gates green)  
+**Date:** 2026-07-08 (updated post 011 validation PASS — gates + FTs + scope + security green)  
 **Project:** Ray Studio  
 **Location:** F:\Projects\Ray-studio Creations\Ray Studio  
 **Version:** 0.1.0 (monorepo foundation)
@@ -38,7 +38,7 @@ Governed by the **Ray Studio Engineering Constitution v1.0.0** (root file, perma
 | 001 Studio Shell        | Architecture Approved   | Exists     | Merged (review 9.7/10 PASS) | No (immutable)  |
 | 009 Workspace Manager   | Architecture Approved   | Exists     | Merged (review 9.8/10 PASS) | No (immutable) |
 | 010 Project Manager     | Architecture Approved   | Exists     | ✅ Merged (9.9/10 Arch PASS) | No (immutable) |
-| 011 File System Service | Architecture Approved   | Exists     | Implement (Phase 2)  | Yes        |
+| 011 File System Service | Architecture Approved   | Exists     | ✅ Merge Readiness complete. Awaiting fallback + merge | Yes        |
 | 012 File Watcher        | Architecture Approved   | Exists     | Implement (Phase 2)  | Yes        |
 | 013 IPC Framework       | Architecture Approved   | Exists     | Implement (Phase 2)  | Yes        |
 | 016 SQLite Layer        | Architecture Approved   | Exists     | Implement (Phase 2)  | Yes        |
@@ -70,7 +70,7 @@ Governed by the **Ray Studio Engineering Constitution v1.0.0** (root file, perma
 - Implementation: Module 009 Workspace Manager complete (packages/core with manager, state machine, discovery + in-mem fallbacks for 011/016; structured `[module=workspace-manager] phase=...` logs; 6 unit tests covering FT cases; minimal consumer + demo commands in apps/studio/src/workspace). Followed full pipeline + Scope Declaration. Build/lint/type/test green.
 - Module 009 Architecture Review: ✅ Approved 9.8/10 (2026-07-08). Textbook dependency inversion (Manager delegates to PathValidator + RecentStore), clean state transitions (activating/active/deactivating/none), ponytail comments on fallbacks, reusable domain package shape. Events owned by 009; transport by 013.
 - Module 009: ✅ Merged (2026-07-08). Merge metadata recorded. Immutable except defect fixes.
-- Next work: Module 010 merged (2026-07-08, 9.9/10, separation clean). Proceed to 011 File System Service using same pipeline. One module at a time.
+- Next work: Module 011 Commits created on before-011-merge (63e9ac0). Follow: merge to main → tag → history/011.md → 012. One module at a time.
 - Graph / Memory: Not yet populated for this project (mempalace searches performed; ingest planned post-merge).
 
 See full details below and the assessment order document.
@@ -82,7 +82,7 @@ See full details below and the assessment order document.
 | 001 Studio Shell        | ✅ Merged (9.7/10 Architecture Review PASS; immutable except defects) |
 | 009 Workspace Manager   | ✅ Merged (9.8/10 Architecture Review PASS; immutable except defects) |
 | 010 Project Manager     | ✅ Merged (9.9/10 Architecture Review PASS; no drift; immutable except defects) |
-| 011 File System Service | Architecture Approved                       |
+| 011 File System Service | ✅ Commits created (feat 63e9ac0). Awaiting merge to main |
 | 012 File Watcher        | Architecture Approved                       |
 | 013 IPC Framework       | Architecture Approved                       |
 | 016 SQLite Layer        | Architecture Approved                       |
