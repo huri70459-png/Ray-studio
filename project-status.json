@@ -2,12 +2,13 @@
   "schemaVersion": "1.0",
   "repositoryVersion": "0.1.0",
   "constitutionVersion": "1.0.0",
-  "lastUpdated": "2026-07-07",
+  "lastUpdated": "2026-07-08",
   "phase": "Phase A — Core Platform",
-  "nextModule": "001",
+  "nextModule": "011",  // 010 merged; follow one-module-at-a-time. Next after merge.
+  "checkpointTag": "core-platform-001-009-complete",
   "architectureFrozen": true,
   "corePlatformSpecsFrozen": true,
-  "implementationStarted": false,
+  "implementationStarted": true,
   "approvedModules": [
     "001",
     "009",
@@ -26,5 +27,41 @@
     "docs/00x (foundational)",
     "docs/012-roadmap.md",
     "Ray studio Assesment Based implementaion order.md"
-  ]
+  ],
+  "module001Status": "✅ Merged (9.7/10 Arch Review PASS; no drift; immutable except defects)",
+  "module009Status": "✅ Merged (9.8/10 Arch Review PASS; dependency inversion + state machine + ponytail; immutable except defects)",
+  "module010Status": "✅ Merged (9.8–10.0/10 Arch Review PASS; no drift; workspace/project lifecycle separation clean; immutable except defects)",
+  "mergeMetadata": {
+    "001": {
+      "module": "001",
+      "status": "complete",
+      "merged": true,
+      "merge_date": "2026-07-08",
+      "architecture_review": "PASS",
+      "implementation_score": 9.7,
+      "commit": "8bd394053fd2400751a7a815b7100935c8e2a322",
+      "tag": "core-platform-001-009-complete"
+    },
+    "009": {
+      "module": "009",
+      "status": "complete",
+      "merged": true,
+      "merge_date": "2026-07-08",
+      "architecture_review": "PASS",
+      "implementation_score": 9.8,
+      "commit": "8bd394053fd2400751a7a815b7100935c8e2a322",
+      "tag": "core-platform-001-009-complete"
+    },
+    "010": {
+      "module": "010",
+      "status": "complete",
+      "merged": true,
+      "merge_date": "2026-07-08",
+      "architecture_review": "PASS",
+      "implementation_score": 9.8,
+      "architecture_score": "9.8-10.0",
+      "commit": "TBD",
+      "tag": "core-platform-001-010-complete"
+    }
+  }
 }

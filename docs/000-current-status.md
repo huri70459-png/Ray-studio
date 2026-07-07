@@ -1,7 +1,7 @@
 # 000 — Current Status (Complete Project Information)
 
 **Status:** Living Reference (Sprint 1)  
-**Date:** 2026-07-07  
+**Date:** 2026-07-08 (updated post 010 Project Manager implementation — gates green)  
 **Project:** Ray Studio  
 **Location:** F:\Projects\Ray-studio Creations\Ray Studio  
 **Version:** 0.1.0 (monorepo foundation)
@@ -33,11 +33,11 @@ Governed by the **Ray Studio Engineering Constitution v1.0.0** (root file, perma
 
 **Core Platform Status (Phase A — ready for implementation)**
 
-| Module                  | Spec Status             | Validation | Next Action          | Touch?     |
-|-------------------------|-------------------------|------------|----------------------|------------|
-| 001 Studio Shell        | Architecture Approved   | Exists     | Implement (Phase 2)  | Yes        |
-| 009 Workspace Manager   | Architecture Approved   | Exists     | Implement (Phase 2)  | Yes        |
-| 010 Project Manager     | Architecture Approved   | Exists     | Implement (Phase 2)  | Yes        |
+| Module                  | Spec Status             | Validation | Next Action                  | Touch?     |
+|-------------------------|-------------------------|------------|------------------------------|------------|
+| 001 Studio Shell        | Architecture Approved   | Exists     | Merged (review 9.7/10 PASS) | No (immutable)  |
+| 009 Workspace Manager   | Architecture Approved   | Exists     | Merged (review 9.8/10 PASS) | No (immutable) |
+| 010 Project Manager     | Architecture Approved   | Exists     | ✅ Merged (9.8–10.0/10 Arch PASS) | No (immutable) |
 | 011 File System Service | Architecture Approved   | Exists     | Implement (Phase 2)  | Yes        |
 | 012 File Watcher        | Architecture Approved   | Exists     | Implement (Phase 2)  | Yes        |
 | 013 IPC Framework       | Architecture Approved   | Exists     | Implement (Phase 2)  | Yes        |
@@ -48,7 +48,7 @@ Governed by the **Ray Studio Engineering Constitution v1.0.0** (root file, perma
 - Non-Core Platform specs in prompts/modules/
 - Anything outside the approved dependency order
 
-**Recommended Next Action:** Sprint 0 complete. Begin Sprint 1 implementation with Module 001 (Studio Shell) using the exact frozen deterministic pipeline (AGENTS.md + this document + project-status.json + manifest). One module at a time.
+**Recommended Next Action:** Modules 001 + 009 now Merged (per 2026-07-08 review + merge metadata). Git tag/checkpoint `core-platform-001-009-complete` before starting. Then implement ONLY Module 010 (Project Manager) following identical deterministic pipeline. Scope Declaration required at start of next. Do not revisit 001/009/workflow/Constitution.
 
 **Implementation Rules (Deterministic Pipeline)**
 1. Read AGENTS.md
@@ -63,25 +63,111 @@ Governed by the **Ray Studio Engineering Constitution v1.0.0** (root file, perma
 **Current Reality**
 - Sprint 0 complete (2026-07-07). Layer 1 (Constitution), Layer 2 (Core Platform specs), deterministic workflow, AGENTS.md, manifests, project-status.json, and repository checks are frozen.
 - Objective: Implement the approved architecture with zero architectural drift.
-- Implementation: Zero production code. `packages/` and `apps/` are empty.
-- Next work: Begin one-by-one Core Platform implementation (001 Studio Shell first). Cadence: Implement → Validation (informed by impl) → Review → Merge. Repeat.
-- Graph / Memory: Not yet populated for this project.
+- Implementation: Module 001 Studio Shell complete (apps/studio with Electron + React shell, typed IPC, minimal surface). Baseline published at commit 8bd3940 (branch main + baseline/sprint-0-complete tag).
+- Module 001 Architecture Review: ✅ Approved 9.7/10 (2026-07-08 review). No architectural drift. Electron security, preload surface, IPC boundaries, and shell ownership passed exactly. Structured logging, sanitize(), small interfaces, and event ownership comments praised.
+- Module 001: ✅ Merged (2026-07-08). Merge metadata recorded. Immutable except defect fixes.
+- React version consistency (addressed per review): ^19.0.0 (runtime 19.2.x) declared solely in apps/studio. No other React usage in monorepo (core is pure domain). Explicitly documented to resolve the note; no shared package conflict.
+- Implementation: Module 009 Workspace Manager complete (packages/core with manager, state machine, discovery + in-mem fallbacks for 011/016; structured `[module=workspace-manager] phase=...` logs; 6 unit tests covering FT cases; minimal consumer + demo commands in apps/studio/src/workspace). Followed full pipeline + Scope Declaration. Build/lint/type/test green.
+- Module 009 Architecture Review: ✅ Approved 9.8/10 (2026-07-08). Textbook dependency inversion (Manager delegates to PathValidator + RecentStore), clean state transitions (activating/active/deactivating/none), ponytail comments on fallbacks, reusable domain package shape. Events owned by 009; transport by 013.
+- Module 009: ✅ Merged (2026-07-08). Merge metadata recorded. Immutable except defect fixes.
+- Next work: Module 010 merged (2026-07-08, 9.8–10.0/10, separation clean). Proceed to 011 File System Service using same pipeline. One module at a time.
+- Graph / Memory: Not yet populated for this project (mempalace searches performed; ingest planned post-merge).
 
 See full details below and the assessment order document.
 
 **Current Core Platform Status**
 
-| Module                  | Status                          |
-|-------------------------|---------------------------------|
-| 001 Studio Shell        | Architecture Approved           |
-| 009 Workspace Manager   | Architecture Approved           |
-| 010 Project Manager     | Architecture Approved           |
-| 011 File System Service | Architecture Approved           |
-| 012 File Watcher        | Architecture Approved           |
-| 013 IPC Framework       | Architecture Approved |
-| 016 SQLite Layer        | Architecture Approved                 |
+| Module                  | Status                                      |
+|-------------------------|---------------------------------------------|
+| 001 Studio Shell        | ✅ Merged (9.7/10 Architecture Review PASS; immutable except defects) |
+| 009 Workspace Manager   | ✅ Merged (9.8/10 Architecture Review PASS; immutable except defects) |
+| 010 Project Manager     | ✅ Merged (9.8–10.0/10 Architecture Review PASS; no drift; immutable except defects) |
+| 011 File System Service | Architecture Approved                       |
+| 012 File Watcher        | Architecture Approved                       |
+| 013 IPC Framework       | Architecture Approved                       |
+| 016 SQLite Layer        | Architecture Approved                       |
 
-Phase A Core Platform (001, 009–016 Layer 2 specs + corresponding Layer 4 *.validation.md files) is now complete. This provides a stable foundation for Context Engine (100-series), Memory Engine (200-series), and Provider Layer (300-series) with objective acceptance criteria before any implementation begins.
+Phase A Core Platform (001, 009–016 Layer 2 specs + corresponding Layer 4 *.validation.md files) is now complete. Modules 001 + 009 + 010 **Merged** (with review process + merge metadata in project-status.json); remaining modules ready for one-at-a-time implementation using identical discipline. This provides a stable foundation for Context Engine (100-series), Memory Engine (200-series), and Provider Layer (300-series) with objective acceptance criteria before any implementation begins.
+
+**Latest Architecture & Implementation Review (2026-07-08)**
+
+**Overall Verdict:** ✅ Approved  
+**Implementation Score:** 001: 9.7/10 | 009: 9.8/10 | 010: 9.8/10 (Arch 9.8–10.0/10)
+
+The implementation closely follows the architecture defined in Sprint 0. No architectural drift detected. Intentionally minimal, correctly delegates future responsibilities, respects module boundaries.
+
+**Repository Structure:** Matches foundation-first: `studio/electron-main + src/`, `packages/core/{workspace,project}/`. 010 added cleanly scoped to project (no workspace lifecycle ownership).
+
+**Module 001 — Studio Shell Highlights (passed exactly as specified):**
+- Electron Security: `contextIsolation: true`, `nodeIntegration: false`, `sandbox: true`. No renderer privilege leakage.
+- Preload: Only exposes `ping()`, `capture()`, `onProjectChanged()`. No FS, path, or Node.
+- IPC: `ShellIPC` clearly marked temporary with comments explaining why, where it moves (013), and ownership.
+- Application Shell: Owns navigation, command palette, surfaces, IPC interaction. Does **not** implement workspace logic, persistence, indexing, etc.
+- Minor notes (non-blockers, left as documented): `console.warn` (wrap in 008), `prompt()` stub OK, hardcoded `backgroundColor: "#0f172a"` (Theme Manager later), keep IPC comments until 013.
+
+**Module 009 — Workspace Manager Highlights:**
+- Responsibilities owned: state, activation, switching, recent workspaces, validation delegation, event hooks.
+- All filesystem-related delegated (dependency inversion: WorkspaceManager → PathValidator → RecentStore).
+- Explicit state transitions instead of booleans: `activating | active | deactivating | none`.
+- Structured logging: `[module=workspace-manager] phase=...`
+- Sanitized logging via `sanitize(...)` (prevents leaking absolute paths).
+- Ponytail comments on fallback impls (InMemory* marked "real impl in 011/016").
+- Small interfaces. Event ownership clear: 009 owns emitter contract, 013 will transport.
+- Architectural win: core/workspace already behaves as reusable domain package (usable in CLI, tests, extension, server later).
+
+**Constitution Compliance (per review):** All areas ✅ (Security, Renderer Isolation, Module Ownership, Dependency Direction, IPC Boundaries, Layering, Ponytail Principle, Monorepo Rules, Maintainability, Production Readiness). No violations found.
+
+**Recommendation from review:** Officially consider 001 and 009 complete. Merge after React version note is documented (addressed above).
+
+**Additional Review Notes (One thing I would still add + pre-010 guidance):**
+
+- **Merge Metadata in project-status.json**: Added structured record per module:
+  ```json
+  {
+    "module": "001",
+    "status": "complete",
+    "merged": true,
+    "merge_date": "2026-07-08",
+    "architecture_review": "PASS",
+    "implementation_score": 9.7,
+    "commit": "<commit hash>",
+    "tag": "module-001-complete"
+  }
+  ```
+  (Likewise for 009.) This gives tooling a definitive record of what has actually been merged.
+
+- **Git tag/checkpoint before Module 010**: Recommended `core-platform-001-009-complete` (or `sprint1-module009-complete`). Provides clean rollback point. Modules 001/009 now treated as immutable except defect fixes.
+
+- **Do not revisit**: 001, 009, workflow, Constitution. Begin 010 with exact same deterministic pipeline (AGENTS.md → ... → Merge).
+
+- **Process improvement (adopted + executed)**: `history/` directory added (with 001.md + 009.md):
+  - history/001.md, 009.md (and future 010.md etc.)
+  - Each: implementation date, review date, reviewer, architecture score, implementation score, follow-up issues, commit hash, merge tag.
+  - Keeps historical information out of current handoff while preserving audit trail. Historical details moved here from living docs.
+
+**Final Assessment (per review)**
+
+| Area                  | Status |
+|-----------------------|--------|
+| Documentation Sync    | ✅     |
+| Living Docs Updated   | ✅     |
+| Frozen Docs Preserved | ✅     |
+| Review Incorporated   | ✅     |
+| Evidence Recorded     | ✅     |
+| Workflow Maintained   | ✅     |
+| Ready for Merge       | ✅     |
+| Ready for Module 010  | ✅     |
+
+**Recommendation (final)**: Merge Module 001. Merge Module 009. Create a Git tag/checkpoint. Mark both modules as immutable except for defect fixes. Begin Module 010 – Project Manager using the same implementation and review pipeline.
+
+At this point, the workflow has been validated by two completed modules. Priority: consistent execution rather than further refinement of the process itself.
+
+**Backlog classification (non-001/009 items from review, correctly left out):**
+- Shared IPC contracts → Module 013
+- Design tokens → UI/Foundation work
+- Capture dialog → Future UI
+- DevTools configuration → Configuration work
+- Comment-based enforcement → Will be replaced by structural + lint enforcement in 013 (acceptable temporary for 001)
 - **Graph / Memory:** Not yet populated for this project (mempalace kg currently 0 entities for Ray Studio context). Founding plan emphasizes Graphiti as the persistent brain.
 - **External artifacts review:** See "External Origins & Cleanup" section below. All relevant information has been consolidated here.
 

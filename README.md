@@ -30,7 +30,6 @@ Layered prompt templates live in `prompts/`.
 
 ---
 
-**Sprint 0 complete (2026-07-07).**  
-This repository is now in **Sprint 1: Core Platform Implementation**.  
-Objective: Implement the approved architecture (starting with Module 001) with zero architectural drift.  
-The Constitution + frozen pipeline ensure consistency.
+**Modules 001 + 009 + 010 Merged (2026-07-08 reviews: 9.7/10 + 9.8/10 + 9.8–10.0/10).**  
+Merge metadata in `project-status.json`. Checkpoint tags: `core-platform-001-009-complete`, `core-platform-001-010-complete` (after commit).  
+**Sprint 1**: Core Platform. 001/009/010 immutable except defects. Next: 011. Constitution + frozen pipeline. No workflow changes unless deficiency in ≥3 modules.
