@@ -30,6 +30,6 @@ Layered prompt templates live in `prompts/`.
 
 ---
 
-**Modules 001 + 009 + 010 Merged (2026-07-08 reviews: 9.7/10 + 9.8/10 + 9.8–10.0/10).**  
+**Modules 001 + 009 + 010 Merged (2026-07-08 reviews: 9.7/10 + 9.8/10 + 9.9/10).**  
 Merge metadata in `project-status.json`. Checkpoint tags: `core-platform-001-009-complete`, `core-platform-001-010-complete` (after commit).  
 **Sprint 1**: Core Platform. 001/009/010 immutable except defects. Next: 011. Constitution + frozen pipeline. No workflow changes unless deficiency in ≥3 modules.

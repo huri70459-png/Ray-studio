@@ -50,7 +50,7 @@ Current reality:
 |-------------------------|---------------------------------------------|
 | 001 Studio Shell        | ✅ Merged (9.7/10 Architecture Review PASS; immutable except defect fixes) |
 | 009 Workspace Manager   | ✅ Merged (9.8/10 Architecture Review PASS; immutable except defect fixes) |
-| 010 Project Manager     | ✅ Merged (9.8–10.0/10 Arch Review PASS; no drift; separation clean) |
+| 010 Project Manager     | ✅ Merged (9.9/10 Arch Review PASS; no drift; separation clean) |
 | 011 File System Service | Architecture Approved                       |
 | 012 File Watcher        | Architecture Approved                       |
 | 013 IPC Framework       | Architecture Approved                       |
@@ -61,7 +61,7 @@ Phase A Core Platform (001/009–016 Layer 2 + Layer 4 validation specs) is comp
 **Merge Metadata** (see project-status.json for machine-readable record):
 - 001: merged 2026-07-08, score 9.7, commit 8bd3940..., tag core-platform-001-009-complete
 - 009: merged 2026-07-08, score 9.8, commit 8bd3940..., tag core-platform-001-009-complete
-- 010: merged 2026-07-08, score 9.8–10.0, commit TBD, tag core-platform-001-010-complete (pending)
+- 010: merged 2026-07-08, score 9.9/10, commit TBD, tag core-platform-001-010-complete (pending)
 
 Process (Arch → Spec → Review → Impl → Indep Review → Merge) validated for reuse.
 
@@ -94,7 +94,7 @@ No Ray Studio-specific handoff existed previously in `F:\Projects\session\` or i
 - MCP tool naming in AGENTS.md / .claude/CLAUDE.md references idealized "Codebase Memory" names (list_projects, get_architecture, search_graph). Actual connected tool is mempalace with wings/rooms/ kg_query / search. Documented in status; fix requires ADR.
 - Graph (mempalace) currently has no project-specific entities for Ray Studio. After creating specs or decisions, use mempalace tools to ingest.
 - `constitution:check` will currently fail on missing wired files (.cursor/rules/, .github/ instructions, etc.). These are expected in early foundation.
-- Core packages (packages/core/{workspace,project}) and apps/studio now populated per approved Phase A modules (001 + 009 + 010). All passed independent architecture review with high marks (001:9.7, 009:9.8, 010:9.8-10.0). Higher modules must still respect order.
+- Core packages (packages/core/{workspace,project}) and apps/studio now populated per approved Phase A modules (001 + 009 + 010). All passed independent architecture review with high marks (001:9.7, 009:9.8, 010:9.9/10). Higher modules must still respect order.
 
 ## Immediate Next Actions
 

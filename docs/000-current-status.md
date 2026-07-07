@@ -37,7 +37,7 @@ Governed by the **Ray Studio Engineering Constitution v1.0.0** (root file, perma
 |-------------------------|-------------------------|------------|------------------------------|------------|
 | 001 Studio Shell        | Architecture Approved   | Exists     | Merged (review 9.7/10 PASS) | No (immutable)  |
 | 009 Workspace Manager   | Architecture Approved   | Exists     | Merged (review 9.8/10 PASS) | No (immutable) |
-| 010 Project Manager     | Architecture Approved   | Exists     | ✅ Merged (9.8–10.0/10 Arch PASS) | No (immutable) |
+| 010 Project Manager     | Architecture Approved   | Exists     | ✅ Merged (9.9/10 Arch PASS) | No (immutable) |
 | 011 File System Service | Architecture Approved   | Exists     | Implement (Phase 2)  | Yes        |
 | 012 File Watcher        | Architecture Approved   | Exists     | Implement (Phase 2)  | Yes        |
 | 013 IPC Framework       | Architecture Approved   | Exists     | Implement (Phase 2)  | Yes        |
@@ -70,7 +70,7 @@ Governed by the **Ray Studio Engineering Constitution v1.0.0** (root file, perma
 - Implementation: Module 009 Workspace Manager complete (packages/core with manager, state machine, discovery + in-mem fallbacks for 011/016; structured `[module=workspace-manager] phase=...` logs; 6 unit tests covering FT cases; minimal consumer + demo commands in apps/studio/src/workspace). Followed full pipeline + Scope Declaration. Build/lint/type/test green.
 - Module 009 Architecture Review: ✅ Approved 9.8/10 (2026-07-08). Textbook dependency inversion (Manager delegates to PathValidator + RecentStore), clean state transitions (activating/active/deactivating/none), ponytail comments on fallbacks, reusable domain package shape. Events owned by 009; transport by 013.
 - Module 009: ✅ Merged (2026-07-08). Merge metadata recorded. Immutable except defect fixes.
-- Next work: Module 010 merged (2026-07-08, 9.8–10.0/10, separation clean). Proceed to 011 File System Service using same pipeline. One module at a time.
+- Next work: Module 010 merged (2026-07-08, 9.9/10, separation clean). Proceed to 011 File System Service using same pipeline. One module at a time.
 - Graph / Memory: Not yet populated for this project (mempalace searches performed; ingest planned post-merge).
 
 See full details below and the assessment order document.
@@ -81,7 +81,7 @@ See full details below and the assessment order document.
 |-------------------------|---------------------------------------------|
 | 001 Studio Shell        | ✅ Merged (9.7/10 Architecture Review PASS; immutable except defects) |
 | 009 Workspace Manager   | ✅ Merged (9.8/10 Architecture Review PASS; immutable except defects) |
-| 010 Project Manager     | ✅ Merged (9.8–10.0/10 Architecture Review PASS; no drift; immutable except defects) |
+| 010 Project Manager     | ✅ Merged (9.9/10 Architecture Review PASS; no drift; immutable except defects) |
 | 011 File System Service | Architecture Approved                       |
 | 012 File Watcher        | Architecture Approved                       |
 | 013 IPC Framework       | Architecture Approved                       |
@@ -92,7 +92,7 @@ Phase A Core Platform (001, 009–016 Layer 2 specs + corresponding Layer 4 *.va
 **Latest Architecture & Implementation Review (2026-07-08)**
 
 **Overall Verdict:** ✅ Approved  
-**Implementation Score:** 001: 9.7/10 | 009: 9.8/10 | 010: 9.8/10 (Arch 9.8–10.0/10)
+**Implementation Score:** 001: 9.7/10 | 009: 9.8/10 | 010: 9.9/10 (Arch 9.9/10)
 
 The implementation closely follows the architecture defined in Sprint 0. No architectural drift detected. Intentionally minimal, correctly delegates future responsibilities, respects module boundaries.
 
