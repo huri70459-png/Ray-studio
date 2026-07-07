@@ -146,3 +146,53 @@ This continues the proven pattern from 001 / 009 / 010 / 011 with zero deviation
 **Current branch remains main (pre any 012 merge actions). Working tree reflects the complete validated implementation + validation/merge-readiness artifacts.**
 
 Ready for explicit Before Merge Fallback authorization. Provide `git diff` / source files were already supplied in this package for any final pre-fallback inspection.
+
+## Before Merge Phase Fallback Branch (Executed)
+
+**Created & approved:** 2026-07-08  
+**Branch name:** `before-012-merge`  
+**Commit:** `20673bffaeb2984a16bc08f578eac231b949fabe` (short: 20673bf)  
+**Purpose:** Official Before Merge Phase rollback / safety snapshot at the moment all gates (implementation, validation, architecture review, merge-readiness) were passed.
+
+This branch contains the complete prepared Module 012 state:
+- Full File Watcher implementation (`packages/core/src/watcher/**`)
+- Thin Studio wrapper (`apps/studio/src/watcher/useFileWatcher.ts`)
+- Minimal demo wiring in App.tsx + core barrel export
+- All 012 review artifacts (`history/012-validation.md`, `history/012-merge-readiness.md`)
+- Pre-merge documentation state (`docs/000-current-status.md`) reflecting Merge Readiness complete
+- Confirmed boundaries (011-validated roots only, transport-independent events, explicit lifecycle + cleanup)
+
+**Current branch:** `before-012-merge`
+
+**Why this branch:**
+- `main` remains at the pre-012-merge baseline (post 011 only).
+- Provides instant, named rollback point before any merge commit lands on main.
+- Follows the project's checkpoint discipline (before-011-merge, before-010-merge, etc.).
+
+**Approval:** Explicitly authorized in the "Before Merge Fallback Decision" review.
+
+**Current status:** Fallback branch created and state captured with clean working tree. Awaiting next authorization for Independent Merge Review + --ff-only merge to main.
+
+## Before Merge Fallback Execution
+
+**Executed:** 2026-07-08 after "Proceed with Before Merge Fallback" authorization.
+
+- Branch created: `before-012-merge`
+- HEAD at creation / commit: 20673bffaeb2984a16bc08f578eac231b949fabe
+- Working tree snapshot includes all 012 implementation + audit artifacts + living doc updates.
+- **Working tree verified clean** after commit.
+- **No merge performed.**
+- **No checkpoint tag created.**
+- **No post-merge documentation finalized** (history/012.md, project-status.json mergeMetadata, freeze, etc. reserved for later).
+- No changes landed on `main`.
+
+**Deliverables met:**
+- rollback branch created ✅
+- commit hash recorded ✅
+- working tree clean ✅
+- no merge performed ✅
+- no tag created ✅
+- no post-merge documentation finalized ✅
+
+**Next authorized steps only (per workflow):**
+Independent Merge Review → Merge (--ff-only on main) → Checkpoint tag → history/012.md → project-status.json updates → Freeze 012 → Activate 013.
