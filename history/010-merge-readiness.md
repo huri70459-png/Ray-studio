@@ -263,3 +263,20 @@ I would approve Module 010 for merge after that minor Git-process adjustment. Th
 **Refinement applied here:** The before-010-merge branch + new commit for this verdict (no `git commit --amend` used anywhere). The integration path will use clean sequential commits for auditability (feat checkpoint + docs approval + post-merge metadata). Scores frozen to 9.9/10. Process respected. Ready for explicit merge confirmation.
 
 End of Independent Review.
+
+## Merge Execution (2026-07-08)
+
+**Executed after review verdict:** ✅
+
+- Branch merged: `before-010-merge` (ff to 47243ad)
+- Merge landed commit (pre-metadata): 47243ad3e00e63fa6934c96618b661e4656eec0c
+- Metadata finalization commit: 8ca0b7d
+- Tag created: `core-platform-001-010-complete`
+- Recorded in project-status.json: "commit": "47243ad3e00e63fa6934c96618b661e4656eec0c"
+- Validation re-checked post-merge: type + 7/7 manager tests PASS (structured logs observed)
+- No --amend used. Clean linear history + separate docs commits.
+- Fallback branch remains available for rollback: `before-010-merge` at 47243ad (or earlier checkpoints)
+
+**Next:** Module 011 per plan. No workflow changes.
+
+End of 010 Merge.
