@@ -82,7 +82,7 @@ See full details below and the assessment order document.
 | 001 Studio Shell        | ✅ Merged (9.7/10 Architecture Review PASS; immutable except defects) |
 | 009 Workspace Manager   | ✅ Merged (9.8/10 Architecture Review PASS; immutable except defects) |
 | 010 Project Manager     | ✅ Merged (9.9/10 Architecture Review PASS; no drift; immutable except defects) |
-| 011 File System Service | ✅ Commits created (feat 63e9ac0). Awaiting merge to main |
+| 011 File System Service | ✅ Commits created (feat 63e9ac0 + docs b5571a5). Awaiting merge to main |
 | 012 File Watcher        | Architecture Approved                       |
 | 013 IPC Framework       | Architecture Approved                       |
 | 016 SQLite Layer        | Architecture Approved                       |

@@ -162,14 +162,18 @@ This matches the "Targeted staging" practice praised in prior independent review
 - packages/core/package.json, tsconfig.json, src/index.ts
 - apps/studio/src/fs/** + App.tsx (consumer + demo commands)
 
-**Commit 2 (docs):** (pending in this edit, will be captured in this commit)
+**Commit 2 (docs):** b5571a5
 `docs: record 011 validation, architecture review, merge readiness, before-merge fallback and staging`
 - Living docs (000-current-status.md, handoff.md, project-status.json, README.md)
 - history/011-*.md (validation, arch-review, merge-readiness)
 
-**Current branch state:** Both commits on `before-011-merge`. No changes on `main`.
+**Current branch state:** 
+- 63e9ac0 feat: Module 011 File System Service
+- b5571a5 docs: record 011 validation, architecture review, merge readiness, before-merge fallback and staging
 
-**Next per approved sequence:** Merge the before-011-merge branch to main → tag → history/011.md (post-merge) → mergeMetadata.
+Both commits on `before-011-merge`. No changes on `main`.
+
+**Next per approved sequence:** Merge the before-011-merge branch to main → checkpoint tag → history/011.md (post-merge) → mergeMetadata update.
 
 End of Merge Readiness for 011.
 
