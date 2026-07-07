@@ -1,0 +1,25 @@
+{
+  "moduleId": "010",
+  "name": "Project Manager",
+  "required": [
+    "prompts/modules/010-project-manager.md",
+    "prompts/templates/implementation.md",
+    "prompts/validation/010-project-manager.validation.md"
+  ],
+  "optional": [
+    "docs/003-monorepo-architecture.md",
+    "docs/004-folder-structure.md"
+  ],
+  "forbidden": [
+    "prompts/modules/101-*.md",
+    "prompts/modules/102-*.md",
+    "prompts/modules/201-*.md",
+    "prompts/modules/301-*.md"
+  ],
+  "dependsOnModules": ["009", "011", "013", "016"],
+  "notes": "Project scoping within a workspace. Depends on 009 for workspace. Uses 011 for roots and 016 for metadata.",
+  "estimatedContextTokens": 5200,
+  "priority": "critical",
+  "implementationOrder": 3,
+  "validationRequired": true
+}

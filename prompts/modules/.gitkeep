@@ -1,0 +1,5 @@
+# Layer 2 — Module Specifications
+
+Place one focused spec per major module here (e.g. gateway.md, core.md, ingestion.md).
+
+Each spec must reference the root Constitution and be the single source for that module's requirements, architecture, interfaces, and acceptance criteria.

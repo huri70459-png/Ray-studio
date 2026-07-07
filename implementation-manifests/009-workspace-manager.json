@@ -1,0 +1,26 @@
+{
+  "moduleId": "009",
+  "name": "Workspace Manager",
+  "required": [
+    "prompts/modules/009-workspace-manager.md",
+    "prompts/templates/implementation.md",
+    "prompts/validation/009-workspace-manager.validation.md"
+  ],
+  "optional": [
+    "docs/003-monorepo-architecture.md",
+    "docs/004-folder-structure.md",
+    "docs/005-development-standards.md"
+  ],
+  "forbidden": [
+    "prompts/modules/101-*.md",
+    "prompts/modules/102-*.md",
+    "prompts/modules/201-*.md",
+    "prompts/modules/301-*.md"
+  ],
+  "dependsOnModules": ["011", "013", "016"],
+  "notes": "Owns workspace activation and recent list. Path validation delegated to 011. Persistence via 016. All cross-boundary via 013.",
+  "estimatedContextTokens": 5200,
+  "priority": "critical",
+  "implementationOrder": 2,
+  "validationRequired": true
+}

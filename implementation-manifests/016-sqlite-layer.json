@@ -1,0 +1,24 @@
+{
+  "moduleId": "016",
+  "name": "SQLite Layer",
+  "required": [
+    "prompts/modules/016-sqlite-layer.md",
+    "prompts/templates/implementation.md",
+    "prompts/validation/016-sqlite-layer.validation.md"
+  ],
+  "optional": [
+    "docs/006-database-architecture.md"
+  ],
+  "forbidden": [
+    "prompts/modules/101-*.md",
+    "prompts/modules/102-*.md",
+    "prompts/modules/201-*.md",
+    "prompts/modules/301-*.md"
+  ],
+  "dependsOnModules": ["009", "010", "011", "013"],
+  "notes": "Local relational metadata only. Never the primary graph. All access via 013 IPC. File location must be validated by 011.",
+  "estimatedContextTokens": 6000,
+  "priority": "critical",
+  "implementationOrder": 7,
+  "validationRequired": true
+}

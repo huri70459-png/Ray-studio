@@ -1,0 +1,26 @@
+{
+  "moduleId": "001",
+  "name": "Studio Shell",
+  "required": [
+    "prompts/modules/001-studio-shell.md",
+    "prompts/templates/implementation.md",
+    "prompts/validation/001-studio-shell.validation.md"
+  ],
+  "optional": [
+    "docs/003-monorepo-architecture.md",
+    "docs/004-folder-structure.md",
+    "docs/009-ui-design-system.md"
+  ],
+  "forbidden": [
+    "prompts/modules/101-*.md",
+    "prompts/modules/102-*.md",
+    "prompts/modules/201-*.md",
+    "prompts/modules/301-*.md"
+  ],
+  "dependsOnModules": ["009", "010", "011", "013"],
+  "notes": "The top-level UI host. All privileged actions must go through 013 IPC. Scoping comes from 009/010.",
+  "estimatedContextTokens": 7200,
+  "priority": "critical",
+  "implementationOrder": 1,
+  "validationRequired": true
+}

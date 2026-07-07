@@ -1,0 +1,33 @@
+{
+  "name": "ray-studio",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Ray Studio — monorepo foundation",
+  "packageManager": "pnpm@10.0.0",
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "lint:fix": "turbo run lint -- --fix",
+    "test": "turbo run test",
+    "clean": "turbo run clean && rimraf node_modules",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md,yml,yaml}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md,yml,yaml}\"",
+    "constitution:check": "node scripts/check-constitution.js"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.25.0",
+    "@types/node": "^22.15.0",
+    "eslint": "^9.25.0",
+    "eslint-config-prettier": "^10.1.0",
+    "prettier": "^3.5.0",
+    "rimraf": "^6.0.0",
+    "turbo": "^2.5.0",
+    "typescript": "^5.8.0",
+    "typescript-eslint": "^8.30.0"
+  },
+  "engines": {
+    "node": ">=20.18.0",
+    "pnpm": ">=9.0.0"
+  }
+}

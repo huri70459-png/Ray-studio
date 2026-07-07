@@ -1,0 +1,24 @@
+{
+  "moduleId": "012",
+  "name": "File Watcher",
+  "required": [
+    "prompts/modules/012-file-watcher.md",
+    "prompts/templates/implementation.md",
+    "prompts/validation/012-file-watcher.validation.md"
+  ],
+  "optional": [
+    "docs/003-monorepo-architecture.md"
+  ],
+  "forbidden": [
+    "prompts/modules/101-*.md",
+    "prompts/modules/102-*.md",
+    "prompts/modules/201-*.md",
+    "prompts/modules/301-*.md"
+  ],
+  "dependsOnModules": ["011", "013"],
+  "notes": "Never performs its own path validation or FS access. 011 is the sole source of validated roots. Events go through 013.",
+  "estimatedContextTokens": 6200,
+  "priority": "critical",
+  "implementationOrder": 5,
+  "validationRequired": true
+}

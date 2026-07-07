@@ -1,0 +1,30 @@
+{
+  "schemaVersion": "1.0",
+  "repositoryVersion": "0.1.0",
+  "constitutionVersion": "1.0.0",
+  "lastUpdated": "2026-07-07",
+  "phase": "Phase A — Core Platform",
+  "nextModule": "001",
+  "architectureFrozen": true,
+  "corePlatformSpecsFrozen": true,
+  "implementationStarted": false,
+  "approvedModules": [
+    "001",
+    "009",
+    "010",
+    "011",
+    "012",
+    "013",
+    "016"
+  ],
+  "frozenBaselines": [
+    "Ray Studio Engineering Constitution.md",
+    "AGENTS.md",
+    "implementation-manifests/",
+    "prompts/modules/ (Core Platform specs)",
+    "prompts/templates/",
+    "docs/00x (foundational)",
+    "docs/012-roadmap.md",
+    "Ray studio Assesment Based implementaion order.md"
+  ]
+}

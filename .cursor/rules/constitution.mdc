@@ -1,0 +1,21 @@
+---
+description: Ray Studio Engineering Constitution - permanent Layer 1 governing rules for all work
+globs: ["**/*"]
+alwaysApply: true
+---
+
+# Ray Studio Constitution (Layer 1)
+
+You MUST follow the full **Ray Studio Engineering Constitution v1.0.0** located at the project root (`Ray Studio Engineering Constitution.md`).
+
+## Critical Requirements
+- **Graph-first retrieval (Constitution §4)**: ALWAYS call the codebase-memo MCP tools (`list_projects`, `get_architecture`, then targeted `search_graph` / `get_code_snippet`) before reading files or suggesting code.
+- Use layered context only (Constitution → relevant module spec → symbols). Never dump entire files.
+- Explicitly state which Constitution sections apply before changes.
+- Follow the strict Definition of Done (§9).
+- No placeholder code. Production-ready only.
+- Update the knowledge graph for lasting decisions.
+
+All other standards (monorepo, coding, token optimization, security, DoD, etc.) are defined in the root Constitution. Treat it as the single source of truth.
+
+This rule applies project-wide.

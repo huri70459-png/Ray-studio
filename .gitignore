@@ -1,0 +1,65 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+.pnpm-store/
+
+# Build outputs (Electron + Vite + Turbo)
+dist/
+dist-electron/
+build/
+.next/
+out/
+.turbo/
+*.tsbuildinfo
+
+# Electron packaged artifacts
+*.exe
+*.dmg
+*.pkg
+*.app
+*.zip
+
+# Local database / state
+*.db
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+raystudio.db
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Environment & secrets
+.env
+.env.local
+.env.*.local
+*.pem
+
+# Testing
+coverage/
+.nyc_output/
+
+# Local agent / session data (large or personal)
+session/
+All-living memory/
+.grok/sessions/
+
+# Editor / IDE (project-specific configs may be committed separately)
+.DS_Store
+Thumbs.db
+.idea/
+*.swp
+*.swo
+.vscode/
+.zed/
+.qodo/
+
+# Misc
+.vercel
+# Keep .github/ and .grok/skills/ committed (they contain project instructions)

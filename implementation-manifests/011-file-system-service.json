@@ -1,0 +1,26 @@
+{
+  "moduleId": "011",
+  "name": "File System Service",
+  "required": [
+    "prompts/modules/011-file-system-service.md",
+    "prompts/templates/implementation.md",
+    "prompts/validation/011-file-system-service.validation.md"
+  ],
+  "optional": [
+    "docs/003-monorepo-architecture.md",
+    "docs/004-folder-structure.md",
+    "docs/010-security.md"
+  ],
+  "forbidden": [
+    "prompts/modules/101-*.md",
+    "prompts/modules/102-*.md",
+    "prompts/modules/201-*.md",
+    "prompts/modules/301-*.md"
+  ],
+  "dependsOnModules": ["013"],
+  "notes": "Core trust boundary for all FS operations. 012 (watcher) and higher modules must never bypass. All access via 013 contracts with strict capability + schema ordering.",
+  "estimatedContextTokens": 5800,
+  "priority": "critical",
+  "implementationOrder": 4,
+  "validationRequired": true
+}

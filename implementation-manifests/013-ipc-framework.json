@@ -1,0 +1,25 @@
+{
+  "moduleId": "013",
+  "name": "IPC Framework",
+  "required": [
+    "prompts/modules/013-ipc-framework.md",
+    "prompts/templates/implementation.md",
+    "prompts/validation/013-ipc-framework.validation.md"
+  ],
+  "optional": [
+    "docs/007-ipc-architecture.md",
+    "docs/010-security.md"
+  ],
+  "forbidden": [
+    "prompts/modules/101-*.md",
+    "prompts/modules/102-*.md",
+    "prompts/modules/201-*.md",
+    "prompts/modules/301-*.md"
+  ],
+  "dependsOnModules": [],
+  "notes": "The central trust boundary. Every other Core Platform module (and higher layers) must use its contracts, naming convention, error envelope, capability ordering, and failure matrix. This is the most architecturally significant module.",
+  "estimatedContextTokens": 7800,
+  "priority": "critical",
+  "implementationOrder": 6,
+  "validationRequired": true
+}
