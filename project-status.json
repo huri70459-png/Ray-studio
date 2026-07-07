@@ -2,9 +2,9 @@
   "schemaVersion": "1.0",
   "repositoryVersion": "0.1.0",
   "constitutionVersion": "1.0.0",
-  "lastUpdated": "2026-07-08",  // 011 commits created (feat 63e9ac0). Awaiting merge on before-011-merge.
+  "lastUpdated": "2026-07-08",  // 011 merged (fd9c034 + tag core-platform-001-011-complete)
   "phase": "Phase A — Core Platform",
-  "nextModule": "011",  // 010 merged; follow one-module-at-a-time. Next after merge.
+  "nextModule": "012",  // 011 merged; follow one-module-at-a-time.
   "checkpointTag": "core-platform-001-009-complete",
   "architectureFrozen": true,
   "corePlatformSpecsFrozen": true,
@@ -31,7 +31,7 @@
   "module001Status": "✅ Merged (9.7/10 Arch Review PASS; no drift; immutable except defects)",
   "module009Status": "✅ Merged (9.8/10 Arch Review PASS; dependency inversion + state machine + ponytail; immutable except defects)",
   "module010Status": "✅ Merged (9.9/10 Arch Review PASS; no drift; workspace/project lifecycle separation clean; immutable except defects)",
-  "module011Status": "✅ Commits on before-011-merge (feat 63e9ac0, docs b5571a5 + f4102ee). Awaiting merge to main. (2026-07-08)",
+  "module011Status": "✅ Merged (10/10). Commit fd9c034; tag core-platform-001-011-complete; immutable except defects. (2026-07-08)",
   "mergeMetadata": {
     "001": {
       "module": "001",
@@ -63,6 +63,17 @@
       "architecture_score": "9.9/10",
       "commit": "47243ad3e00e63fa6934c96618b661e4656eec0c",
       "tag": "core-platform-001-010-complete"
+    },
+    "011": {
+      "module": "011",
+      "status": "complete",
+      "merged": true,
+      "merge_date": "2026-07-08",
+      "architecture_review": "PASS",
+      "implementation_score": 10,
+      "architecture_score": "10/10",
+      "commit": "fd9c034307bce649b230443c761c5b102405265a",
+      "tag": "core-platform-001-011-complete"
     }
   }
 }

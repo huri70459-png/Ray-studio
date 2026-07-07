@@ -30,6 +30,6 @@ Layered prompt templates live in `prompts/`.
 
 ---
 
-**Modules 001 + 009 + 010 Merged (2026-07-08 reviews: 9.7/10 + 9.8/10 + 9.9/10).** 011 Commits created (feat 63e9ac0 + docs b5571a5 + f4102ee). Awaiting merge to main.
+**Modules 001 + 009 + 010 + 011 Merged (2026-07-08 reviews: 9.7/10 + 9.8/10 + 9.9/10 + 10/10).** 011 merged (fd9c034; tag core-platform-001-011-complete).
 Merge metadata in `project-status.json`. Checkpoint tags: `core-platform-001-009-complete`, `core-platform-001-010-complete` (after commit).  
-**Sprint 1**: Core Platform. 001/009/010 immutable except defects. 011: ✅ Commits created (feat 63e9ac0). Awaiting merge. Next after merge: 012. Constitution + frozen pipeline. No workflow changes unless deficiency in ≥3 modules.
+**Sprint 1**: Core Platform. 001/009/010/011 merged (immutable except defects). Next: 012. Constitution + frozen pipeline. No workflow changes unless deficiency in ≥3 modules.
