@@ -13,6 +13,7 @@ import {
   fsListDirectory,
   updateFsRoots,
 } from './fs/useFileSystem'
+import { isIpcError } from '@ray-studio/core'
 import {
   getFileWatcher,
   initFileWatcher,
@@ -110,7 +111,7 @@ export default function App() {
         setIsPaletteOpen(false)
       },
     },
-    // 011 File System Service demos (ponytail: direct until 013 IPC)
+    // 011/013 demos (via 013 IPC contracts)
     {
       id: 'fs-activate-demo',
       title: 'FS: Activate demo workspace + project',
@@ -140,10 +141,12 @@ export default function App() {
           updateFsRoots('F:/Projects/Ray-studio Creations/Ray Studio', 'F:/Projects/Ray-studio Creations/Ray Studio')
           await svc.initialize('F:/Projects/Ray-studio Creations/Ray Studio', 'F:/Projects/Ray-studio Creations/Ray Studio')
           const res = await fsListDirectory('F:/Projects/Ray-studio Creations/Ray Studio')
-          if ('entries' in res) {
-            alert('Listed ' + res.entries.length + ' entries (first: ' + (res.entries[0]?.name || 'n/a') + ')')
+          if (!isIpcError(res) && 'entries' in (res as any)) {
+            const r = res as { entries: Array<{ name?: string }> }
+            alert('Listed ' + r.entries.length + ' entries (first: ' + (r.entries[0]?.name || 'n/a') + ')')
           } else {
-            alert('List error: ' + (res as any).message)
+            const msg = isIpcError(res) ? res.message : (res as any)?.message
+            alert('List error: ' + (msg || 'unknown'))
           }
         } catch (e) {
           alert('FS list error')
@@ -166,7 +169,7 @@ export default function App() {
         setIsPaletteOpen(false)
       },
     },
-    // 012 File Watcher demos (ponytail: direct until 013; only on 011-validated roots)
+    // 012/013 File Watcher demos (via 013 IPC contract + event)
     {
       id: 'watcher-activate',
       title: 'Watcher: Watch current project root (012)',
