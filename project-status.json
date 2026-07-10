@@ -43,9 +43,9 @@
     "gitHead": "0cf9e36",
     "branch": "main",
     "pushed": false,
-    "activeWork": "none — Phase A complete; await authorization for Phase B (101)",
+    "activeWork": "none — stable milestone; Phase A completion review recorded",
     "workingTree": "clean except optional preload build artifacts",
-    "nextGate": "Scope Guard + Manifest Resolver only after user authorizes 101",
+    "nextGate": "Phase A complete — see history/phase-a-completion.md; authorize 101 before any Phase B work",
     "doNotStart": [
       "101",
       "102",

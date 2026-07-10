@@ -18,6 +18,7 @@ This is the durable handoff / resume point for the project:
 - `project-status.json` (machine-readable; nextModule = **101** — **not authorized yet**)
 - `history/016.md` + gate artifacts
 - Checkpoint tag: `core-platform-001-016-complete`
+- Phase A completion review: `history/phase-a-completion.md` (milestone boundary before Phase B)
 
 **Do not rely on external session files or prior chat for project truth.**
 
@@ -79,9 +80,10 @@ Current reality:
 ## Immediate Next Actions
 
 1. **Stop.** Phase A is complete. Await user direction for Phase B.
-2. When authorized for **101 Context Engine**: Scope Guard → Manifest Resolver → full pipeline. Do not skip gates.
-3. Optional: push to origin only if user requests.
-4. Optional: populate graph with Phase A module entities.
+2. Read `history/phase-a-completion.md` before any Phase B kickoff (debt, assumptions, readiness checklist).
+3. When authorized for **101 Context Engine**: Scope Guard → Manifest Resolver → AGENTS → status → manifest → Constitution → 101 spec → 101 validation → implement. Do not skip gates. No Memory/Providers until 101 is frozen.
+4. Optional: push to origin only if user requests.
+5. Optional: populate graph with Phase A module entities.
 
 ## References
 

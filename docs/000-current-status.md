@@ -50,7 +50,7 @@ Governed by the **Ray Studio Engineering Constitution v1.0.0** (root file, perma
 - Non-Core Platform specs in prompts/modules/
 - Anything outside the approved dependency order
 
-**Recommended Next Action:** Phase A is **complete**. Modules 001–016 are Frozen. Tag `core-platform-001-016-complete`. **Do not start 101+** until the user explicitly authorizes Phase B. When authorized: Scope Guard → Manifest Resolver → implement 101 only. Skills architecture and workflow remain frozen. 016 Phase 2 (consumer swap / backup / Electron native adapter) is deferred and is not a reason to reopen Phase A.
+**Recommended Next Action:** Phase A is **complete**. Modules 001–016 are Frozen. Tag `core-platform-001-016-complete`. Milestone boundary: `history/phase-a-completion.md`. **Do not start 101+** until the user explicitly authorizes Phase B. When authorized: Scope Guard → Manifest Resolver → AGENTS → status → 101 manifest → Constitution → 101 spec + validation → implement 101 only. No Memory/Providers until 101 frozen. Skills architecture and workflow remain frozen (baseline). 016 Phase 2 items are deferred and do not reopen Phase A.
 
 **Implementation Rules (Deterministic Pipeline)**
 
