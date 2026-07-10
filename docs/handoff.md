@@ -4,9 +4,9 @@
 **Date:** 2026-07-11  
 **Status:** Phase A + 101 B.1 published · **Phase B.2 D1 decided** · **Module 103 published/frozen** · no active module  
 **Last Updated By:** Grok (full project / session / handoff pin after 103 freeze)  
-**Git HEAD (committed tip):** `3ed5983` on `main`  
+**Git:** `main` = `origin/main` · verify tip with `git rev-parse --short HEAD`  
 **Feature commit (tag target):** `35396af`  
-**Status freeze pin:** `3446e38` · **Handoff pin:** `3ed5983`  
+**Known lineage:** `35396af` (feat) → `7ef5c84` (finalize) → `3446e38` (freeze pin) → `3ed5983`/`2fb1074`+ (handoff pins)  
 **Checkpoint tag:** `phase-b2-103-complete` @ `35396af`  
 **Session notes:** `session/20260711_032137/`  
 **Working tree:** **dirty** — `planrev.md` (modified, frozen); `phase-b2-sequencing-decision-proposal.md` (untracked, FROZEN advisory)
@@ -72,7 +72,7 @@
 | Feature (published; tag target) | `35396af` |
 | Finalize (status / history freeze) | `7ef5c84` |
 | Hash pin | `3446e38` |
-| Handoff / status pin | `3ed5983` |
+| Handoff pins | `3ed5983`, `2fb1074` (+ any later docs-only) |
 | Checkpoint tag | `phase-b2-103-complete` @ `35396af` |
 | Package | `@ray-studio/ingestion` |
 | History | `history/103.md` |
@@ -160,7 +160,7 @@
 
 ## Immediate Next Actions (Next Session)
 
-1. Verify git (`status`, HEAD `3ed5983` or later docs tip, tag `phase-b2-103-complete`).
+1. Verify git (`status`, `git log -4`, tag `phase-b2-103-complete`).
 2. **Wait for explicit owner authorization** of **Module 104 governance** (or other explicit task).
 3. After 104 governance auth: produce Ready + Layer 4 + manifest only; stop for verification.
 4. Implementation remains a **separate** later authorization (Scope Guard → Manifest Resolver). Prefer feature branch.
