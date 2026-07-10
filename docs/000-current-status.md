@@ -80,7 +80,7 @@ Governed by the **Ray Studio Engineering Constitution v1.0.0** (root file, perma
 - Module 101 Phase B.1: **Merged / Frozen / Published** (feat `0322714`; governance `303af68`; tag `phase-b-101-complete` on origin; rollback `before-101-merge`; arch 9.5/10). Ports-first orchestrator only. Core tests **48/48**. See `history/101.md`.
 - Driver note: `node:sqlite` via `process.getBuiltinModule` (stdlib). Electron 31 host may lack runtime SQLite → `DB_UNAVAILABLE` path documented; Phase 2 adapter if needed.
 - Graph / Memory: Not yet populated; 101 uses Null/Fake ports only (no live graph).
-- Git: Phase A and Phase B.1 **published** on origin (`main` @ `6081f8b` + tag `phase-b-101-complete` @ `847f9bc`). Working tree expected **clean**. See `docs/handoff.md` for new-session resume.
+- Git: Phase A and Phase B.1 **published** on origin (`main` @ `9a46912` + tag `phase-b-101-complete` @ `847f9bc`). Working tree expected **clean**. See `docs/handoff.md` for new-session resume.
 
 See full details below and the assessment order document.
 

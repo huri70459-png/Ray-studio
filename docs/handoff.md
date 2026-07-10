@@ -4,7 +4,7 @@
 **Date:** 2026-07-10  
 **Status:** Phase A published · Phase B.1 (101) published/frozen · **clean entry for next session**  
 **Last Updated By:** Grok (new-session handoff prep)  
-**Git HEAD:** `6081f8b` on `main` (= `origin/main`)
+**Git HEAD:** `9a46912` on `main` (= `origin/main`)
 
 ---
 
