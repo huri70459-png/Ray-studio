@@ -1,0 +1,33 @@
+{
+  "name": "@ray-studio/ingestion",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Ray Studio ingestion package — Tree-sitter parser (Module 103)",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "lint": "eslint src --ext .ts",
+    "test": "vitest run",
+    "clean": "rimraf dist"
+  },
+  "dependencies": {
+    "tree-sitter-wasms": "^0.1.13",
+    "web-tree-sitter": "^0.22.4"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.0",
+    "eslint": "^9.25.0",
+    "rimraf": "^6.0.0",
+    "typescript": "^5.8.0",
+    "vitest": "^1.6.0"
+  }
+}

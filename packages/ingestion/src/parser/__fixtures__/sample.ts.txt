@@ -1,0 +1,15 @@
+export function greet(name: string): string {
+  return `hello ${name}`;
+}
+
+export function add(a: number, b: number): number {
+  return a + b;
+}
+
+export class Counter {
+  private value = 0;
+  inc(): number {
+    this.value += 1;
+    return this.value;
+  }
+}

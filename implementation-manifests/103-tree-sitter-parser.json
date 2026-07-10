@@ -1,0 +1,50 @@
+{
+  "moduleId": "103",
+  "name": "Tree-sitter Parser",
+  "required": [
+    "prompts/modules/103-tree-sitter-parser.md",
+    "prompts/templates/implementation.md",
+    "prompts/validation/103-tree-sitter-parser.validation.md"
+  ],
+  "optional": [
+    "docs/003-monorepo-architecture.md",
+    "docs/002-system-architecture.md",
+    "docs/phase-b2-sequencing-decision.md",
+    "docs/governance/103/scope-guard.md",
+    "docs/governance/103/manifest-resolver.md",
+    "docs/governance/103/compatibility-validation.md",
+    "docs/governance/103/governance-readiness-summary.md",
+    "prompts/modules/104-symbol-extractor.md",
+    "history/phase-a-completion.md",
+    "history/101.md"
+  ],
+  "forbidden": [
+    "prompts/modules/102-*.md",
+    "prompts/modules/105-*.md",
+    "prompts/modules/201-*.md",
+    "prompts/modules/301-*.md",
+    "packages/core/src/**",
+    "packages/core/src/context/**",
+    "packages/core/src/db/**",
+    "packages/core/src/ipc/**",
+    "packages/core/src/fs/**",
+    "packages/core/src/watcher/**",
+    "packages/core/src/project/**",
+    "packages/core/src/workspace/**",
+    "apps/studio/**",
+    "packages/gateway/**",
+    "packages/mcp/**"
+  ],
+  "dependsOnModules": [],
+  "notes": "Phase B.2 foundation parser only (D1 first target). Own packages/ingestion/src/parser/**. No Core Platform or 101 edits. No 102/104/105 implementation. No IPC, Memory, Gateway, Providers. 104 draft is optional read-only for consumer-facing API alignment. Trees are ephemeral. Implementation not authorized by governance package alone.",
+  "estimatedContextTokens": 7800,
+  "priority": "critical",
+  "implementationOrder": 9,
+  "validationRequired": true,
+  "phase": "B",
+  "implementationSlice": "B.2-foundation-parser",
+  "allowedWritePaths": [
+    "packages/ingestion/**"
+  ],
+  "packageName": "@ray-studio/ingestion"
+}

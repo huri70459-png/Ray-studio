@@ -1,0 +1,13 @@
+import React from 'react';
+
+export function Hello({ name }: { name: string }): JSX.Element {
+  return <div className="hello">Hello {name}</div>;
+}
+
+export function Box(): JSX.Element {
+  return (
+    <section>
+      <Hello name="Ray" />
+    </section>
+  );
+}
