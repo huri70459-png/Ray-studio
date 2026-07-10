@@ -1,0 +1,42 @@
+{
+  "moduleId": "101",
+  "name": "Context Engine",
+  "required": [
+    "prompts/modules/101-context-engine.md",
+    "prompts/templates/implementation.md",
+    "prompts/validation/101-context-engine.validation.md"
+  ],
+  "optional": [
+    "docs/002-system-architecture.md",
+    "docs/003-monorepo-architecture.md",
+    "docs/006-database-architecture.md",
+    "history/phase-a-completion.md",
+    "prompts/modules/009-workspace-manager.md",
+    "prompts/modules/010-project-manager.md",
+    "prompts/modules/011-file-system-service.md",
+    "prompts/modules/013-ipc-framework.md",
+    "prompts/modules/016-sqlite-layer.md"
+  ],
+  "forbidden": [
+    "prompts/modules/102-*.md",
+    "prompts/modules/103-*.md",
+    "prompts/modules/104-*.md",
+    "prompts/modules/105-*.md",
+    "prompts/modules/201-*.md",
+    "prompts/modules/301-*.md",
+    "packages/core/src/db/**",
+    "packages/core/src/ipc/**",
+    "packages/core/src/fs/**",
+    "packages/core/src/watcher/**",
+    "packages/core/src/project/**",
+    "packages/core/src/workspace/**"
+  ],
+  "dependsOnModules": ["009", "010", "011", "012", "013", "016"],
+  "notes": "Phase B.1 ports-first orchestrator only. Consumes frozen Core Platform via optional scope/FS/IPC/metadata surfaces. Graph, embeddings, and summaries are injected ports with Null/Fake adapters until later 10x modules exist. No Gateway, Provider, Memory, or graph schema ownership. Do not modify frozen 001–016 sources (listed under forbidden).",
+  "estimatedContextTokens": 7200,
+  "priority": "critical",
+  "implementationOrder": 8,
+  "validationRequired": true,
+  "phase": "B",
+  "implementationSlice": "B.1-ports-orchestrator"
+}
