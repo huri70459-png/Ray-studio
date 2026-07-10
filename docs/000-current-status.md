@@ -1,7 +1,7 @@
 # 000 — Current Status (Complete Project Information)
 
 **Status:** Living Reference (Sprint 1)  
-**Date:** 2026-07-08 (updated post 012 merge — 10/10; tag core-platform-001-012-complete; 013 now next active)  
+**Date:** 2026-07-10 (updated post 013 merge — 10/10; tag core-platform-001-013-complete; 016 sole active)  
 **Project:** Ray Studio  
 **Location:** F:\Projects\Ray-studio Creations\Ray Studio  
 **Version:** 0.1.0 (monorepo foundation)
@@ -40,15 +40,15 @@ Governed by the **Ray Studio Engineering Constitution v1.0.0** (root file, perma
 | 010 Project Manager     | Architecture Approved   | Exists     | ✅ Merged (9.9/10 Arch PASS) | No (immutable) |
 | 011 File System Service | Architecture Approved   | Exists     | ✅ Merged (fd9c034; 10/10) | No (immutable) |
 | 012 File Watcher        | Architecture Approved   | Exists     | ✅ Merged (20673bf; 10/10) | No (immutable) |
-| 013 IPC Framework       | Architecture Approved   | Exists     | Next Active            | Yes        |
-| 016 SQLite Layer        | Architecture Approved   | Exists     | Implement (Phase 2)  | Yes        |
+| 013 IPC Framework       | Architecture Approved   | Exists     | ✅ Merged (80a4146; 10/10; Frozen) | No (immutable) |
+| 016 SQLite Layer        | Architecture Approved   | Exists     | **Sole Active** — begin Scope Guard + Manifest Resolver | Yes (only) |
 
 **Do NOT touch yet** (higher layers, non-approved, or out of sequence):
 - Any 100-series (Context Engine), 200-series (Memory), 300-series (Providers)
 - Non-Core Platform specs in prompts/modules/
 - Anything outside the approved dependency order
 
-**Recommended Next Action:** Modules 001 + 009 now Merged (per 2026-07-08 review + merge metadata). Git tag/checkpoint `core-platform-001-009-complete` before starting. Then implement ONLY Module 010 (Project Manager) following identical deterministic pipeline. Scope Declaration required at start of next. Do not revisit 001/009/workflow/Constitution.
+**Recommended Next Action:** Module 013 IPC Framework is **Frozen** (tag `core-platform-001-013-complete`, commit 80a4146, independent merge 10/10). Implement **ONLY Module 016 – SQLite Layer** as the sole active module. Run Scope Guard + Manifest Resolver before any code. Prefer phased delivery (bootstrap / lifecycle / migrations / transactions / repository interfaces first). Do **not** couple SQLite to Context Engine or Provider logic. Skills architecture and workflow are frozen — deliver platform capability, not process docs.
 
 **Implementation Rules (Deterministic Pipeline)**
 1. Read AGENTS.md
@@ -70,7 +70,7 @@ Governed by the **Ray Studio Engineering Constitution v1.0.0** (root file, perma
 - Implementation: Module 009 Workspace Manager complete (packages/core with manager, state machine, discovery + in-mem fallbacks for 011/016; structured `[module=workspace-manager] phase=...` logs; 6 unit tests covering FT cases; minimal consumer + demo commands in apps/studio/src/workspace). Followed full pipeline + Scope Declaration. Build/lint/type/test green.
 - Module 009 Architecture Review: ✅ Approved 9.8/10 (2026-07-08). Textbook dependency inversion (Manager delegates to PathValidator + RecentStore), clean state transitions (activating/active/deactivating/none), ponytail comments on fallbacks, reusable domain package shape. Events owned by 009; transport by 013.
 - Module 009: ✅ Merged (2026-07-08). Merge metadata recorded. Immutable except defect fixes.
-- Next work: Module 012 merged (20673bf; tag core-platform-001-012-complete; 10/10). Follow identical pipeline for Module 013 – IPC Framework. One module at a time. 012 is now frozen (immutable except defects).
+- Next work: Module 013 merged (80a4146; tag core-platform-001-013-complete; 10/10). Follow identical pipeline for Module 016 – SQLite Layer. One module at a time. 013 is now frozen (immutable except defects). Skills Architecture Freeze in effect.
 - Graph / Memory: Not yet populated for this project (mempalace searches performed; ingest planned post-merge).
 
 See full details below and the assessment order document.
@@ -79,15 +79,15 @@ See full details below and the assessment order document.
 
 | Module                  | Status                                      |
 |-------------------------|---------------------------------------------|
-| 001 Studio Shell        | ✅ Merged (9.7/10 Architecture Review PASS; immutable except defects) |
-| 009 Workspace Manager   | ✅ Merged (9.8/10 Architecture Review PASS; immutable except defects) |
-| 010 Project Manager     | ✅ Merged (9.9/10 Architecture Review PASS; no drift; immutable except defects) |
-| 011 File System Service | ✅ Merged (fd9c034; tag core-platform-001-011-complete; 10/10; immutable except defects) |
-| 012 File Watcher        | ✅ Merged (20673bf; tag core-platform-001-012-complete; 10/10; immutable except defects) |
-| 013 IPC Framework       | Architecture Approved                       |
-| 016 SQLite Layer        | Architecture Approved                       |
+| 001 Studio Shell        | ✅ Merged / Frozen (9.7/10) |
+| 009 Workspace Manager   | ✅ Merged / Frozen (9.8/10) |
+| 010 Project Manager     | ✅ Merged / Frozen (9.9/10) |
+| 011 File System Service | ✅ Merged / Frozen (fd9c034; 10/10) |
+| 012 File Watcher        | ✅ Merged / Frozen (20673bf; 10/10) |
+| 013 IPC Framework       | ✅ Merged / Frozen (80a4146; tag core-platform-001-013-complete; 10/10) |
+| 016 SQLite Layer        | **Active (sole)** — Architecture Approved; implement next |
 
-Phase A Core Platform (001, 009–016 Layer 2 specs + corresponding Layer 4 *.validation.md files) is now complete. Modules 001 + 009 + 010 **Merged** (with review process + merge metadata in project-status.json); remaining modules ready for one-at-a-time implementation using identical discipline. This provides a stable foundation for Context Engine (100-series), Memory Engine (200-series), and Provider Layer (300-series) with objective acceptance criteria before any implementation begins.
+Phase A Core Platform (001, 009–016 Layer 2 specs + Layer 4 validation specs) complete. Modules 001–013 **Merged**. Remaining Phase A item: **016 SQLite Layer**. Stable foundation for Context Engine (100-series), Memory (200-series), and Providers (300-series).
 
 **Latest Architecture & Implementation Review (2026-07-08)**
 

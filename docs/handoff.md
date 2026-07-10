@@ -1,32 +1,32 @@
 # Handoff
 
 **Project:** Ray Studio  
-**Date:** 2026-07-08 (post 011 validation PASS)  
+**Date:** 2026-07-10 (post 013 merge — 10/10; 016 sole active)  
 **Status:** Sprint 1 — Core Platform Implementation  
-**Last Updated By:** Grok (post 011 validation)
+**Last Updated By:** Grok (post-merge finalizer after 013)
 
 ## Resume From Here
 
-**Sprint 0 is complete.**  
-Infrastructure, architecture, workflow, and all Core Platform specifications are frozen.  
-From this point forward the objective is: **Implement the approved architecture with zero architectural drift.**
+**Sprint 0 is complete.** Governance and Core Platform specs are frozen.  
+From this point forward the objective is: **Deliver remaining platform capabilities with zero architectural drift** (not process expansion).
 
-This is the durable handoff / resume point for the project. All previous chat history, plan files, and scattered notes have been reviewed and the essential information consolidated into:
+This is the durable handoff / resume point for the project:
 
 - `Ray Studio Engineering Constitution.md` (permanent Layer 1)
 - `docs/000-current-status.md` (complete project information)
 - This handoff
-- The numbered docs/00x set and prompts/
+- `project-status.json` (machine-readable; nextModule = **016**)
+- `history/013.md` + gate artifacts
 
-**Do not rely on external session files, Desktop notes, or prior agent plans for project truth.** Use the graph (mempalace) + these docs.
+**Do not rely on external session files or prior chat for project truth.**
 
 Current reality:
-- Sprint 0 complete. All Layer 1, Layer 2 Core Platform specs, manifests, machine-readable status, and deterministic pipeline are frozen.
-- Monorepo is set up (pnpm + turbo).
-- `packages/` and `apps/` are completely empty.
-- Execution cadence: One module → Implement (using frozen pipeline) → Validation informed by the implementation → Review → Merge. Repeat.
-- No production code yet. Graph / Memory not yet populated for Ray Studio.
-- Design direction seeded: Red accent (#DC2626), Inter + JetBrains Mono, Radix + shadcn/ui + Lucide, Cursor/Claude Desktop/Linear aesthetic.
+- Modules **001–013 Merged / Frozen**. Checkpoint tag: `core-platform-001-013-complete` (feat commit `80a4146`).
+- **Sole active module: 016 SQLite Layer.**
+- Skills Architecture Freeze (2026-07-10). Engineering workflow unchanged.
+- Execution cadence: Scope Guard → Manifest Resolver → Implement → Validation → Arch Review → Merge Readiness → Before-merge branch → Merge + Tag → Post-Merge Finalizer.
+- Graph / Memory not yet populated for Ray Studio.
+- Design direction: Red accent (#DC2626), Inter + JetBrains Mono, Radix + shadcn/ui + Lucide.
 
 ## Key Decisions (Consolidated)
 
@@ -39,32 +39,29 @@ Current reality:
      - 010 Project Manager
      - 011 File System Service
      - 012 File Watcher
-     - 013 IPC Framework (Architecture Approved)
-     - 016 SQLite Layer (Architecture Approved; final Phase A item)
-     - Plus supporting: Window Manager, Navigation, Theme, Settings, Logging, Background Task Manager, Plugin System, etc.
-   - Existing Context/Memory/Provider specs remain valid but are now dependent on the above.
+     - 013 IPC Framework (**Frozen** — tag core-platform-001-013-complete)
+     - 016 SQLite Layer (**Active sole** — final Phase A implementation item)
+     - Plus supporting modules after Phase A as roadmap allows
+   - Existing Context/Memory/Provider specs remain valid but depend on Phase A.
 
 **Current Core Platform Status (Phase A)**
 
 | Module                  | Status                                      |
 |-------------------------|---------------------------------------------|
-| 001 Studio Shell        | ✅ Merged (9.7/10 Architecture Review PASS; immutable except defect fixes) |
-| 009 Workspace Manager   | ✅ Merged (9.8/10 Architecture Review PASS; immutable except defect fixes) |
-| 010 Project Manager     | ✅ Merged (9.9/10 Arch Review PASS; no drift; separation clean) |
-| 011 File System Service | ✅ Merged (fd9c034; tag core-platform-001-011-complete) |
-| 012 File Watcher        | Architecture Approved                       |
-| 013 IPC Framework       | Architecture Approved                       |
-| 016 SQLite Layer        | Architecture Approved                       |
+| 001 Studio Shell        | ✅ Frozen (9.7/10) |
+| 009 Workspace Manager   | ✅ Frozen (9.8/10) |
+| 010 Project Manager     | ✅ Frozen (9.9/10) |
+| 011 File System Service | ✅ Frozen (fd9c034; 10/10) |
+| 012 File Watcher        | ✅ Frozen (20673bf; 10/10) |
+| 013 IPC Framework       | ✅ Frozen (80a4146; tag core-platform-001-013-complete; 10/10) |
+| 016 SQLite Layer        | **Active (sole)** — Architecture Approved |
 
-Phase A Core Platform (001/009–016 Layer 2 + Layer 4 validation specs) is complete. Module 001 + 009 **✅ Merged** per 2026-07-08 independent architecture review (scores 9.7/10 and 9.8/10). Zero drift. Review explicitly approved: security model, preload boundary, dependency inversion, state machine, logging discipline, ponytail markers, and domain-package shape of core/workspace. Minor items intentionally deferred (see 000-current-status). 
+**Merge Metadata** (see project-status.json):
+- 011: fd9c034 · tag core-platform-001-011-complete · 10/10
+- 012: 20673bf · tag core-platform-001-012-complete · 10/10
+- 013: 80a4146 · tag core-platform-001-013-complete · 10/10 · rollback `before-013-merge`
 
-**Merge Metadata** (see project-status.json for machine-readable record):
-- 001: merged 2026-07-08, score 9.7, commit 8bd3940..., tag core-platform-001-009-complete
-- 009: merged 2026-07-08, score 9.8, commit 8bd3940..., tag core-platform-001-009-complete
-- 010: merged 2026-07-08, score 9.9/10, commit TBD, tag core-platform-001-010-complete (pending)
-- 011: ✅ Merged (2026-07-08, fd9c034, 10/10). Tag: core-platform-001-011-complete. Immutable except defects.
-
-Process (Arch → Spec → Review → Impl → Indep Review → Merge) validated for reuse.
+Process (Spec → Impl → Validation → Arch Review → Merge Readiness → Before-merge → Tag → Post-Merge Finalizer) proven. **Do not expand process documentation.**
 
 3. **Graph is the single source of truth**, not chat history or loose files (Constitution §4 + docs/002).
 4. **Monorepo boundaries** are fixed: apps/studio, packages/core|ui|gateway|mcp|ingestion|db, docs/, prompts/, tools/. No files outside approved structure.
@@ -91,27 +88,22 @@ No Ray Studio-specific handoff existed previously in `F:\Projects\session\` or i
 
 ## Watch Outs
 
-- Early prompts/modules/ specs (101 etc.) should not be implemented yet. Follow the reprioritized Phase A order.
-- MCP tool naming in AGENTS.md / .claude/CLAUDE.md references idealized "Codebase Memory" names (list_projects, get_architecture, search_graph). Actual connected tool is mempalace with wings/rooms/ kg_query / search. Documented in status; fix requires ADR.
-- Graph (mempalace) currently has no project-specific entities for Ray Studio. After creating specs or decisions, use mempalace tools to ingest.
-- `constitution:check` will currently fail on missing wired files (.cursor/rules/, .github/ instructions, etc.). These are expected in early foundation.
-- Core packages (packages/core/{workspace,project}) and apps/studio now populated per approved Phase A modules (001 + 009 + 010). All passed independent architecture review with high marks (001:9.7, 009:9.8, 010:9.9/10). Higher modules must still respect order.
+- Do **not** start 100/200/300-series until Phase A 016 is complete and frozen.
+- Module 016 must remain a **reusable persistence layer** — no direct coupling to Context Engine or Provider logic.
+- Prefer phased 016: bootstrap, connection lifecycle, migrations, transaction abstraction, repository interfaces → then consumers/perf/backup.
+- One-active-module: only 016 surfaces may be modified for implementation.
+- Frozen: Constitution, Core architecture, Skills architecture, modules 001–013 (immutable except defects).
+- `constitution:check` may still report pre-existing wiring debt; do not expand process docs to paper over it.
+- Graph (mempalace) still empty for Ray Studio project entities.
 
 ## Immediate Next Actions
 
-1. **For any agent starting work**: Read Constitution + docs/000-current-status.md + this handoff. Call mempalace graph tools first.
-2. **Modules 001 + 009 + 010 Merged**: ✅ 001/009/010 complete. 010: separation clean (ProjectManager does NOT own workspace lifecycle), 9.8–10.0/10. New tag pending commit.
-3. **Create Git tag/checkpoint**: `core-platform-001-009-complete` exists. After 010 merge: `core-platform-001-010-complete`.
-4. **Next active (strictly one at a time)**: 011 Merged. Begin Module 012 (File Watcher) using identical pipeline.
-5. **Process improvement (adopted + executed)**: `history/` directory created with 001.md + 009.md + 010.md. 010 merged. After merge: update handoff/status with final metadata.
-6. **Workflow improvement (adopted for future)**: Before any implementation begins, explicitly produce a Scope Declaration:
-   - Active Module: 010 Project Manager
-   - May modify: packages/core/src/project/** (or 010 area), apps/studio/src/project/**
-   - May read: Constitution, 010 spec, impl template, relevant 00x
-   - Must NOT modify: File System, File Watcher, IPC, SQLite, Context Engine, Provider Layer, 001/009, etc.
-7. Layer 4 validation specs for the seven foundational Phase A modules have been created (prompts/validation/).
-8. When ready for implementation: follow Constitution §9 DoD strictly.
-9. Populate the graph with decisions. Consider `docs/ADR/` for key calls.
+1. **Any agent starting work**: Read Constitution + `docs/000-current-status.md` + this handoff + `project-status.json`.
+2. **Module 013 complete**: Frozen at tag `core-platform-001-013-complete` (feat `80a4146`). See `history/013.md`.
+3. **Sole active module: 016 SQLite Layer** — run **Scope Guard** then **Manifest Resolver** before writing code.
+4. **Do not** implement 016 in the same session as 013 finalizer without a fresh scope declaration.
+5. Follow Constitution §9 DoD. Prefer platform capability over process sophistication.
+6. After 016: same deterministic merge sequence (validation → merge-readiness → before-merge branch → tag → post-merge-finalizer).
 
 ## References
 
