@@ -12,6 +12,11 @@ build/
 out/
 .turbo/
 *.tsbuildinfo
+# Local emit next to sources (canonical outDir is dist-electron; keep only *.ts tracked)
+apps/studio/electron-main/*.js
+apps/studio/electron-main/*.js.map
+apps/studio/electron-main/*.d.ts
+apps/studio/electron-main/*.d.ts.map
 
 # Electron packaged artifacts
 *.exe
