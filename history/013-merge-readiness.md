@@ -71,4 +71,18 @@
 
 ---
 
+## Before Merge Fallback (executed 2026-07-10)
+
+| Item | Value |
+|------|--------|
+| Independent Merge Decision | ✅ Approved for Commit and Merge (10/10) |
+| Implementation commit | `80a41468cfbb53149184b16b49e5916b6f00128a` |
+| Rollback branch | `before-013-merge` → `80a4146` (post-impl, pre-gate) |
+| Gate artifacts commit | `7fed485` |
+| Skills freeze commit | `e0c9551` |
+| Tag (planned) | `core-platform-001-013-complete` |
+| Next module after finalizer | **016 SQLite Layer** (sole active) |
+
+---
+
 **End of 013 Merge Readiness**
