@@ -16,6 +16,11 @@ import {
   watcherEventChannel,
   makeChannel,
   type Capability,
+  type ShellPingReq,
+  type ShellCaptureReq,
+  type FsReadReq,
+  type FsListReq,
+  type WatcherSubscribeReq,
 } from '@ray-studio/core'
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url))
@@ -134,17 +139,17 @@ function setupIpcFramework() {
   ipcServer = new IpcServer({ registry })
 
   // Register pure handlers (013 stores, validates ordering inside dispatch)
-  ipcServer.registerHandler(shellPingContract.channel, async (req) => ({
+  ipcServer.registerHandler(shellPingContract.channel, async (req: ShellPingReq) => ({
     pong: `pong: ${req.message}`,
     timestamp: Date.now(),
   }))
 
-  ipcServer.registerHandler(shellCaptureContract.channel, async (req) => {
+  ipcServer.registerHandler(shellCaptureContract.channel, async (req: ShellCaptureReq) => {
     console.warn('[module=ipc-framework] phase=capture-delegated len=' + (req.content?.length || 0))
     return { success: true, id: `cap_${Date.now()}` }
   })
 
-  ipcServer.registerHandler(fsReadContract.channel, async (req) => {
+  ipcServer.registerHandler(fsReadContract.channel, async (req: FsReadReq) => {
     if (!fsService) return createIpcError({ code: 'FS_UNAVAILABLE', category: 'unavailable', message: 'FS service not ready', retryable: true })
     const res = await fsService.readFile(req.path)
     if (res && 'code' in res) {
@@ -153,7 +158,7 @@ function setupIpcFramework() {
     return res
   })
 
-  ipcServer.registerHandler(fsListContract.channel, async (req) => {
+  ipcServer.registerHandler(fsListContract.channel, async (req: FsListReq) => {
     if (!fsService) return createIpcError({ code: 'FS_UNAVAILABLE', category: 'unavailable', message: 'FS service not ready', retryable: true })
     const res = await fsService.listDirectory(req.path)
     if (res && 'code' in res) {
@@ -162,7 +167,7 @@ function setupIpcFramework() {
     return res
   })
 
-  ipcServer.registerHandler(watcherSubscribeContract.channel, async (req) => {
+  ipcServer.registerHandler(watcherSubscribeContract.channel, async (req: WatcherSubscribeReq) => {
     if (!watcher) return createIpcError({ code: 'WATCHER_UNAVAILABLE', category: 'unavailable', message: 'Watcher not ready', retryable: true })
     await watcher.setWatches(req.roots || [])
     return { subscriptionId: `sub_${Date.now()}`, activeRoots: watcher.getActiveRoots() }
