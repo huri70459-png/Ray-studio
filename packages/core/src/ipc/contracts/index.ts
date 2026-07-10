@@ -113,8 +113,165 @@ export const watcherSubscribeContract: IpcContract<WatcherSubscribeReq, WatcherS
 
 export const watcherEventChannel = makeChannel('watcher', 'event'); // events published here
 
+// === DB contracts (016) — metadata only; namespace permanently owned by 016 ===
+export interface DbProjectGetReq { id: string }
+export interface DbProjectListReq { workspaceId: string }
+export interface DbProjectUpsertReq {
+  id: string;
+  workspaceId: string;
+  name: string;
+  rootPathRef: string;
+  status: string;
+  lastIndexedAt?: string | null;
+}
+
+export interface DbIngestionGetReq { projectId: string }
+export interface DbIngestionSetReq {
+  projectId: string;
+  stage: string;
+  progress: number;
+  lastError?: string | null;
+}
+
+export interface DbConfigGetReq {
+  key: string;
+  workspaceId?: string;
+  projectId?: string;
+}
+export interface DbConfigSetReq {
+  key: string;
+  value: string;
+  workspaceId?: string;
+  projectId?: string;
+}
+
+export interface DbWorkspaceUpsertReq {
+  id: string;
+  name: string;
+  rootPathRef: string;
+}
+export interface DbWorkspaceGetReq { id: string }
+
+function isNonEmptyString(v: unknown): v is string {
+  return typeof v === 'string' && v.length > 0;
+}
+
+export const dbProjectGetContract: IpcContract<DbProjectGetReq, unknown> = {
+  channel: makeChannel('db', 'project:get'),
+  version: '1.0',
+  namespace: 'db',
+  ownerModule: '016',
+  requestSchema: (d: unknown): d is DbProjectGetReq =>
+    !!d && isNonEmptyString((d as DbProjectGetReq).id),
+  description: 'Get project metadata by id (scoped)',
+};
+
+export const dbProjectListContract: IpcContract<DbProjectListReq, unknown> = {
+  channel: makeChannel('db', 'project:list'),
+  version: '1.0',
+  namespace: 'db',
+  ownerModule: '016',
+  requestSchema: (d: unknown): d is DbProjectListReq =>
+    !!d && isNonEmptyString((d as DbProjectListReq).workspaceId),
+  description: 'List projects in a workspace',
+};
+
+export const dbProjectUpsertContract: IpcContract<DbProjectUpsertReq, unknown> = {
+  channel: makeChannel('db', 'project:upsert'),
+  version: '1.0',
+  namespace: 'db',
+  ownerModule: '016',
+  requestSchema: (d: unknown): d is DbProjectUpsertReq => {
+    if (!d || typeof d !== 'object') return false;
+    const o = d as DbProjectUpsertReq;
+    return (
+      isNonEmptyString(o.id) &&
+      isNonEmptyString(o.workspaceId) &&
+      isNonEmptyString(o.name) &&
+      isNonEmptyString(o.rootPathRef) &&
+      isNonEmptyString(o.status)
+    );
+  },
+  description: 'Create or update project metadata',
+};
+
+export const dbIngestionGetContract: IpcContract<DbIngestionGetReq, unknown> = {
+  channel: makeChannel('db', 'ingestion:status:get'),
+  version: '1.0',
+  namespace: 'db',
+  ownerModule: '016',
+  requestSchema: (d: unknown): d is DbIngestionGetReq =>
+    !!d && isNonEmptyString((d as DbIngestionGetReq).projectId),
+  description: 'Get ingestion status for a project',
+};
+
+export const dbIngestionSetContract: IpcContract<DbIngestionSetReq, unknown> = {
+  channel: makeChannel('db', 'ingestion:status:set'),
+  version: '1.0',
+  namespace: 'db',
+  ownerModule: '016',
+  requestSchema: (d: unknown): d is DbIngestionSetReq => {
+    if (!d || typeof d !== 'object') return false;
+    const o = d as DbIngestionSetReq;
+    return (
+      isNonEmptyString(o.projectId) &&
+      isNonEmptyString(o.stage) &&
+      typeof o.progress === 'number' &&
+      o.progress >= 0 &&
+      o.progress <= 1
+    );
+  },
+  description: 'Set ingestion status for a project',
+};
+
+export const dbConfigGetContract: IpcContract<DbConfigGetReq, unknown> = {
+  channel: makeChannel('db', 'config:get'),
+  version: '1.0',
+  namespace: 'db',
+  ownerModule: '016',
+  requestSchema: (d: unknown): d is DbConfigGetReq =>
+    !!d && isNonEmptyString((d as DbConfigGetReq).key),
+  description: 'Get scoped config key',
+};
+
+export const dbConfigSetContract: IpcContract<DbConfigSetReq, unknown> = {
+  channel: makeChannel('db', 'config:set'),
+  version: '1.0',
+  namespace: 'db',
+  ownerModule: '016',
+  requestSchema: (d: unknown): d is DbConfigSetReq => {
+    if (!d || typeof d !== 'object') return false;
+    const o = d as DbConfigSetReq;
+    return isNonEmptyString(o.key) && typeof o.value === 'string';
+  },
+  description: 'Set scoped config key (bounded value)',
+};
+
+export const dbWorkspaceGetContract: IpcContract<DbWorkspaceGetReq, unknown> = {
+  channel: makeChannel('db', 'workspace:get'),
+  version: '1.0',
+  namespace: 'db',
+  ownerModule: '016',
+  requestSchema: (d: unknown): d is DbWorkspaceGetReq =>
+    !!d && isNonEmptyString((d as DbWorkspaceGetReq).id),
+  description: 'Get workspace metadata by id',
+};
+
+export const dbWorkspaceUpsertContract: IpcContract<DbWorkspaceUpsertReq, unknown> = {
+  channel: makeChannel('db', 'workspace:upsert'),
+  version: '1.0',
+  namespace: 'db',
+  ownerModule: '016',
+  requestSchema: (d: unknown): d is DbWorkspaceUpsertReq => {
+    if (!d || typeof d !== 'object') return false;
+    const o = d as DbWorkspaceUpsertReq;
+    return isNonEmptyString(o.id) && isNonEmptyString(o.name) && isNonEmptyString(o.rootPathRef);
+  },
+  description: 'Create or update workspace metadata',
+};
+
 // Capability tokens (narrow grants)
-export type Capability = 'shell' | 'fs' | 'watcher' | 'system';
+export type Capability = 'shell' | 'fs' | 'watcher' | 'db' | 'system';
 
 export interface CapabilityGrant {
   caps: Capability[];

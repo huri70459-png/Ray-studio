@@ -5,30 +5,51 @@ import {
   FileSystemService,
   FileSystemPathValidator,
   FileWatcher,
+  DatabaseService,
   IpcServer,
   getContractRegistry,
   createIpcError,
+  dbErrorToIpc,
   shellPingContract,
   shellCaptureContract,
   fsReadContract,
   fsListContract,
   watcherSubscribeContract,
   watcherEventChannel,
-  makeChannel,
-  type Capability,
+  dbProjectGetContract,
+  dbProjectListContract,
+  dbProjectUpsertContract,
+  dbConfigGetContract,
+  dbConfigSetContract,
+  dbIngestionGetContract,
+  dbIngestionSetContract,
+  dbWorkspaceGetContract,
+  dbWorkspaceUpsertContract,
   type ShellPingReq,
   type ShellCaptureReq,
   type FsReadReq,
   type FsListReq,
   type WatcherSubscribeReq,
+  type DbProjectGetReq,
+  type DbProjectListReq,
+  type DbProjectUpsertReq,
+  type DbConfigGetReq,
+  type DbConfigSetReq,
+  type DbIngestionGetReq,
+  type DbIngestionSetReq,
+  type DbWorkspaceGetReq,
+  type DbWorkspaceUpsertReq,
 } from '@ray-studio/core'
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url))
+
+const DEMO_CAPS = ['shell', 'fs', 'watcher', 'db'] as const
 
 let mainWindow: BrowserWindow | null = null
 let ipcServer: IpcServer | null = null
 let fsService: FileSystemService | null = null
 let watcher: FileWatcher | null = null
+let dbService: DatabaseService | null = null
 
 // 013 IPC Framework owns all channels. Legacy ShellIPC removed (now in contracts).
 
@@ -98,9 +119,9 @@ function createWindow(): void {
   const menu = Menu.buildFromTemplate(template)
   Menu.setApplicationMenu(menu)
 
-  // 013: grant narrow caps for this window (shell + fs + watcher for demo)
+  // 013: grant narrow caps for this window (shell + fs + watcher + db)
   if (ipcServer) {
-    ipcServer.grant(mainWindow.webContents.id, ['shell', 'fs', 'watcher'])
+    ipcServer.grant(mainWindow.webContents.id, [...DEMO_CAPS])
   }
 }
 
@@ -122,6 +143,17 @@ function initPrivilegedServices() {
       },
     })
   }
+  // 016: open local metadata DB under app userData (validated app dir; not workspace content)
+  if (!dbService) {
+    dbService = new DatabaseService()
+    try {
+      const dbPath = join(app.getPath('userData'), 'ray-studio-meta.sqlite')
+      dbService.open({ path: dbPath })
+    } catch (err) {
+      // ponytail: Electron without node:sqlite surfaces DB_UNAVAILABLE; domain tests use Node 22+ host
+      console.warn('[module=sqlite-layer] phase=open-failed', err instanceof Error ? err.message : err)
+    }
+  }
 }
 
 function setupIpcFramework() {
@@ -135,6 +167,15 @@ function setupIpcFramework() {
   registry.register(fsReadContract)
   registry.register(fsListContract)
   registry.register(watcherSubscribeContract)
+  registry.register(dbWorkspaceGetContract)
+  registry.register(dbWorkspaceUpsertContract)
+  registry.register(dbProjectGetContract)
+  registry.register(dbProjectListContract)
+  registry.register(dbProjectUpsertContract)
+  registry.register(dbConfigGetContract)
+  registry.register(dbConfigSetContract)
+  registry.register(dbIngestionGetContract)
+  registry.register(dbIngestionSetContract)
 
   ipcServer = new IpcServer({ registry })
 
@@ -173,6 +214,117 @@ function setupIpcFramework() {
     return { subscriptionId: `sub_${Date.now()}`, activeRoots: watcher.getActiveRoots() }
   })
 
+  // 016 SQLite handlers — all access via contracts; domain errors → IPC envelope
+  const requireDb = () => {
+    if (!dbService || dbService.getState() !== 'ready') {
+      return createIpcError({ code: 'DB_UNAVAILABLE', category: 'unavailable', message: 'Database is not ready', retryable: true })
+    }
+    return null
+  }
+
+  ipcServer.registerHandler(dbWorkspaceGetContract.channel, async (req: DbWorkspaceGetReq) => {
+    const unavail = requireDb()
+    if (unavail) return unavail
+    try {
+      return dbService!.getWorkspace(req.id)
+    } catch (e) {
+      return dbErrorToIpc(e)
+    }
+  })
+
+  ipcServer.registerHandler(dbWorkspaceUpsertContract.channel, async (req: DbWorkspaceUpsertReq) => {
+    const unavail = requireDb()
+    if (unavail) return unavail
+    try {
+      return dbService!.upsertWorkspace(req)
+    } catch (e) {
+      return dbErrorToIpc(e)
+    }
+  })
+
+  ipcServer.registerHandler(dbProjectGetContract.channel, async (req: DbProjectGetReq) => {
+    const unavail = requireDb()
+    if (unavail) return unavail
+    try {
+      return dbService!.getProject(req.id)
+    } catch (e) {
+      return dbErrorToIpc(e)
+    }
+  })
+
+  ipcServer.registerHandler(dbProjectListContract.channel, async (req: DbProjectListReq) => {
+    const unavail = requireDb()
+    if (unavail) return unavail
+    try {
+      return dbService!.listProjects(req.workspaceId)
+    } catch (e) {
+      return dbErrorToIpc(e)
+    }
+  })
+
+  ipcServer.registerHandler(dbProjectUpsertContract.channel, async (req: DbProjectUpsertReq) => {
+    const unavail = requireDb()
+    if (unavail) return unavail
+    try {
+      return dbService!.upsertProject({
+        id: req.id,
+        workspaceId: req.workspaceId,
+        name: req.name,
+        rootPathRef: req.rootPathRef,
+        status: req.status,
+        lastIndexedAt: req.lastIndexedAt ?? null,
+      })
+    } catch (e) {
+      return dbErrorToIpc(e)
+    }
+  })
+
+  ipcServer.registerHandler(dbConfigGetContract.channel, async (req: DbConfigGetReq) => {
+    const unavail = requireDb()
+    if (unavail) return unavail
+    try {
+      return dbService!.getConfig(req.key, {
+        workspaceId: req.workspaceId,
+        projectId: req.projectId,
+      })
+    } catch (e) {
+      return dbErrorToIpc(e)
+    }
+  })
+
+  ipcServer.registerHandler(dbConfigSetContract.channel, async (req: DbConfigSetReq) => {
+    const unavail = requireDb()
+    if (unavail) return unavail
+    try {
+      return dbService!.setConfig(req.key, req.value, {
+        workspaceId: req.workspaceId,
+        projectId: req.projectId,
+      })
+    } catch (e) {
+      return dbErrorToIpc(e)
+    }
+  })
+
+  ipcServer.registerHandler(dbIngestionGetContract.channel, async (req: DbIngestionGetReq) => {
+    const unavail = requireDb()
+    if (unavail) return unavail
+    try {
+      return dbService!.getIngestionStatus(req.projectId)
+    } catch (e) {
+      return dbErrorToIpc(e)
+    }
+  })
+
+  ipcServer.registerHandler(dbIngestionSetContract.channel, async (req: DbIngestionSetReq) => {
+    const unavail = requireDb()
+    if (unavail) return unavail
+    try {
+      return dbService!.setIngestionStatus(req.projectId, req.stage, req.progress, req.lastError ?? null)
+    } catch (e) {
+      return dbErrorToIpc(e)
+    }
+  })
+
   // Wire actual Electron channels here (host wiring, uses pure dispatch)
   const channelsToWire = [
     shellPingContract.channel,
@@ -180,6 +332,15 @@ function setupIpcFramework() {
     fsReadContract.channel,
     fsListContract.channel,
     watcherSubscribeContract.channel,
+    dbWorkspaceGetContract.channel,
+    dbWorkspaceUpsertContract.channel,
+    dbProjectGetContract.channel,
+    dbProjectListContract.channel,
+    dbProjectUpsertContract.channel,
+    dbConfigGetContract.channel,
+    dbConfigSetContract.channel,
+    dbIngestionGetContract.channel,
+    dbIngestionSetContract.channel,
   ]
 
   for (const ch of channelsToWire) {
@@ -187,16 +348,12 @@ function setupIpcFramework() {
       const wcId = event.sender.id
       // ensure grant exists for this wc (in case timing)
       if (ipcServer && !ipcServer.getGrant(wcId)) {
-        ipcServer.grant(wcId, ['shell', 'fs', 'watcher'])
+        ipcServer.grant(wcId, [...DEMO_CAPS])
       }
       const res = await (ipcServer ? ipcServer.dispatch(ch, payload, wcId) : createIpcError({ code: 'NO_SERVER', category: 'unavailable', message: 'IPC server not initialized', retryable: false }))
       return res
     })
   }
-
-  // For watcher events: the onEvent in watcher ctor will call ipcServer.emit which is prepare
-  // Actual send done here by overriding? For now patch emit in main after create:
-  // (simple: in watcher onEvent we already check ipcServer.emit which now prepares, we send manually below if needed)
 
   ipcServer.ready().catch((e) => console.error('[ipc] ready failed', e))
   console.warn('[module=ipc-framework] phase=framework-wired')
@@ -224,6 +381,13 @@ app.on('before-quit', () => {
   }
   if (watcher) {
     watcher.dispose()
+  }
+  if (dbService) {
+    try {
+      dbService.close()
+    } catch {
+      /* ignore */
+    }
   }
   mainWindow = null
 })
