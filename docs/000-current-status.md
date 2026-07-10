@@ -1,7 +1,7 @@
 # 000 — Current Status (Complete Project Information)
 
 **Status:** Living Reference (Sprint 1)
-**Date:** 2026-07-10 (016 Merged/Frozen; Phase A complete; tag core-platform-001-016-complete)
+**Date:** 2026-07-10 (Phase A complete, frozen, published; tag + pre-release core-platform-001-016-complete)
 **Project:** Ray Studio
 **Location:** F:\Projects\Ray-studio Creations\Ray Studio
 **Version:** 0.1.0 (monorepo foundation)
@@ -78,7 +78,7 @@ Governed by the **Ray Studio Engineering Constitution v1.0.0** (root file, perma
 - Module 016 Phase 1: **Merged / Frozen** (feat `e499422`; gates `5434af8`; tag `core-platform-001-016-complete`; arch 9.7/10). Core tests **35/35**. Validation + arch/IPC/security PASS. See `history/016.md`.
 - Driver note: `node:sqlite` via `process.getBuiltinModule` (stdlib). Electron 31 host may lack runtime SQLite → `DB_UNAVAILABLE` path documented; Phase 2 adapter if needed.
 - Graph / Memory: Not yet populated for this project (mempalace searches performed; ingest optional).
-- Git: `main` ahead of origin (not pushed). Phase A complete. See `docs/handoff.md`.
+- Git: `main` synced with origin (pushed). Phase A complete. Pre-release: https://github.com/huri70459-png/Ray-studio/releases/tag/core-platform-001-016-complete. See `docs/handoff.md`.
 
 See full details below and the assessment order document.
 

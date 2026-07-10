@@ -1,9 +1,9 @@
 # Handoff
 
 **Project:** Ray Studio  
-**Date:** 2026-07-10 (post-merge finalizer — 016 frozen; Phase A complete)  
-**Status:** Sprint 1 — Phase A Core Platform **complete**  
-**Last Updated By:** Grok (post-merge-finalizer)
+**Date:** 2026-07-10 (Phase A milestone published to GitHub)  
+**Status:** Sprint 1 — Phase A Core Platform **complete and published**  
+**Last Updated By:** Grok (milestone close / push)
 
 ## Resume From Here
 
@@ -29,7 +29,7 @@ Current reality:
 - Skills Architecture Freeze (2026-07-10). Engineering workflow unchanged.
 - Graph / Memory not yet populated for Ray Studio.
 - Design direction: Red accent (#DC2626), Inter + JetBrains Mono, Radix + shadcn/ui + Lucide.
-- Git: `main` ahead of origin (**not pushed**). Do not push unless asked.
+- Git: `main` **pushed** to origin (synced). Pre-release: [core-platform-001-016-complete](https://github.com/huri70459-png/Ray-studio/releases/tag/core-platform-001-016-complete).
 
 ## Key Decisions (Consolidated)
 
@@ -79,11 +79,10 @@ Current reality:
 
 ## Immediate Next Actions
 
-1. **Stop.** Phase A is complete. Await user direction for Phase B.
+1. **Stop.** Phase A is complete, frozen, **and published**. Await user authorization for Phase B.
 2. Read `history/phase-a-completion.md` before any Phase B kickoff (debt, assumptions, readiness checklist).
-3. When authorized for **101 Context Engine**: Scope Guard → Manifest Resolver → AGENTS → status → manifest → Constitution → 101 spec → 101 validation → implement. Do not skip gates. No Memory/Providers until 101 is frozen.
-4. Optional: push to origin only if user requests.
-5. Optional: populate graph with Phase A module entities.
+3. When authorized for **101 Context Engine**: Scope Guard → Manifest Resolver → AGENTS → **design validation (101 vs frozen Core Platform)** → status → manifest → Constitution → 101 spec → 101 validation → implement. Do not skip gates. No Memory/Providers until 101 is frozen.
+4. Optional: populate graph with Phase A module entities.
 
 ## References
 

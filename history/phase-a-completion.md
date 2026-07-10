@@ -3,8 +3,10 @@
 **Milestone checkpoint** (not a new architecture spec)  
 **Date:** 2026-07-10  
 **Checkpoint tag:** `core-platform-001-016-complete`  
-**Repo:** Ray Studio · `main` (local; not pushed)  
-**Verdict:** ✅ **Phase A complete** — stable foundation for Phase B when authorized  
+**Repo:** Ray Studio · `main` (synced with origin)  
+**Remote:** https://github.com/huri70459-png/Ray-studio  
+**Pre-release:** https://github.com/huri70459-png/Ray-studio/releases/tag/core-platform-001-016-complete  
+**Verdict:** ✅ **Phase A complete and published** — stable foundation for Phase B when authorized  
 
 ---
 
@@ -95,7 +97,8 @@ Use only after **explicit user authorization** for Phase B. Do **not** start Mem
 | Phase A | Complete |
 | Active module | **None** |
 | nextModule (status) | `101` (not authorized) |
-| Push | Explicit user decision only — **not** automatic on Phase A complete |
+| Push | ✅ Published — `main` + Phase A tags on origin |
+| GitHub Release | Pre-release on tag `core-platform-001-016-complete` |
 | Workflow | Baseline / mature across full phase |
 
 ---
