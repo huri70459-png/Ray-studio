@@ -75,14 +75,14 @@
 
 ---
 
-## Before Merge Fallback (fill after commit)
+## Before Merge Fallback (executed 2026-07-10)
 
 | Item | Value |
 |------|--------|
 | Independent Merge Decision | ✅ Approved (plan + this report) |
-| Implementation commit | _(pending)_ |
-| Rollback branch | `before-016-merge` |
-| Gate artifacts commit | _(pending)_ |
+| Implementation commit | `e499422` |
+| Rollback branch | `before-016-merge` → `e499422` |
+| Gate artifacts commit | `5434af8` |
 | Tag | `core-platform-001-016-complete` |
 | Next after finalizer | Phase B / 101 — **await authorization** |
 
