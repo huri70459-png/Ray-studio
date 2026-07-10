@@ -48,10 +48,11 @@
   "module012Status": "✅ Merged (10/10). Commit 20673bf; tag core-platform-001-012-complete; immutable except defects. (2026-07-08)",
   "sessionHandoff": {
     "date": "2026-07-11",
-    "gitHead": "3446e38",
+    "gitHead": "3ed5983",
     "featureCommit": "35396af",
     "finalizeCommit": "7ef5c84",
     "pinCommit": "3446e38",
+    "handoffPinCommit": "3ed5983",
     "branch": "main",
     "pushed": true,
     "remote": "origin",
