@@ -1,7 +1,7 @@
 # 000 — Current Status (Complete Project Information)
 
 **Status:** Living Reference (Sprint 1)
-**Date:** 2026-07-10 (Phase A complete, frozen, published; tag + pre-release core-platform-001-016-complete)
+**Date:** 2026-07-10 (Phase A published; Module 101 Phase B.1 merged/frozen locally; tag phase-b-101-complete)
 **Project:** Ray Studio
 **Location:** F:\Projects\Ray-studio Creations\Ray Studio
 **Version:** 0.1.0 (monorepo foundation)
@@ -20,19 +20,20 @@ Governed by the **Ray Studio Engineering Constitution v1.0.0** (root file, perma
 
 ## For Implementation Agents (Read This First After AGENTS.md)
 
-**Current Execution Phase:** Sprint 1 — Phase A Core Platform **complete**. Phase B (101+) not started — await authorization.
+**Current Execution Phase:** Sprint 1 — Phase A **complete and published**. Phase B.1 Module **101 Context Engine complete and frozen** (local). nextModule **102** — not authorized.
 
 **Frozen Architectural Baselines** (do not modify without ADR):
 
 - Ray Studio Engineering Constitution.md
 - AGENTS.md
 - implementation-manifests/
-- prompts/modules/ (Core Platform specs)
+- prompts/modules/ (Core Platform specs + accepted 101 Ready package)
 - prompts/templates/
 - docs/00x (foundational docs)
 - Roadmap / assessment order
+- Modules 001, 009–013, 016, **101 B.1** (immutable except defects)
 
-**Core Platform Status (Phase A — ready for implementation)**
+**Core Platform + Phase B.1 Status**
 
 | Module                  | Spec Status           | Validation | Next Action                                                                             | Touch?         |
 | ----------------------- | --------------------- | ---------- | --------------------------------------------------------------------------------------- | -------------- |
@@ -43,14 +44,14 @@ Governed by the **Ray Studio Engineering Constitution v1.0.0** (root file, perma
 | 012 File Watcher        | Architecture Approved | Exists     | ✅ Merged (20673bf; 10/10)                                                              | No (immutable) |
 | 013 IPC Framework       | Architecture Approved | Exists     | ✅ Merged (80a4146; 10/10; Frozen)                                                      | No (immutable) |
 | 016 SQLite Layer        | Architecture Approved | Exists     | ✅ Merged/Frozen (e499422; 9.7/10; tag core-platform-001-016-complete)                  | No (immutable) |
+| 101 Context Engine B.1  | Ready                 | Exists     | ✅ Merged/Frozen (0322714; 9.5/10; tag phase-b-101-complete)                            | No (immutable) |
 
 **Do NOT touch yet** (higher layers, non-approved, or out of sequence):
 
-- Any 100-series (Context Engine), 200-series (Memory), 300-series (Providers)
-- Non-Core Platform specs in prompts/modules/
-- Anything outside the approved dependency order
+- 102+ Context Engine submodules, 200-series (Memory), 300-series (Providers), Gateway
+- Anything outside the approved dependency order without authorization
 
-**Recommended Next Action:** Phase A is **complete**. Modules 001–016 are Frozen. Tag `core-platform-001-016-complete`. Milestone boundary: `history/phase-a-completion.md`. **Do not start 101+** until the user explicitly authorizes Phase B. When authorized: Scope Guard → Manifest Resolver → AGENTS → status → 101 manifest → Constitution → 101 spec + validation → implement 101 only. No Memory/Providers until 101 frozen. Skills architecture and workflow remain frozen (baseline). 016 Phase 2 items are deferred and do not reopen Phase A.
+**Recommended Next Action:** Module **101 Phase B.1 is complete** (tag `phase-b-101-complete`, local). Await explicit authorization for **push** and/or **Module 102**. Do not start 102/Memory/Providers/Gateway without Scope Guard + Manifest Resolver. Skills architecture and workflow remain frozen (baseline).
 
 **Implementation Rules (Deterministic Pipeline)**
 
@@ -75,14 +76,15 @@ Governed by the **Ray Studio Engineering Constitution v1.0.0** (root file, perma
 - Module 009 Architecture Review: ✅ Approved 9.8/10 (2026-07-08). Textbook dependency inversion (Manager delegates to PathValidator + RecentStore), clean state transitions (activating/active/deactivating/none), ponytail comments on fallbacks, reusable domain package shape. Events owned by 009; transport by 013.
 - Module 009: ✅ Merged (2026-07-08). Merge metadata recorded. Immutable except defect fixes.
 - Module 013 merged (80a4146; tag core-platform-001-013-complete; 10/10). Frozen (immutable except defects). Skills Architecture Freeze in effect.
-- Module 016 Phase 1: **Merged / Frozen** (feat `e499422`; gates `5434af8`; tag `core-platform-001-016-complete`; arch 9.7/10). Core tests **35/35**. Validation + arch/IPC/security PASS. See `history/016.md`.
+- Module 016 Phase 1: **Merged / Frozen** (feat `e499422`; gates `5434af8`; tag `core-platform-001-016-complete`; arch 9.7/10). See `history/016.md`.
+- Module 101 Phase B.1: **Merged / Frozen** (feat `0322714`; governance `303af68`; tag `phase-b-101-complete`; rollback `before-101-merge`; arch 9.5/10). Ports-first orchestrator only. Core tests **48/48**. See `history/101.md`.
 - Driver note: `node:sqlite` via `process.getBuiltinModule` (stdlib). Electron 31 host may lack runtime SQLite → `DB_UNAVAILABLE` path documented; Phase 2 adapter if needed.
-- Graph / Memory: Not yet populated for this project (mempalace searches performed; ingest optional).
-- Git: `main` synced with origin (pushed). Phase A complete. Pre-release: https://github.com/huri70459-png/Ray-studio/releases/tag/core-platform-001-016-complete. See `docs/handoff.md`.
+- Graph / Memory: Not yet populated; 101 uses Null/Fake ports only (no live graph).
+- Git: Phase A published on origin. Phase B.1 commits **local only** (`main` ahead of origin). See `docs/handoff.md`.
 
 See full details below and the assessment order document.
 
-**Current Core Platform Status**
+**Current Module Status**
 
 | Module                  | Status                                                                  |
 | ----------------------- | ----------------------------------------------------------------------- |
@@ -93,8 +95,9 @@ See full details below and the assessment order document.
 | 012 File Watcher        | ✅ Merged / Frozen (20673bf; 10/10)                                     |
 | 013 IPC Framework       | ✅ Merged / Frozen (80a4146; tag core-platform-001-013-complete; 10/10) |
 | 016 SQLite Layer        | ✅ Merged / Frozen (e499422; tag core-platform-001-016-complete; 9.7/10) |
+| 101 Context Engine B.1  | ✅ Merged / Frozen (0322714; tag phase-b-101-complete; 9.5/10)          |
 
-Phase A Core Platform (001, 009–013, 016) **complete and frozen**. Stable foundation for Context Engine (100-series), Memory (200-series), and Providers (300-series). **Do not start Phase B until user authorizes.**
+Phase A Core Platform **complete and frozen**. Phase B.1 Context Engine orchestrator **complete and frozen** (local). **Do not start 102+ / Memory / Providers without explicit authorization.**
 
 **Latest Architecture & Implementation Review (2026-07-08)**
 
