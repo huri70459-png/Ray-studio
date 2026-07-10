@@ -4,7 +4,8 @@
 **Date:** 2026-07-11  
 **Status:** Phase A + 101 B.1 published · **Phase B.2 D1 decided** · **Module 103 published/frozen** · no active module  
 **Last Updated By:** Grok (Module 103 publication + freeze)  
-**Git HEAD (committed tip at freeze write):** `35396af` on `main` (= `origin/main` at publish; docs finalize may advance tip)  
+**Git HEAD (status finalize tip):** `7ef5c84` on `main`  
+**Feature commit (tag target):** `35396af`  
 **Checkpoint tag:** `phase-b2-103-complete` @ `35396af`  
 **Working tree:** may hold uncommitted `planrev.md` + untracked frozen proposal — leave outside 103 finalize unless owner requests
 
