@@ -1,7 +1,7 @@
 # 000 — Current Status (Complete Project Information)
 
 **Status:** Living Reference (Sprint 1)
-**Date:** 2026-07-10 (Phase A published; Module 101 Phase B.1 published/frozen; tag phase-b-101-complete)
+**Date:** 2026-07-10 (Phase A + Phase B.1 published/frozen; clean entry for next session; tag phase-b-101-complete)
 **Project:** Ray Studio
 **Location:** F:\Projects\Ray-studio Creations\Ray Studio
 **Version:** 0.1.0 (monorepo foundation)
@@ -20,7 +20,7 @@ Governed by the **Ray Studio Engineering Constitution v1.0.0** (root file, perma
 
 ## For Implementation Agents (Read This First After AGENTS.md)
 
-**Current Execution Phase:** Sprint 1 — Phase A **complete and published**. Phase B.1 Module **101 Context Engine complete, frozen, and published**. nextModule **102** — not authorized.
+**Current Execution Phase:** Sprint 1 — Phase A **complete and published**. Phase B.1 Module **101 Context Engine complete, frozen, and published**. **Active module: none.** nextModule **102** — not authorized. New session: start at `docs/handoff.md`.
 
 **Frozen Architectural Baselines** (do not modify without ADR):
 
@@ -51,7 +51,7 @@ Governed by the **Ray Studio Engineering Constitution v1.0.0** (root file, perma
 - 102+ Context Engine submodules, 200-series (Memory), 300-series (Providers), Gateway
 - Anything outside the approved dependency order without authorization
 
-**Recommended Next Action:** Module **101 Phase B.1 is complete and published** (tag `phase-b-101-complete` on origin). Await explicit authorization for **Module 102**. Do not start 102/Memory/Providers/Gateway without Scope Guard + Manifest Resolver. Skills architecture and workflow remain frozen (baseline).
+**Recommended Next Action (new session):** (1) Read `docs/handoff.md`. (2) Confirm `main` clean and synced; tag `phase-b-101-complete` on origin. (3) Await explicit authorization for **Module 102** (or other). Do not start 102/Memory/Providers/Gateway without Scope Guard + Manifest Resolver. Skills architecture and workflow remain frozen (baseline).
 
 **Implementation Rules (Deterministic Pipeline)**
 
@@ -80,7 +80,7 @@ Governed by the **Ray Studio Engineering Constitution v1.0.0** (root file, perma
 - Module 101 Phase B.1: **Merged / Frozen / Published** (feat `0322714`; governance `303af68`; tag `phase-b-101-complete` on origin; rollback `before-101-merge`; arch 9.5/10). Ports-first orchestrator only. Core tests **48/48**. See `history/101.md`.
 - Driver note: `node:sqlite` via `process.getBuiltinModule` (stdlib). Electron 31 host may lack runtime SQLite → `DB_UNAVAILABLE` path documented; Phase 2 adapter if needed.
 - Graph / Memory: Not yet populated; 101 uses Null/Fake ports only (no live graph).
-- Git: Phase A and Phase B.1 **published** on origin (`main` + `phase-b-101-complete`). See `docs/handoff.md`.
+- Git: Phase A and Phase B.1 **published** on origin (`main` @ `6081f8b` + tag `phase-b-101-complete` @ `847f9bc`). Working tree expected **clean**. See `docs/handoff.md` for new-session resume.
 
 See full details below and the assessment order document.
 

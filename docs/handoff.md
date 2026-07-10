@@ -1,45 +1,65 @@
 # Handoff
 
 **Project:** Ray Studio  
-**Date:** 2026-07-10 (Module 101 Phase B.1 published)  
-**Status:** Phase A published · Phase B.1 (101) published/frozen · nextModule 102 unauthorized  
-**Last Updated By:** Grok (101 Phase B.1 publication)
+**Date:** 2026-07-10  
+**Status:** Phase A published · Phase B.1 (101) published/frozen · **clean entry for next session**  
+**Last Updated By:** Grok (new-session handoff prep)  
+**Git HEAD:** `6081f8b` on `main` (= `origin/main`)
 
-## Resume From Here
+---
 
-**Sprint 0 complete.** Phase A Core Platform **complete and published**.  
-**Module 101 Context Engine Phase B.1 Merged / Frozen / Published**.
+## New Session — Start Here
 
-This is the durable handoff / resume point:
+1. Read **AGENTS.md** (Constitution-linked rules).
+2. Read **this file** (`docs/handoff.md`).
+3. Skim **docs/000-current-status.md** + **project-status.json**.
+4. Confirm git: `main` clean, synced with origin; tag `phase-b-101-complete` present.
+5. **Do not code** until the user issues an explicit authorization (module + scope).
 
-- `Ray Studio Engineering Constitution.md` (permanent Layer 1)
-- `docs/000-current-status.md`
-- This handoff
-- `project-status.json` (nextModule = **102** — **not authorized**; `phaseBPublished` = true)
-- `history/101.md`
-- Checkpoint tags:
-  - Phase A: `core-platform-001-016-complete` (published)
-  - Phase B.1: `phase-b-101-complete` (published on origin)
-- Rollback: `before-101-merge` @ `303af68`
+**Active module:** none  
+**nextModule:** `102` — **not authorized**  
+**phaseBPublished:** true  
+**checkpointTag:** `phase-b-101-complete` (@ `847f9bc` on origin)
 
-**Do not rely on external session files or prior chat for project truth.**
+---
 
-Current reality:
-- Modules **001–013, 016** Merged / Frozen (Phase A). Published.
-- Module **101 Phase B.1** Merged / Frozen / Published. Feat `0322714`; governance `303af68`; tip `847f9bc`; tag `phase-b-101-complete` on origin; rollback `before-101-merge`.
-- Core tests **48/48**.
-- Skills Architecture Freeze remains in effect.
-- Git: `main` **synced with origin**. Phase B.1 milestone published.
-- Graph / Memory not populated; no live graph adapters.
+## What Is Done
 
-## Key Decisions (Consolidated)
+| Milestone | State |
+|-----------|--------|
+| Phase A Core Platform (001–013, 016) | Merged / Frozen / Published · tag `core-platform-001-016-complete` |
+| Module 101 Phase B.1 Context Engine | Merged / Frozen / Published · tag `phase-b-101-complete` |
+| Local merge + independent post-merge review | PASS |
+| Publication (main + tag + docs) | SUCCESS |
 
-1. **Constitution v1.0.0** frozen as Layer 1.
-2. Phase A order complete: 001 → 009 → 010 → 011 → 012 → 013 → 016.
-3. **101 B.1** is ports-first orchestrator only (`packages/core/src/context/**`); Null/Fake ports; no Gateway/Provider/Memory/live graph.
-4. Graph remains source of truth for rich entities; 016 is metadata only; 101 does not own graph storage.
-5. One-active-module + frozen Core Platform still in force.
-6. **Do not start 102+** without explicit authorization.
+**101 B.1 key commits**
+
+| Role | Hash |
+|------|------|
+| Governance (manifest, Layer 4, Ready ports-first) | `303af68` |
+| Feature (ports-first orchestrator) | `0322714` |
+| Milestone tip (tag points here) | `847f9bc` |
+| Publication metadata (`phaseBPublished=true`) | `6081f8b` |
+| Rollback branch | `before-101-merge` @ `303af68` |
+
+**101 B.1 scope (frozen)**
+
+- Domain: `packages/core/src/context/**`
+- API: `ContextEngine.buildContext`
+- Ports: Graph / Semantic / Summary / TokenEstimator (+ Null/Fake adapters)
+- No Gateway, Provider, Memory, or live graph ownership
+- No Core Platform mutation
+- Core tests last reported: **48/48** · arch **9.5/10**
+
+---
+
+## What Is Not Done / Blocked
+
+- Module **102+** — requires separate governance + implementation authorization
+- Live graph adapters, context IPC, model-accurate tokenizer, Gateway wiring
+- Memory (200-series), Providers (300-series)
+
+---
 
 ## Module Status
 
@@ -52,42 +72,48 @@ Current reality:
 | 012 File Watcher | ✅ Frozen (10/10) |
 | 013 IPC Framework | ✅ Frozen (10/10) |
 | 016 SQLite Layer | ✅ Frozen (9.7/10) |
-| **101 Context Engine B.1** | ✅ Frozen / Published (9.5/10; tag `phase-b-101-complete`) |
+| **101 Context Engine B.1** | ✅ Frozen / Published (9.5/10) |
 
-**Merge Metadata 101:** governance `303af68` · feat `0322714` · tip `847f9bc` · rollback `before-101-merge` · tag `phase-b-101-complete` (origin)
+---
 
-## Module 101 — Frozen Snapshot (B.1)
+## Key Decisions (Still In Force)
 
-| Area | Notes |
-|------|-------|
-| Domain | `packages/core/src/context/**` |
-| API | `ContextEngine.buildContext` |
-| Ports | Graph / Semantic / Summary / TokenEstimator (+ Null/Fake) |
-| IPC | None in B.1 (in-process only) |
-| Tests | 13 new; core 48/48 |
+1. Constitution v1.0.0 = Layer 1 (immutable without ADR).
+2. One-active-module + deterministic pipeline.
+3. Graph is source of truth for rich entities; 016 = metadata SQLite only; 101 does not own graph storage.
+4. 101 B.1 = ports-first orchestrator only.
+5. Skills Architecture Freeze remains in effect.
+6. Frozen baselines: Core Platform 001–016 and 101 B.1 — **immutable except defects**.
 
-**Deferred:** live adapters, context IPC, model-accurate tokenizer, Gateway wiring, P95 live graph.
+---
+
+## Immediate Next Actions (Next Session)
+
+1. Verify clean resume (git status / HEAD / tags).
+2. **Wait for explicit user authorization** before any implementation.
+3. If authorized for **102**: Scope Guard → Manifest Resolver → only allowed paths.
+4. Do not start Memory / Providers / Gateway without separate authorization.
+
+---
 
 ## Watch Outs
 
-- **Do not start 102 / Memory / Providers / Gateway** without explicit user authorization.
-- Module 101 B.1 is **immutable except defects**.
-- Frozen Core Platform 001–016: **immutable except defects**.
-- Do not expand process/workflow documentation.
-- Untracked preload build artifacts — do not commit blindly.
+- Do not treat chat history or `session/` notes as sole truth — verify against git + these docs.
+- Do not commit untracked preload build artifacts under `apps/studio/electron-main/`.
+- Do not expand process/workflow docs or unfreeze skills without explicit request.
+- Tag `phase-b-101-complete` pins code tip `847f9bc`; later commits on `main` may be docs-only after the tag.
 
-## Immediate Next Actions
-
-1. **Stop.** Phase B.1 publication milestone complete.
-2. Optional next authorization (explicit only):
-   - Begin Module **102** (Scope Guard → Manifest Resolver first)
-3. Do not implement 102+ without manifest + Layer 4 + authorization.
+---
 
 ## References
 
-- Constitution · docs/000-current-status.md · project-status.json
-- history/101.md · history/phase-a-completion.md
-- implementation-manifests/101-context-engine.json
-- prompts/modules/101-context-engine.md · prompts/validation/101-context-engine.validation.md
+- `Ray Studio Engineering Constitution.md`
+- `AGENTS.md`
+- `docs/000-current-status.md`
+- `project-status.json`
+- `history/101.md` · `history/phase-a-completion.md`
+- `implementation-manifests/101-context-engine.json`
+- `prompts/modules/101-context-engine.md`
+- `prompts/validation/101-context-engine.validation.md`
 
 **End of handoff.**
