@@ -1,32 +1,28 @@
 ---
 name: documentation-sync
-description: Use when implementation or refactoring is complete and documentation must be updated to match reality (README, current-status, handoff, summaries, API notes) without changing architecture or specs.
+description: Documentation Synchronizer. Use only after merge-readiness approval + merge. Updates exactly project-status.json, history/<module>.md, docs/000-current-status.md, and docs/handoff.md. Never touches specs or frozen baselines.
 ---
 
 # Documentation Sync
 
 Automatically keeps living docs aligned with delivered code.
 
-## What It Updates (as needed)
+## What It Updates (Post-Merge Only — Exactly These)
 
-- README.md (high-level status, build instructions, quick start)
+- project-status.json (machine-readable status + mergeMetadata)
+- history/<module>.md (implementation record)
 - docs/000-current-status.md (phase, module table, next action)
 - docs/handoff.md (reality + cadence updates)
-- Implementation summary artifacts (per module)
-- Any API or contract docs touched by the change
-- Session handoff notes when relevant
+
+Nothing else. Never touch specs, Constitution, manifests, prompts, or implementation code.
 
 ## Rules
 
-- **Never** modify frozen baselines:
-  - Ray Studio Engineering Constitution.md
-  - AGENTS.md
-  - implementation-manifests/
-  - prompts/modules/ or templates/
-  - docs/00x foundational architecture docs
-- Only reflect what was actually implemented and passed gates.
-- Keep tone factual. Link to evidence (build logs, test results) where useful.
-- Do not add new architectural claims.
+- **Only** the four files listed above may be touched, and **only after merge-readiness has approved** and the fast-forward merge + tag have completed.
+- **Never** modify frozen baselines (Constitution, AGENTS.md, manifests, prompts/, docs/00x, etc.).
+- Only reflect what was actually implemented and passed all gates.
+- Keep tone factual. Link to evidence (build logs, test results, commit, tag) where useful.
+- Do not add new architectural claims or change specs.
 - Update "lastUpdated" or dates where the file carries them.
 - Preserve the Sprint 1 objective: "Implement the approved architecture with zero architectural drift."
 
@@ -48,9 +44,9 @@ Example:
 
 ## When to Use
 
-- End of a successful module-implementation + gates
-- After refactoring that improves internal quality
-- After any merge that changes observable behavior or build steps
+- **Only after merge-readiness** has given final approval and the module has been merged + tagged.
+- After any post-merge status or handoff update required by the deterministic pipeline.
+- Never during active implementation.
 
 ## Related
 

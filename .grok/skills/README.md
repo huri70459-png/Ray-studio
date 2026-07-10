@@ -9,37 +9,101 @@ They enforce the **Sprint 1 rules** and the deterministic pipeline defined in:
 - `implementation-manifests/`
 - `Ray Studio Engineering Constitution.md`
 
-**Priority order for use (as recommended):**
+**Skills reinforce the existing deterministic workflow** (AGENTS.md → status → manifest → Constitution → spec → implementation → gates → reviews → merge → post-merge).
 
-1. **module-implementation** (Highest Priority)  
-   Use for *every* coding session. Enforces full pipeline + 7 gates.
+They do **not** replace the pipeline.
 
-2. **architecture-compliance-review**  
-   Review-only. Checks Constitution, boundaries, IPC, drift, etc. Produces PASS/FAIL.
+## Phased Introduction (Approved Approach)
 
-3. **build-repair**  
-   After impl or when red: build → lint → typecheck → test loop until green.
+Do not build everything at once. Introduce skills incrementally as the project justifies them.
 
-4. **module-validation**  
-   Validates against manifest, module spec, acceptance criteria, DoD.
+**Phase 1 (Core — Immediate / Always Use)**
+- Module Implementation
+- Validation Runner (module-validation)
+- Architecture Compliance Review
+- Build & Repair
+- Merge Readiness
 
-5. **merge-readiness**  
-   Final pre-merge verification of all gates + evidence + docs + risks.
+**Phase 2 (Governance — Strongly Recommended Now)**
+- Scope Guard
+- Manifest Resolver (new — standardizes context loading)
+- Repository Auditor
+- Constitution Compliance Checker
+- Documentation Synchronizer (documentation-sync)
 
-6. **repository-navigation**  
-   Finds relevant files, deps, consumers, tests, docs, related modules (graph-first).
+**Phase 3 (Specialized Architecture Reviewers)**
+- IPC Contract Reviewer
+- Security Reviewer
+- Performance Reviewer
+- Dependency Boundary Checker (new)
 
-7. **electron-ui-review**  
-   Specialized for Studio Shell: layout, a11y, palette, dark mode, IPC safety, perf.
+**Phase 4+**
+- AI-specific (Context Engineer, Prompt Optimizer, Memory Reviewer)
+- Release / automation skills
 
-8. **refactoring**  
-   Quality/readability/maintainability only. **Never** changes arch, contracts, or ownership.
+## Recommended Priority Order
 
-9. **documentation-sync**  
-   Keeps README, 000-current-status, handoff, summaries in sync (no arch changes).
+| Priority | Skill                        | Why |
+|----------|------------------------------|-----|
+| 1        | Module Implementation        | Used on every module |
+| 2        | Validation Runner            | Objective acceptance checks |
+| 3        | Architecture Compliance Review | Prevents drift |
+| 4        | Build & Repair               | Fast recovery from implementation issues |
+| 5        | Merge Readiness              | Governance gate |
+| 6        | Scope Guard                  | Prevents scope creep |
+| 7        | Manifest Resolver            | Standardizes context loading |
+| 8        | Repository Auditor           | Continuous governance |
+| 9        | Constitution Compliance Checker | Enforces project rules |
+| 10       | Documentation Synchronizer   | Keeps living docs accurate |
+| 11+      | IPC, Security, Performance, Dependency Boundary, AI-specific reviewers | Needed as later phases mature |
 
-10. **security-review**  
-    Electron main, IPC, secrets, SQLite, FS, isolation, injection, validation.
+## Review vs Repair Separation (Important)
+
+**Review skills** (never modify code):
+- architecture-compliance-review, module-validation, merge-readiness, repository-auditor, scope-guard, constitution-compliance-checker, ipc-contract-reviewer, dependency-boundary-checker, security-review, electron-ui-review
+
+**Repair / Implementation skills** (may modify code):
+- module-implementation, build-repair, post-merge-finalizer (targeted governance updates only), manifest-resolver (read-only orchestration)
+
+Keeping responsibilities separate preserves auditability.
+
+## Current Skills (Aligned to Review)
+
+**Phase 1 Core (present):**
+- module-implementation
+- module-validation (Validation Runner)
+- architecture-compliance-review
+- build-repair
+- merge-readiness
+
+**Phase 2 Governance (present + newly added per review):**
+- scope-guard
+- manifest-resolver (added)
+- repository-auditor
+- constitution-compliance-checker
+- documentation-sync (Documentation Synchronizer — post-merge only)
+
+**Phase 3 Reviewers (partially present + added):**
+- ipc-contract-reviewer
+- security-review
+- dependency-boundary-checker (added)
+
+**Newly Added per this Review:**
+- manifest-resolver
+- post-merge-finalizer
+- dependency-boundary-checker
+
+**Supporting (keep as needed):**
+- repository-navigation, electron-ui-review, refactoring
+
+## Usage
+
+- Skills load automatically when intent matches the `description`.
+- Explicit: `/module-implementation`, `/manifest-resolver`, `/scope-guard`, etc.
+- TUI: skills menu.
+- Always start implementation sessions with: Scope Guard + Manifest Resolver.
+
+See individual `SKILL.md` for full responsibilities, output formats, and "review only" declarations.
 
 ## Usage
 

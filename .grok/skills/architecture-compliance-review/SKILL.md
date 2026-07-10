@@ -75,3 +75,7 @@ If FAIL, the implementation agent must address **Required Fixes** before re-subm
 - module-validation
 - merge-readiness (consumes this review)
 - security-review (can be composed)
+- repository-auditor (deeper drift / dep / boundary checks)
+- constitution-compliance-checker
+- ipc-contract-reviewer (required for any 013+ IPC work)
+- scope-guard (verify scope was respected)

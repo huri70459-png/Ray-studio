@@ -1,6 +1,6 @@
 ---
 name: module-validation
-description: Use when a module implementation is finished and you need to validate it against its manifest, module spec, acceptance criteria, and Definition of Done.
+description: Validation Runner. Use when a module implementation is finished. Validates against manifest, module spec, acceptance criteria, and Definition of Done (Layer 4). Review only.
 ---
 
 # Module Validation
@@ -60,3 +60,7 @@ Against:
 - module-implementation
 - architecture-compliance-review
 - merge-readiness
+- repository-auditor
+- constitution-compliance-checker
+- ipc-contract-reviewer (for 013 and later IPC contracts)
+- scope-guard (confirm scope discipline was followed)
