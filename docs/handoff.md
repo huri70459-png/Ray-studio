@@ -1,35 +1,35 @@
 # Handoff
 
 **Project:** Ray Studio  
-**Date:** 2026-07-10 (Module 101 Phase B.1 merged locally)  
-**Status:** Phase A published · Phase B.1 (101) merged/frozen locally · not pushed  
-**Last Updated By:** Grok (101 merge finalizer)
+**Date:** 2026-07-10 (Module 101 Phase B.1 published)  
+**Status:** Phase A published · Phase B.1 (101) published/frozen · nextModule 102 unauthorized  
+**Last Updated By:** Grok (101 Phase B.1 publication)
 
 ## Resume From Here
 
 **Sprint 0 complete.** Phase A Core Platform **complete and published**.  
-**Module 101 Context Engine Phase B.1 Merged / Frozen** (local only).
+**Module 101 Context Engine Phase B.1 Merged / Frozen / Published**.
 
 This is the durable handoff / resume point:
 
 - `Ray Studio Engineering Constitution.md` (permanent Layer 1)
 - `docs/000-current-status.md`
 - This handoff
-- `project-status.json` (nextModule = **102** — **not authorized**)
+- `project-status.json` (nextModule = **102** — **not authorized**; `phaseBPublished` = true)
 - `history/101.md`
 - Checkpoint tags:
   - Phase A: `core-platform-001-016-complete` (published)
-  - Phase B.1: `phase-b-101-complete` (local)
+  - Phase B.1: `phase-b-101-complete` (published on origin)
 - Rollback: `before-101-merge` @ `303af68`
 
 **Do not rely on external session files or prior chat for project truth.**
 
 Current reality:
 - Modules **001–013, 016** Merged / Frozen (Phase A). Published.
-- Module **101 Phase B.1** Merged / Frozen locally. Feat `0322714`; governance `303af68`; tag `phase-b-101-complete`; rollback `before-101-merge`.
+- Module **101 Phase B.1** Merged / Frozen / Published. Feat `0322714`; governance `303af68`; tip `847f9bc`; tag `phase-b-101-complete` on origin; rollback `before-101-merge`.
 - Core tests **48/48**.
 - Skills Architecture Freeze remains in effect.
-- Git: `main` **ahead of origin** (governance + 101 + finalize). **Do not push** until explicitly authorized.
+- Git: `main` **synced with origin**. Phase B.1 milestone published.
 - Graph / Memory not populated; no live graph adapters.
 
 ## Key Decisions (Consolidated)
@@ -52,9 +52,9 @@ Current reality:
 | 012 File Watcher | ✅ Frozen (10/10) |
 | 013 IPC Framework | ✅ Frozen (10/10) |
 | 016 SQLite Layer | ✅ Frozen (9.7/10) |
-| **101 Context Engine B.1** | ✅ Frozen (9.5/10; tag `phase-b-101-complete`) |
+| **101 Context Engine B.1** | ✅ Frozen / Published (9.5/10; tag `phase-b-101-complete`) |
 
-**Merge Metadata 101:** governance `303af68` · feat `0322714` · rollback `before-101-merge` · tag `phase-b-101-complete`
+**Merge Metadata 101:** governance `303af68` · feat `0322714` · tip `847f9bc` · rollback `before-101-merge` · tag `phase-b-101-complete` (origin)
 
 ## Module 101 — Frozen Snapshot (B.1)
 
@@ -75,13 +75,11 @@ Current reality:
 - Frozen Core Platform 001–016: **immutable except defects**.
 - Do not expand process/workflow documentation.
 - Untracked preload build artifacts — do not commit blindly.
-- **Push is a separate authorization** (recommend publishing governance + 101 together).
 
 ## Immediate Next Actions
 
-1. **Stop.** 101 B.1 merge milestone complete locally.
-2. Optional next authorizations (choose one, explicit only):
-   - Push Phase B.1 milestone (`main` + tags) to origin
+1. **Stop.** Phase B.1 publication milestone complete.
+2. Optional next authorization (explicit only):
    - Begin Module **102** (Scope Guard → Manifest Resolver first)
 3. Do not implement 102+ without manifest + Layer 4 + authorization.
 

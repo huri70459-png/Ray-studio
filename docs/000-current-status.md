@@ -1,7 +1,7 @@
 # 000 — Current Status (Complete Project Information)
 
 **Status:** Living Reference (Sprint 1)
-**Date:** 2026-07-10 (Phase A published; Module 101 Phase B.1 merged/frozen locally; tag phase-b-101-complete)
+**Date:** 2026-07-10 (Phase A published; Module 101 Phase B.1 published/frozen; tag phase-b-101-complete)
 **Project:** Ray Studio
 **Location:** F:\Projects\Ray-studio Creations\Ray Studio
 **Version:** 0.1.0 (monorepo foundation)
@@ -20,7 +20,7 @@ Governed by the **Ray Studio Engineering Constitution v1.0.0** (root file, perma
 
 ## For Implementation Agents (Read This First After AGENTS.md)
 
-**Current Execution Phase:** Sprint 1 — Phase A **complete and published**. Phase B.1 Module **101 Context Engine complete and frozen** (local). nextModule **102** — not authorized.
+**Current Execution Phase:** Sprint 1 — Phase A **complete and published**. Phase B.1 Module **101 Context Engine complete, frozen, and published**. nextModule **102** — not authorized.
 
 **Frozen Architectural Baselines** (do not modify without ADR):
 
@@ -51,7 +51,7 @@ Governed by the **Ray Studio Engineering Constitution v1.0.0** (root file, perma
 - 102+ Context Engine submodules, 200-series (Memory), 300-series (Providers), Gateway
 - Anything outside the approved dependency order without authorization
 
-**Recommended Next Action:** Module **101 Phase B.1 is complete** (tag `phase-b-101-complete`, local). Await explicit authorization for **push** and/or **Module 102**. Do not start 102/Memory/Providers/Gateway without Scope Guard + Manifest Resolver. Skills architecture and workflow remain frozen (baseline).
+**Recommended Next Action:** Module **101 Phase B.1 is complete and published** (tag `phase-b-101-complete` on origin). Await explicit authorization for **Module 102**. Do not start 102/Memory/Providers/Gateway without Scope Guard + Manifest Resolver. Skills architecture and workflow remain frozen (baseline).
 
 **Implementation Rules (Deterministic Pipeline)**
 
@@ -77,10 +77,10 @@ Governed by the **Ray Studio Engineering Constitution v1.0.0** (root file, perma
 - Module 009: ✅ Merged (2026-07-08). Merge metadata recorded. Immutable except defect fixes.
 - Module 013 merged (80a4146; tag core-platform-001-013-complete; 10/10). Frozen (immutable except defects). Skills Architecture Freeze in effect.
 - Module 016 Phase 1: **Merged / Frozen** (feat `e499422`; gates `5434af8`; tag `core-platform-001-016-complete`; arch 9.7/10). See `history/016.md`.
-- Module 101 Phase B.1: **Merged / Frozen** (feat `0322714`; governance `303af68`; tag `phase-b-101-complete`; rollback `before-101-merge`; arch 9.5/10). Ports-first orchestrator only. Core tests **48/48**. See `history/101.md`.
+- Module 101 Phase B.1: **Merged / Frozen / Published** (feat `0322714`; governance `303af68`; tag `phase-b-101-complete` on origin; rollback `before-101-merge`; arch 9.5/10). Ports-first orchestrator only. Core tests **48/48**. See `history/101.md`.
 - Driver note: `node:sqlite` via `process.getBuiltinModule` (stdlib). Electron 31 host may lack runtime SQLite → `DB_UNAVAILABLE` path documented; Phase 2 adapter if needed.
 - Graph / Memory: Not yet populated; 101 uses Null/Fake ports only (no live graph).
-- Git: Phase A published on origin. Phase B.1 commits **local only** (`main` ahead of origin). See `docs/handoff.md`.
+- Git: Phase A and Phase B.1 **published** on origin (`main` + `phase-b-101-complete`). See `docs/handoff.md`.
 
 See full details below and the assessment order document.
 
@@ -97,7 +97,7 @@ See full details below and the assessment order document.
 | 016 SQLite Layer        | ✅ Merged / Frozen (e499422; tag core-platform-001-016-complete; 9.7/10) |
 | 101 Context Engine B.1  | ✅ Merged / Frozen (0322714; tag phase-b-101-complete; 9.5/10)          |
 
-Phase A Core Platform **complete and frozen**. Phase B.1 Context Engine orchestrator **complete and frozen** (local). **Do not start 102+ / Memory / Providers without explicit authorization.**
+Phase A Core Platform **complete and frozen**. Phase B.1 Context Engine orchestrator **complete, frozen, and published**. **Do not start 102+ / Memory / Providers without explicit authorization.**
 
 **Latest Architecture & Implementation Review (2026-07-08)**
 
