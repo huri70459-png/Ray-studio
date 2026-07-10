@@ -1,7 +1,7 @@
 # 000 — Current Status (Complete Project Information)
 
 **Status:** Living Reference (Sprint 1)
-**Date:** 2026-07-10 (Phase A + Phase B.1 published/frozen; clean entry for next session; tag phase-b-101-complete)
+**Date:** 2026-07-11 (Phase A + 101 B.1 published; Phase B.2 D1 decided; Module 103 published/frozen; tag phase-b2-103-complete)
 **Project:** Ray Studio
 **Location:** F:\Projects\Ray-studio Creations\Ray Studio
 **Version:** 0.1.0 (monorepo foundation)
@@ -20,20 +20,20 @@ Governed by the **Ray Studio Engineering Constitution v1.0.0** (root file, perma
 
 ## For Implementation Agents (Read This First After AGENTS.md)
 
-**Current Execution Phase:** Sprint 1 — Phase A **complete and published**. Phase B.1 Module **101 Context Engine complete, frozen, and published**. **Active module: none.** nextModule **102** — not authorized. New session: start at `docs/handoff.md`.
+**Current Execution Phase:** Sprint 1 — Phase A **complete and published**. Phase B.1 Module **101** complete, frozen, published. Phase B.2 strategy **D1 recorded**. Module **103 Tree-sitter Parser published and frozen** (`35396af`; tag `phase-b2-103-complete`). **Active module: none.** nextModule **104** — planning label only, **not authorized**. D1 order: 103 ✅ → 104 → 105-slice → 102 → 101 live adapters. New session: start at `docs/handoff.md`, then `docs/phase-b2-sequencing-decision.md`.
 
 **Frozen Architectural Baselines** (do not modify without ADR):
 
 - Ray Studio Engineering Constitution.md
 - AGENTS.md
 - implementation-manifests/
-- prompts/modules/ (Core Platform specs + accepted 101 Ready package)
+- prompts/modules/ (Core Platform specs + accepted 101 / 103 Ready packages)
 - prompts/templates/
 - docs/00x (foundational docs)
 - Roadmap / assessment order
-- Modules 001, 009–013, 016, **101 B.1** (immutable except defects)
+- Modules 001, 009–013, 016, **101 B.1**, **103** (immutable except defects)
 
-**Core Platform + Phase B.1 Status**
+**Core Platform + Phase B Status**
 
 | Module                  | Spec Status           | Validation | Next Action                                                                             | Touch?         |
 | ----------------------- | --------------------- | ---------- | --------------------------------------------------------------------------------------- | -------------- |
@@ -45,13 +45,14 @@ Governed by the **Ray Studio Engineering Constitution v1.0.0** (root file, perma
 | 013 IPC Framework       | Architecture Approved | Exists     | ✅ Merged (80a4146; 10/10; Frozen)                                                      | No (immutable) |
 | 016 SQLite Layer        | Architecture Approved | Exists     | ✅ Merged/Frozen (e499422; 9.7/10; tag core-platform-001-016-complete)                  | No (immutable) |
 | 101 Context Engine B.1  | Ready                 | Exists     | ✅ Merged/Frozen (0322714; 9.5/10; tag phase-b-101-complete)                            | No (immutable) |
+| 103 Tree-sitter Parser  | Ready                 | Exists     | ✅ Published/Frozen (35396af; 10/10 gates; tag phase-b2-103-complete)                   | No (immutable) |
 
 **Do NOT touch yet** (higher layers, non-approved, or out of sequence):
 
-- 102+ Context Engine submodules, 200-series (Memory), 300-series (Providers), Gateway
-- Anything outside the approved dependency order without authorization
+- 102, **104**, 105, 200-series (Memory), 300-series (Providers), Gateway
+- Anything outside the approved D1 order without authorization
 
-**Recommended Next Action (new session):** (1) Read `docs/handoff.md`. (2) Confirm `main` clean and synced; tag `phase-b-101-complete` on origin. (3) Await explicit authorization for **Module 102** (or other). Do not start 102/Memory/Providers/Gateway without Scope Guard + Manifest Resolver. Skills architecture and workflow remain frozen (baseline).
+**Recommended Next Action (new session):** (1) Read `docs/handoff.md` + `docs/phase-b2-sequencing-decision.md`. (2) Confirm `main` includes `35396af`; tag `phase-b2-103-complete` on origin. (3) Await **explicit Module 104 governance authorization** (Ready + Layer 4 + manifest only). Prefer feature branch for 104+. (4) Do **not** start 104 implementation, 102/105, Memory, or Providers without separate auth. Skills architecture and workflow remain frozen (baseline).
 
 **Implementation Rules (Deterministic Pipeline)**
 
@@ -78,9 +79,11 @@ Governed by the **Ray Studio Engineering Constitution v1.0.0** (root file, perma
 - Module 013 merged (80a4146; tag core-platform-001-013-complete; 10/10). Frozen (immutable except defects). Skills Architecture Freeze in effect.
 - Module 016 Phase 1: **Merged / Frozen** (feat `e499422`; gates `5434af8`; tag `core-platform-001-016-complete`; arch 9.7/10). See `history/016.md`.
 - Module 101 Phase B.1: **Merged / Frozen / Published** (feat `0322714`; governance `303af68`; tag `phase-b-101-complete` on origin; rollback `before-101-merge`; arch 9.5/10). Ports-first orchestrator only. Core tests **48/48**. See `history/101.md`.
+- Phase B.2 sequencing: **D1 recorded** in `docs/phase-b2-sequencing-decision.md` (103 → 104 → 105-slice → 102 → 101 adapters). Advisory proposal remains **FROZEN** and is not the decision source.
+- Module 103 Phase B.2: **Published / Frozen** (feat `35396af` on `main`; tag `phase-b2-103-complete` on origin; Arch PASS; Merge Readiness APPROVED; ingestion tests **16/16**; core **48/48**). Package `@ray-studio/ingestion`. See `history/103.md`.
 - Driver note: `node:sqlite` via `process.getBuiltinModule` (stdlib). Electron 31 host may lack runtime SQLite → `DB_UNAVAILABLE` path documented; Phase 2 adapter if needed.
-- Graph / Memory: Not yet populated; 101 uses Null/Fake ports only (no live graph).
-- Git: Phase A and Phase B.1 **published** on origin (`main` @ `9a46912` + tag `phase-b-101-complete` @ `847f9bc`). Working tree expected **clean**. See `docs/handoff.md` for new-session resume.
+- Graph / Memory: Not yet populated; 101 uses Null/Fake ports only (no live graph). 103 does not own graph storage.
+- Git: Phase A, Phase B.1, and Module **103** **published** on origin (`35396af` + tag `phase-b2-103-complete`). Working tree may hold **uncommitted** `planrev.md` + untracked sequencing proposal. See `docs/handoff.md` for new-session resume.
 
 See full details below and the assessment order document.
 
@@ -96,8 +99,9 @@ See full details below and the assessment order document.
 | 013 IPC Framework       | ✅ Merged / Frozen (80a4146; tag core-platform-001-013-complete; 10/10) |
 | 016 SQLite Layer        | ✅ Merged / Frozen (e499422; tag core-platform-001-016-complete; 9.7/10) |
 | 101 Context Engine B.1  | ✅ Merged / Frozen (0322714; tag phase-b-101-complete; 9.5/10)          |
+| 103 Tree-sitter Parser  | ✅ Published / Frozen (35396af; tag phase-b2-103-complete; 10/10 gates) |
 
-Phase A Core Platform **complete and frozen**. Phase B.1 Context Engine orchestrator **complete, frozen, and published**. **Do not start 102+ / Memory / Providers without explicit authorization.**
+Phase A Core Platform **complete and frozen**. Phase B.1 Context Engine orchestrator **complete, frozen, and published**. Phase B.2 **D1 decided**; Module **103 complete, frozen, and published**. **Do not start 104 / 102 / 105 / Memory / Providers without explicit authorization.**
 
 **Latest Architecture & Implementation Review (2026-07-08)**
 
