@@ -8,7 +8,7 @@
   "checkpointTag": "phase-b-101-complete",
   "module013Status": "✅ Merged (10/10). Commit 80a4146; tag core-platform-001-013-complete; immutable except defects. (2026-07-10)",
   "module016Status": "✅ Merged / Frozen (9.7/10 Arch PASS). Commit e499422; gate 5434af8; tag core-platform-001-016-complete; rollback before-016-merge. Phase 1 only. Immutable except defects. Phase 2 (consumer/backup/adapter) deferred. (2026-07-10)",
-  "module101Status": "✅ Merged / Frozen B.1 (9.5/10 Arch PASS). Commit 0322714; governance 303af68; tag phase-b-101-complete; rollback before-101-merge @ 303af68. Ports-first orchestrator only. Immutable except defects. (2026-07-10)",
+  "module101Status": "✅ Merged / Frozen B.1 (9.5/10 Arch PASS). Commit 0322714; governance 303af68; finalize cc86c74; tag phase-b-101-complete; rollback before-101-merge @ 303af68. Ports-first orchestrator only. Immutable except defects. (2026-07-10)",
   "architectureFrozen": true,
   "corePlatformSpecsFrozen": true,
   "skillsArchitectureFrozen": true,
