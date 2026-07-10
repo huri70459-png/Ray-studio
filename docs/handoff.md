@@ -3,11 +3,34 @@
 **Project:** Ray Studio  
 **Date:** 2026-07-11  
 **Status:** Phase A + 101 B.1 published · **Phase B.2 D1 decided** · **Module 103 published/frozen** · no active module  
-**Last Updated By:** Grok (Module 103 publication + freeze)  
-**Git HEAD (status finalize tip):** `7ef5c84` on `main`  
+**Last Updated By:** Grok (full project / session / handoff pin after 103 freeze)  
+**Git HEAD (committed tip):** `3446e38` on `main` (= `origin/main` at pin time)  
 **Feature commit (tag target):** `35396af`  
 **Checkpoint tag:** `phase-b2-103-complete` @ `35396af`  
-**Working tree:** may hold uncommitted `planrev.md` + untracked frozen proposal — leave outside 103 finalize unless owner requests
+**Session notes:** `session/20260711_032137/`  
+**Working tree:** **dirty** — `planrev.md` (modified, frozen); `phase-b2-sequencing-decision-proposal.md` (untracked, FROZEN advisory)
+
+---
+
+## Current Deterministic Gate
+
+```
+✓ Sequencing Decision (D1)
+✓ Governance Package (103)
+✓ Governance Verification
+✓ Production Implementation
+✓ Architecture Review
+✓ Merge Readiness
+✓ Local Commit (35396af)
+✓ Publication (origin/main)
+✓ Checkpoint Tag (phase-b2-103-complete)
+✓ History / Status Synchronization
+✓ Module 103 Freeze
+
+→ Awaiting Module 104 Governance Authorization
+```
+
+**Engineering vs Git:** Merge Readiness was an engineering gate only. 103 was committed **directly on `main`** (no feature-branch merge). Prefer `feature/module-104-*` from Module 104 onward.
 
 ---
 
@@ -17,9 +40,9 @@
 2. Read **this file** (`docs/handoff.md`).
 3. Skim **docs/000-current-status.md** + **project-status.json**.
 4. Read **docs/phase-b2-sequencing-decision.md** (D1 — official Phase B.2 order).
-5. Optionally skim **planrev.md** (canonical Phase B governance reference — **immutable**).
-6. Confirm git: `main` includes `35396af`; tag `phase-b2-103-complete` @ `35396af` on origin.
-7. **Do not code.** **Do not** start Module **104** governance or implementation without **explicit new authorization**. Prefer `feature/module-104-*` for future work.
+5. Optionally skim **history/103.md** and **session/20260711_032137/handoff.md**.
+6. Confirm git (see Quick Verify below).
+7. **Do not code.** **Do not** start Module **104** governance or implementation without **explicit new authorization**.
 
 **Active module:** none  
 **nextModule:** `104` — planning label only (**not** authorized)  
@@ -37,19 +60,21 @@
 | Phase A Core Platform (001–013, 016) | Merged / Frozen / Published · tag `core-platform-001-016-complete` |
 | Module 101 Phase B.1 Context Engine | Merged / Frozen / Published · tag `phase-b-101-complete` |
 | Phase B.2 sequencing decision (D1) | **Recorded** · `docs/phase-b2-sequencing-decision.md` |
-| Module 103 Tree-sitter Parser | **Published / Frozen** · commit `35396af` · tag `phase-b2-103-complete` |
+| Module 103 Tree-sitter Parser | **Published / Frozen** · feature `35396af` · tag `phase-b2-103-complete` · tip `3446e38` |
 | Plan review → `planrev.md` | **FROZEN** canonical Phase B governance reference |
 | Sequencing proposal | **FROZEN** advisory only (`phase-b2-sequencing-decision-proposal.md`) |
 
-**103 key references**
+**103 commit chain**
 
-| Role | Value |
-|------|--------|
-| Feature commit (published) | `35396af` |
-| Checkpoint tag | `phase-b2-103-complete` |
+| Role | Hash |
+|------|------|
+| Feature (published; tag target) | `35396af` |
+| Finalize (status / history freeze) | `7ef5c84` |
+| Hash pin | `3446e38` |
+| Checkpoint tag | `phase-b2-103-complete` @ `35396af` |
 | Package | `@ray-studio/ingestion` |
 | History | `history/103.md` |
-| Implementation report | `history/103-implementation-completion.md` |
+| Pre-freeze impl report | `history/103-implementation-completion.md` |
 | Spec / L4 / manifest | `prompts/modules/103-…`, `prompts/validation/103-…`, `implementation-manifests/103-…` |
 | Governance package | `docs/governance/103/**` |
 
@@ -58,16 +83,18 @@
 - Domain: `packages/ingestion/src/parser/**` (+ package root)
 - API: language-agnostic `createTreeSitterParser` / parse / incremental / query / position
 - Languages: ts, tsx, js, jsx, python
+- Runtime: `web-tree-sitter@0.22.4` + `tree-sitter-wasms` (0.26 ABI-incompatible)
 - No `@ray-studio/core`, no IPC, no graph storage, no Core Platform mutation
 
 ---
 
-## Local Uncommitted Artifacts (if present)
+## Local Uncommitted Artifacts
 
 | Path | Git | Role |
 |------|-----|------|
-| `planrev.md` | Often **Modified** (uncommitted) | Frozen baseline; do not edit further unless owner reopens freeze |
-| `phase-b2-sequencing-decision-proposal.md` | Often **Untracked** | **FROZEN** advisory proposal; decision source is `docs/phase-b2-sequencing-decision.md` |
+| `planrev.md` | **Modified** (uncommitted) | Frozen baseline; do not edit unless owner reopens freeze |
+| `phase-b2-sequencing-decision-proposal.md` | **Untracked** | **FROZEN** advisory; decision source is `docs/phase-b2-sequencing-decision.md` |
+| `session/**` | Usually gitignored / local | Agent session memory only |
 
 ---
 
@@ -83,7 +110,7 @@
 | Module 104 implementation | **Not authorized** |
 | Modules 102 / 105 / 201 / 301 | **Not authorized** |
 
-**Branching recommendation (104+):** implement on `feature/module-104-…`, then Architecture Review → Merge Readiness → merge into `main` → push → tag → status sync.
+**Branching recommendation (104+):** implement on `feature/module-104-…` → Architecture Review → Merge Readiness → merge into `main` → push → tag → status sync.
 
 ---
 
@@ -125,13 +152,13 @@
 7. **`planrev.md` is the frozen Phase B governance baseline**.
 8. **Phase B.2 strategy = D1** (`docs/phase-b2-sequencing-decision.md`).
 9. Sequencing ownership: **project owner / architecture governance only**.
-10. **103 committed on main** — no Git merge step; Merge Readiness was engineering-only. Prefer feature branches from 104 onward.
+10. **103 committed on main** — no Git merge step. Prefer feature branches from 104 onward.
 
 ---
 
 ## Immediate Next Actions (Next Session)
 
-1. Verify git (`status`, HEAD, tags `phase-b2-103-complete` / `phase-b-101-complete`).
+1. Verify git (`status`, HEAD `3446e38` or later docs tip, tag `phase-b2-103-complete`).
 2. **Wait for explicit owner authorization** of **Module 104 governance** (or other explicit task).
 3. After 104 governance auth: produce Ready + Layer 4 + manifest only; stop for verification.
 4. Implementation remains a **separate** later authorization (Scope Guard → Manifest Resolver). Prefer feature branch.
@@ -144,8 +171,23 @@
 - Do not treat chat history or `session/` notes as sole truth — verify against git + these docs + D1 decision.
 - Do not treat `nextModule: "104"` as permission to start 104.
 - Do not expand 103 into symbol extraction or graph ownership.
+- Prior session `session/20260710_232924/` is **stale** (pre-commit); use `session/20260711_032137/`.
 - Do not commit untracked preload build artifacts under `apps/studio/electron-main/`.
 - Tag `phase-b2-103-complete` pins engineering tip `35396af`; later commits on `main` may be docs-only after the tag.
+
+---
+
+## Quick Verify
+
+```powershell
+cd "F:\Projects\Ray-studio Creations\Ray Studio"
+git status -sb
+git log -4 --oneline
+git rev-parse --short HEAD origin/main
+git show phase-b2-103-complete --no-patch --format="%h %s"
+```
+
+Expected: `main` = `origin/main`; tag at `35396af`; dirty only `planrev.md` + untracked proposal (unless owner cleaned).
 
 ---
 
@@ -164,5 +206,6 @@
 - `prompts/validation/103-tree-sitter-parser.validation.md`
 - `docs/governance/103/**`
 - `packages/ingestion/**`
+- `session/20260711_032137/`
 
 **End of handoff.**

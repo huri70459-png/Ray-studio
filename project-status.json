@@ -48,14 +48,16 @@
   "module012Status": "✅ Merged (10/10). Commit 20673bf; tag core-platform-001-012-complete; immutable except defects. (2026-07-08)",
   "sessionHandoff": {
     "date": "2026-07-11",
-    "gitHead": "7ef5c84",
+    "gitHead": "3446e38",
     "featureCommit": "35396af",
+    "finalizeCommit": "7ef5c84",
+    "pinCommit": "3446e38",
     "branch": "main",
     "pushed": true,
     "remote": "origin",
     "defaultBranch": "main",
     "activeWork": "none — Module 103 published/frozen; await explicit Module 104 governance authorization",
-    "workingTree": "may be dirty — planrev.md modified (frozen baseline, uncommitted); phase-b2-sequencing-decision-proposal.md untracked FROZEN; do not stage without owner request",
+    "workingTree": "dirty — planrev.md modified (frozen baseline, uncommitted); phase-b2-sequencing-decision-proposal.md untracked FROZEN; do not stage without owner request",
     "activeModule": null,
     "phaseBPublished": true,
     "phaseB2Sequencing": "decided — D1 (docs/phase-b2-sequencing-decision.md); order 103→104→105-slice→102→101-adapters",
@@ -67,6 +69,8 @@
     "checkpointTag": "phase-b2-103-complete",
     "milestoneTagAt": "35396af",
     "priorCheckpointTag": "phase-b-101-complete",
+    "sessionDir": "session/20260711_032137",
+    "pipelinePosition": "103 freeze complete → await 104 governance authorization",
     "nextGate": "Owner authorization for Module 104 governance package only (Ready + Layer 4 + manifest). Prefer feature/module-104-* branch for implementation. No 104 production code without separate impl auth. Do not start 102/105/201/301.",
     "resumeOrder": [
       "AGENTS.md",
@@ -75,6 +79,7 @@
       "project-status.json",
       "docs/phase-b2-sequencing-decision.md",
       "history/103.md",
+      "session/20260711_032137/handoff.md",
       "planrev.md"
     ],
     "doNotStart": [
@@ -205,12 +210,13 @@
       "architecture_score": "10/10",
       "commit": "35396afa01d5233e8be0425af6ef7d1bdc46d2cd",
       "finalize_commit": "7ef5c844f7bb3a68c5b4dae63e10a0464e4f09cb",
+      "pin_commit": "3446e3841998c2533a05ca53947694dfa1036ff2",
       "tag": "phase-b2-103-complete",
       "branch_strategy": "committed directly on main (no feature-branch merge)",
       "slice": "B.2-foundation-parser",
       "package": "@ray-studio/ingestion",
       "sequencing": "D1",
-      "note": "Phase B.2 Tree-sitter Parser foundation. Language-agnostic public API. web-tree-sitter 0.22.4 + tree-sitter-wasms. Zero @ray-studio/core. nextModule 104 is planning label only — requires separate governance authorization. Published to origin (main + phase-b2-103-complete)."
+      "note": "Phase B.2 Tree-sitter Parser foundation. Language-agnostic public API. web-tree-sitter 0.22.4 + tree-sitter-wasms. Zero @ray-studio/core. nextModule 104 is planning label only — requires separate governance authorization. Published to origin (main + phase-b2-103-complete). Status tip after pin: 3446e38."
     }
   },
   "phaseAPublished": true,

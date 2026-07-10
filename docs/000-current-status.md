@@ -52,7 +52,7 @@ Governed by the **Ray Studio Engineering Constitution v1.0.0** (root file, perma
 - 102, **104**, 105, 200-series (Memory), 300-series (Providers), Gateway
 - Anything outside the approved D1 order without authorization
 
-**Recommended Next Action (new session):** (1) Read `docs/handoff.md` + `docs/phase-b2-sequencing-decision.md`. (2) Confirm `main` includes `35396af`; tag `phase-b2-103-complete` on origin. (3) Await **explicit Module 104 governance authorization** (Ready + Layer 4 + manifest only). Prefer feature branch for 104+. (4) Do **not** start 104 implementation, 102/105, Memory, or Providers without separate auth. Skills architecture and workflow remain frozen (baseline).
+**Recommended Next Action (new session):** (1) Read `docs/handoff.md` + `docs/phase-b2-sequencing-decision.md`. (2) Confirm `main` = `origin/main` (tip ~`3446e38` or later docs pin); feature `35396af`; tag `phase-b2-103-complete` on origin. (3) Await **explicit Module 104 governance authorization** (Ready + Layer 4 + manifest only). Prefer feature branch for 104+. (4) Do **not** start 104 implementation, 102/105, Memory, or Providers without separate auth. Skills architecture and workflow remain frozen (baseline). Session notes: `session/20260711_032137/`.
 
 **Implementation Rules (Deterministic Pipeline)**
 
@@ -83,7 +83,7 @@ Governed by the **Ray Studio Engineering Constitution v1.0.0** (root file, perma
 - Module 103 Phase B.2: **Published / Frozen** (feat `35396af` on `main`; tag `phase-b2-103-complete` on origin; Arch PASS; Merge Readiness APPROVED; ingestion tests **16/16**; core **48/48**). Package `@ray-studio/ingestion`. See `history/103.md`.
 - Driver note: `node:sqlite` via `process.getBuiltinModule` (stdlib). Electron 31 host may lack runtime SQLite → `DB_UNAVAILABLE` path documented; Phase 2 adapter if needed.
 - Graph / Memory: Not yet populated; 101 uses Null/Fake ports only (no live graph). 103 does not own graph storage.
-- Git: Phase A, Phase B.1, and Module **103** **published** on origin (`35396af` + tag `phase-b2-103-complete`). Working tree may hold **uncommitted** `planrev.md` + untracked sequencing proposal. See `docs/handoff.md` for new-session resume.
+- Git: Phase A, Phase B.1, and Module **103** **published** on origin. Feature `35396af`; tag `phase-b2-103-complete` @ `35396af`; status tip `3446e38` (finalize `7ef5c84` + pin). Working tree may hold **uncommitted** `planrev.md` + untracked sequencing proposal. See `docs/handoff.md` for new-session resume.
 
 See full details below and the assessment order document.
 
