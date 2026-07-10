@@ -1,495 +1,275 @@
-# Plan Review — Ray Studio Skills Architecture + Module 013 IPC Framework
+# Plan: Resume Module 016 SQLite — Validate → Review → Merge → Freeze
 
-**Document Version:** 1.0
-**Review Status:** Final
-**Supersedes:** Previous Plan Review (2026-07-08)
-**Date:** 2026-07-08
-**Status:** ✅ Approved (10/10) — Final
-**Reviewer Context:** Skills refinement plan + post-012 handoff
-**Prepared for:** Review / Handoff / Archival
+**Exported:** 2026-07-10
+**Source session plan:** resume compact handoff · Module 016 Phase 1 gates
+**Repo:** `F:\Projects\Ray-studio Creations\Ray Studio`
+**HEAD (at plan):** `main` @ `8074b3d` · tag `core-platform-001-013-complete` · not pushed
 
 ---
 
-## Repository Checkpoint
+## Context
 
-**Current Active Module:** 013 IPC Framework (Contract-first Phase 1 complete)
-**Last Frozen Module:** 012 File Watcher (10/10, tag: core-platform-001-012-complete)
-**Checkpoint Tag:** core-platform-001-012-complete
-**Current Branch:** main
-**Next Expected Action:** Architecture review → Validation → Merge Readiness for 013
+Ray Studio Sprint 1 / Phase A. Modules **001–013 are frozen** (`main` @ `8074b3d`, tag `core-platform-001-013-complete`, not pushed). **Sole active module is 016 SQLite Layer.**
 
----
+Phase 1 implementation is already in the working tree (**uncommitted**, not Layer-4 validated, not merged):
 
-## Executive Summary
+| Area          | Paths                                                                                                     |
+| ------------- | --------------------------------------------------------------------------------------------------------- |
+| Domain        | `packages/core/src/db/**` (13 files: connection, migrations, repos, service, transactions, errors, tests) |
+| IPC contracts | `packages/core/src/ipc/contracts/index.ts` (`db:*@1.0`)                                                   |
+| Exports       | `packages/core/src/index.ts`                                                                              |
+| Studio wiring | `apps/studio/electron-main/main.ts` (handlers + userData DB path + `db` capability)                       |
+| Status docs   | `docs/handoff.md`, `docs/000-current-status.md`, `project-status.json` (synced to handoff state)          |
+| Lockfile      | `pnpm-lock.yaml` (may include noise from earlier native-driver attempts)                                  |
 
-**Current State**
+**Driver decision (already made):** Node `node:sqlite` via `process.getBuiltinModule` (no better-sqlite3; native rebuild failed). Electron 31 may lack runtime SQLite → `DB_UNAVAILABLE` path is intentional Phase 1 ceiling.
 
-- Skills Architecture Review: ✅ **Approved 10/10**
-- Module 013 IPC Framework: Contract-first Phase 1 complete (core gates green)
-- Repository is at the transition from infrastructure setup into production module delivery
+**Goal of this session:** Finish the proven pipeline for 016 only — re-verify gates → Layer 4 validation → architecture (+ IPC) review → merge-readiness → independent merge sequence → post-merge freeze. **Do not** implement Phase 2 (consumer swap, backup, perf CI), 101+, Memory, or Providers.
 
-**Key Decisions Captured**
-
-- Skills architecture is frozen
-- Focus must shift to production modules only (013 → 016 → Phase B)
-- Deterministic workflow (Scope Guard + Manifest Resolver + Implementation) is proven
-
-**Recommendation (from review)**: Treat skills as production infrastructure. Only extend when a recurring need appears across modules.
-
-Everything is consistent for clean continuation.
+Truth sources (do not trust prior chat alone): `docs/handoff.md`, `project-status.json`, `docs/000-current-status.md`, Constitution, git.
 
 ---
 
-## Project Maturity Snapshot
-
-| Area                       | Status            |
-| -------------------------- | ----------------- |
-| Engineering Constitution   | Frozen            |
-| Core Platform Architecture | Frozen            |
-| Skills Architecture        | Frozen            |
-| Deterministic Workflow     | Proven            |
-| Merge Governance           | Proven            |
-| Core Platform              | Module 013 Active |
-| Context Engine             | Not Started       |
-| Memory / Provider Layers   | Not Started       |
-
----
-
-## 1. Skills Architecture Review — Detailed Verdict
-
-### 1.1 Manifest Resolver
-
-**Verdict: Excellent addition.**
-
-- Before: Implementation skill had to discover + parse manifest + load docs itself (high nondeterminism).
-- After: Clean separation:
-  ```
-  Manifest Resolver
-    ↓
-  Context Package (required/optional/forbidden + frozen baselines)
-    ↓
-  Implementation Skill
-    ↓
-  Focused coding only
-  ```
-- Approved.
-
-### 1.2 Post-Merge Finalizer
-
-**Verdict: Correct separation.**
-
-Previous mixed concerns (decision + execution + updates).
-New flow:
-
-```
-Merge Readiness
-  ↓
-Merge + Checkpoint
-  ↓
-Post-Merge Finalizer
-  ↓
-Freeze Module + Activate Next
-```
-
-Cleaner, automatable. Approved.
-
-### 1.3 Dependency Boundary Checker
-
-**Verdict: Highest long-term value.**
-
-Will catch:
-
-- Forbidden imports
-- Dependency inversion violations
-- Cyclic dependencies
-- Bypassing IPC / File System Service / SQLite
-- Layer violations
-
-More valuable than generic code review for this architecture. Approved.
-
-### 1.4 Phased README + Review vs Repair Distinction + Skill Naming
-
-All strongly approved:
-
-- Staged rollout (Phase 1–5) prevents over-automation.
-- Strict separation: Review skills = analyze/report/recommend (never modify). Repair skills = implement/fix/rerun validation.
-- Leading names (e.g. "Validation Runner", "Documentation Synchronizer") improve clarity.
-
-### 1.5 Minor Recommendation (not blocking)
-
-Add small metadata block to every skill for future orchestration (humans + Ray Studio itself):
-
-```yaml
-name: module-implementation
-type: implementation
-phase: 1
-modifies_repository: true
-requires_manifest: true
-review_only: false
-entry_point: manifest-resolver
-outputs:
-  - implementation-summary
-  - files-modified
-  - validation-status
-```
-
-**Decision**: Do not delay Module 013. Introduce before skill library grows significantly.
-
-### 1.6 Readiness Assessment
-
-Current state sufficient for:
-
-- Module 013 — IPC Framework (done)
-- Module 016 — SQLite Layer
-- Phase B (Context Engine)
-
-**Final Recommendation**: Freeze skills architecture exactly like the Engineering Constitution and Layer 2 specs (see dedicated **Skill Freeze Policy** section above for actionable rules).
-
-The detailed review findings below document why this decision was made.
-
----
-
-## 2. Module 013 IPC Framework — Contract-first Phase 1 Implementation
-
-**Active Module**: 013 – IPC Framework
-**Phase**: Contract-first only (no full business logic / service wiring)
-**Spec Reference**: `prompts/modules/013-ipc-framework.md` + `prompts/validation/013-ipc-framework.validation.md`
-**Manifest**: `implementation-manifests/013-ipc-framework.json`
-
-### 2.1 Execution Sequence Followed (Deterministic Pipeline)
-
-1. AGENTS.md → docs/000-current-status.md → project-status.json
-2. implementation-manifests/013-ipc-framework.json
-3. Constitution + 013 spec + 013 validation spec
-4. Scope Guard (declaration emitted + respected)
-5. Manifest Resolver (clean context package produced)
-6. Implementation (core only, contract-first)
-
-### 2.2 Scope (Strictly Enforced)
-
-**Allowed**:
-
-- `packages/core/src/ipc/**`
-- `apps/studio/electron-main/**` (IPC wiring + privileged init only)
-- `apps/studio/src/**` (thin shims using contracts only)
-
-**Forbidden** (never touched):
-
-- SQLite / 016
-- Context / Memory / Provider layers
-- Frozen modules (001, 009–012)
-- Ad-hoc channels or error shapes
-- Modifying project-status / handoff / history during impl
-
-### 2.3 Key Deliverables (Phase 1)
-
-- Canonical naming: `<namespace>:<operation>@<major>.<minor>` (enforced in registry + contracts)
-- First-class `ContractRegistry` with ownership + version checks
-- Single `IpcError` envelope (exact shape from spec §15) — **all** boundary failures now use it
-- Explicit validation ordering: **Capability → Schema → Dispatch** (observable)
-- IPC owns timeouts (dispatch uses Promise.race + standard timeout envelope)
-- `IpcBridge` interface (contract for preload/transport)
-- Expanded `IpcClient` + `invokeWithContract` helper + event `on`
-- `createIpcError` used consistently (including in main.ts handlers)
-- Comprehensive tests (25 total) covering FT cases from validation spec
-- CorrelationId, contractVersion, duration logging on paths
-
-### 2.3.1 Not Implemented (Phase 1 Scope)
-
-Explicitly out of scope for this phase:
-
-- SQLite transport or persistence (016)
-- Provider routing / AI invocation contracts
-- Context Engine (101+)
-- Memory Engine (201+)
-- Full business service logic (owned by 009/010/011/012)
-- Additional privileged services beyond the contract surface
-- Capability system beyond narrow grants used in demo
-- Event backpressure / advanced resilience patterns
-- Version negotiation protocol (basic versioning only)
-
-Phase 1 delivers the **contract foundation** only. Higher modules will register their contracts against this framework later.
-
-### 2.4 Files Modified (Minimal Diff)
-
-**Core (primary)**:
-
-- `packages/core/src/ipc/errors.ts`
-- `packages/core/src/ipc/contracts/index.ts`
-- `packages/core/src/ipc/client.ts`
-- `packages/core/src/ipc/server.ts`
-- `packages/core/src/ipc/index.ts`
-- `packages/core/src/ipc/ipc.test.ts`
-
-**Allowed thin updates**:
-
-- `apps/studio/electron-main/main.ts` (error consistency only)
-- `apps/studio/src/fs/useFileSystem.ts`
-- `apps/studio/src/watcher/useFileWatcher.ts`
-- `apps/studio/src/App.tsx` (narrowing for unknown results)
-
-### 2.5 Gates Status (Core Package)
-
-- Build: ✅ (`tsc` clean)
-- Lint: ✅
-- Tests: ✅ (25/25 passed)
-- Typecheck (core): ✅
-- No placeholders / TODOs in 013 areas
-- Error shapes 100% consistent with spec
-- Observability fields present
-
-**Studio full typecheck**: Partial (pre-existing `tsconfig.main.json` rootDir resolution issues when pulling core sources — not introduced by 013 changes).
-
-### 2.6 Architecture / Constitution Compliance
-
-- Follows Constitution §3 (explicit), §7 (IPC standards), §9 (DoD)
-- 013 spec §2, §7, §9, §15, §16 fully addressed in Phase 1
-- Validation spec FT-001 to FT-005 + failure matrix + ordering exercised
-- One-active-module rule respected
-- Ponytail comments used where intentional simplifications exist
-
----
-
-## Known Non-blocking Risks
-
-- Existing `tsconfig.main.json` rootDir resolution warnings when importing `@ray-studio/core` from electron-main (pre-existing structural issue)
-- Browser external / node module warnings in studio build (non-blocking for current phase)
-- Skill metadata (type/phase/modifies_repository) deferred per reviewer guidance — will be added before skill library grows
-- Long default timeout (15s) in IPC server dispatch — conservative for Phase 1; can be tuned per service family later
-
-These are tracked as accepted technical debt and do not block 013 merge.
-
----
-
-## Skill Freeze Policy (per 10/10 review)
-
-**Status:** Skills architecture is now frozen (equivalent to Engineering Constitution and Layer 2 specs).
-
-**Allowed (without ADR):**
-
-- Bug fixes in existing skills
-- Documentation / clarification updates
-- Minor internal improvements that do not change contracts or workflow
-- Adding metadata blocks to skills (as recommended)
-
-**Not Allowed (requires ADR + governance):**
-
-- New mandatory skills
-- Changes to Phase 1 deterministic pipeline (Scope Guard → Manifest Resolver → Implement)
-- Changes to manifest contract (required/optional/forbidden semantics)
-- Changes to core roles (e.g. turning a review-only skill into one that modifies code)
-- Adding new Phase 1 skills
-
-Focus must now shift to delivering production modules.
-
----
-
-## 3. Next Steps (Post This Review)
-
-1. **Architecture Compliance Review** (using `architecture-compliance-review` skill)
-2. **Module Validation** (using `module-validation` skill against Layer 4 spec)
-3. **Merge Readiness** (when all gates green)
-4. Merge + tag + `post-merge-finalizer` skill (updates status, handoff, freezes 013, activates next)
-5. Then 016 (SQLite) or as per `project-status.json`
-
-**Do not**:
-
-- Expand skills tooling further at this time (per freeze recommendation)
-- Begin 016 or higher layers until 013 completes full cycle
-
----
-
-## 4. References
-
-- `Ray Studio Engineering Constitution.md`
-- `AGENTS.md`
-- `docs/handoff.md`
-- `docs/000-current-status.md`
-- `project-status.json`
-- `implementation-manifests/013-ipc-framework.json`
-- `prompts/modules/013-ipc-framework.md`
-- `prompts/validation/013-ipc-framework.validation.md`
-- `.grok/skills/` (scope-guard, manifest-resolver, module-implementation, etc.)
-- `history/` (prior module records)
-
----
-
-**End of Plan Review Document**
-
-This document is structured to separate:
-
-- **Facts** (Repository Checkpoint, Project Maturity, Current State, Implementation Deliverables, Gates)
-- **Recommendations** (Skill Freeze Policy, Not Implemented scope, Risks)
-- **Forward-looking** (Next Steps)
-
-It is suitable as a handoff document, internal review artifact, or archival checkpoint.
-
-All sources are consistent with `project-status.json`, the Engineering Constitution, and the deterministic pipeline.
-
-_Do not edit implementation details here. Use the proper post-merge-finalizer skill + governance process for status / history updates._
-
----
-
-# Session Resume Checkpoint (2026-07-10)
-
-**Document role:** Shareable resume / review-session export (appended; does not supersede the Final 10/10 Plan Review above)  
-**Project:** Ray Studio (`F:\Projects\Ray-studio Creations\Ray Studio`)  
-**Session mode:** Context load only — no implementation, no validation run, no status edits beyond this export  
-**Disposition:** Loaded. Scope Guard + Manifest Resolver re-run. **Waiting for user instruction.**
-
----
-
-## 1. Durable sources read (ordered)
-
-| # | Source | Role |
-|---|--------|------|
-| 1 | `AGENTS.md` | Deterministic pipeline entry |
-| 2 | `docs/handoff.md` | Resume / next actions |
-| 3 | `docs/000-current-status.md` | Living human status |
-| 4 | `project-status.json` | Machine-readable phase / nextModule / mergeMetadata |
-| 5 | `history/013-review.md` | 013 review checkpoint |
-| 6 | `planrev.md` (this file — Final 10/10 body above) | Baseline review template |
-| 7 | `implementation-manifests/013-ipc-framework.json` | Scope contract |
-| 8 | `Ray Studio Engineering Constitution.md` (Layer 1) | Permanent rules (§2–§7 IPC, §9 DoD, §10) |
-| 9 | `prompts/modules/013-ipc-framework.md` | Layer 2 spec |
-| 10 | `prompts/validation/013-ipc-framework.validation.md` | Layer 4 validation |
-| 11 | `prompts/templates/implementation.md` | Layer 3 template (manifest required) |
-| 12 | `.grok/skills/scope-guard` + `manifest-resolver` | Re-run this session |
-
----
-
-## 2. Project state (facts)
-
-| Field | Value |
-|-------|--------|
-| Phase | Phase A — Core Platform (Sprint 1) |
-| Architecture | Frozen (`architectureFrozen: true`) |
-| Checkpoint tag | `core-platform-001-012-complete` |
-| `nextModule` | **013** |
-| 001–012 | ✅ Merged; immutable except defects |
-| 013 | Contract-first Phase 1 **implementation complete**; IPC Contract Review **PASS**; Architecture Compliance **PASS**; **merged: false** |
-| 016 | Architecture approved; **must not start** until 013 full cycle completes |
-| Higher layers (1xx / 2xx / 3xx) | Not started; out of sequence |
-| Skills architecture | Frozen (Skill Freeze Policy — see Final section above) |
-
-**013 Phase 1 deliverables (done):** ContractRegistry, contracts, `IpcError` envelope, validation order (Capability → Schema → Dispatch), IPC-owned timeouts, client/bridge primitives, 25 tests, thin studio wiring.
-
-**Code present:** `packages/core/src/ipc/` (`client`, `server`, `errors`, `registry`, `validation`, `contracts`, `ipc.test.ts`, `transport/electron`).
-
----
-
-## 3. Explicitly not done (013 Phase 1 scope)
-
-- SQLite transport / persistence (**016**)
-- Provider routing / AI contracts
-- Context Engine (101+)
-- Memory Engine (201+)
-- Full business service logic (owned by other modules)
-- Additional privileged services beyond current contracts
-- Advanced resilience (backpressure, etc.)
-- Module Validation (Layer 4) → Merge Readiness → Merge → Post-Merge Finalizer
-
----
-
-## 4. Scope Guard declaration (re-run 2026-07-10)
+## Scope Declaration (Scope Guard)
 
 ```
 Active Module:
-013 IPC Framework
+016 SQLite Layer
 
-Allowed:
-✓ packages/core/src/ipc/**
-✓ apps/studio/electron-main/** (IPC wiring + privileged service init only)
-✓ apps/studio/src/** (thin shims using contracts only — no direct service construction)
+Allowed (edits only if validation/review finds defects):
+✓ packages/core/src/db/**
+✓ packages/core/src/ipc/contracts/index.ts  (db:* contracts only)
+✓ packages/core/src/index.ts               (re-exports only)
+✓ apps/studio/electron-main/**             (db wiring / capability only)
+✓ history/016-*.md                         (gate artifacts at gate time)
+✓ docs/handoff.md, docs/000-current-status.md, project-status.json  (at merge/finalize only)
 
 May Read:
-✓ Ray Studio Engineering Constitution.md
-✓ 013 Specification + Validation Spec
-✓ implementation-manifests/013-ipc-framework.json
-✓ AGENTS.md
-✓ docs/000-current-status.md
-✓ project-status.json
-✓ Relevant history/ and docs/ for context only
-✓ planrev.md, history/013-review.md
+✓ Constitution, AGENTS.md, project-status.json, docs/000-current-status.md, docs/handoff.md
+✓ implementation-manifests/016-sqlite-layer.json
+✓ prompts/modules/016-sqlite-layer.md
+✓ prompts/validation/016-sqlite-layer.validation.md
+✓ prompts/templates/implementation.md
+✓ docs/006-database-architecture.md (optional)
+✓ history/013-*.md (pattern reference)
+✓ Frozen 009–013 surfaces for boundary checks only
 
 Forbidden:
-✗ SQLite / 016 or any DB implementation
-✗ Context Engine (1xx modules)
-✗ Memory / Provider layers
-✗ Any other frozen module code (001, 009–012) except defect fixes under separate authority
-✗ Ad-hoc IPC channel registration outside the registry
-✗ Direct node:fs or watcher in renderer
-✗ Status/history edits except at documented gates (validation → merge-readiness → merge → post-merge-finalizer)
+✗ 101+ / Memory / Providers / process expansion
+✗ Coupling DB to Context Engine or Provider logic
+✗ Replacing InMemory stores in 009/010 (Phase 2)
+✗ Committing apps/studio/electron-main/preload.* build artifacts blindly
+✗ Push to origin without explicit user request
+✗ Expanding workflow/skills/Constitution docs
 ```
 
-**This session is constrained to the declaration above.**
+**Manifest:** `implementation-manifests/016-sqlite-layer.json`
+**dependsOnModules:** 009, 010, 011, 013 (all frozen)
+**forbidden modules:** 101*, 102*, 201*, 301*
+
+This session is constrained to the declaration above.
 
 ---
 
-## 5. Manifest Resolver — context package (re-run 2026-07-10)
+## Recommended Approach
 
-**Active Module:** 013 – IPC Framework  
-**Status:** Implementation complete (contract-first); awaiting Layer 4 validation + merge readiness  
-**Manifest:** `implementation-manifests/013-ipc-framework.json`  
-**dependsOnModules:** `[]`  
-**priority:** critical | **validationRequired:** true
+Follow the **existing proven cadence** (same as 011–013). No process redesign.
 
-**Required (must use for any 013 work):**
-- `prompts/modules/013-ipc-framework.md`
-- `prompts/templates/implementation.md`
-- `prompts/validation/013-ipc-framework.validation.md`
+```
+Re-verify gates
+  → module-validation (Layer 4) → history/016-validation.md
+  → architecture-compliance-review (+ ipc-contract-reviewer + security-review for SQLite)
+       → history/016-arch-review.md (or 016-review.md)
+  → merge-readiness → history/016-merge-readiness.md
+  → Independent merge decision (do not reorder):
+       commit feat 016 → branch before-016-merge → commit gate artifacts
+       → clean tree → FF merge main → tag core-platform-001-016-complete
+       → post-merge-finalizer / documentation-sync → freeze 016
+```
 
-**Optional (load only if needed):**
-- `docs/007-ipc-architecture.md`
-- `docs/010-security.md`
-
-**Forbidden (never touch):**
-- `prompts/modules/101-*`, `102-*`, `201-*`, `301-*`
-- Any 016 / 1xx / 2xx / 3xx implementation
-
-**Frozen baselines:** Constitution, AGENTS.md, manifests, Core Platform specs, docs/00x, roadmap/assessment order
-
-**One Active Module Rule:** Only 013 may be modified until post-merge-finalizer activates the next module.
+**Rejected alternative:** Start Phase 2 consumer integration or 101 Context Engine while 016 is unmerged. Violates one-active-module, assessment order, and handoff Watch Outs.
 
 ---
 
-## 6. Open governance chain for 013
+## Execution Steps
 
-| Step | Status |
-|------|--------|
-| IPC Contract Review | ✅ PASS |
-| Architecture Compliance Review | ✅ PASS |
-| **Module Validation** (Layer 4 — `module-validation` skill) | ⏳ Not run |
-| **Merge Readiness** | ⏳ Pending validation PASS |
-| Merge + tag | ⏳ Pending |
-| **Post-Merge Finalizer** (freeze 013, activate 016, sync status/handoff/history) | ⏳ Pending |
+### 1. Bootstrap (read-only)
 
-**Do not** start 016 or expand skills architecture until 013 full cycle completes.
+- Confirm `project-status.json` → `nextModule: "016"`, HEAD `8074b3d`, dirty tree for 016 paths.
+- Inventory uncommitted set; **exclude** untracked `preload.js` / `preload.d.ts` / maps unless project policy requires them (handoff: treat as build output).
+- Note `pnpm-lock.yaml` delta — only keep if required by Phase 1 deps; drop noise if pure better-sqlite3 experiment residue (verify before commit).
+
+### 2. Re-verify gates (must re-run; prior 35/35 is stale)
+
+From repo root `F:\Projects\Ray-studio Creations\Ray Studio`:
+
+| Gate         | Command (expected)                                                          |
+| ------------ | --------------------------------------------------------------------------- |
+| Core build   | `pnpm --filter @ray-studio/core build`                                      |
+| Core lint    | `pnpm --filter @ray-studio/core lint`                                       |
+| Core test    | `pnpm --filter @ray-studio/core test` → expect **35/35** (10 new 016)       |
+| Studio build | `pnpm --filter @ray-studio/studio build` (or project’s studio package name) |
+| Typecheck    | core `tsc --noEmit`; studio renderer/main as for 013                        |
+
+If red → **build-repair** only within allowed paths. If green → proceed.
+
+### 3. Layer 4 validation (`module-validation`)
+
+Inputs:
+
+- Manifest + `prompts/modules/016-sqlite-layer.md` + `prompts/validation/016-sqlite-layer.validation.md`
+- Constitution §9 DoD
+- Implemented tree + gate evidence
+
+Map FT cases to evidence:
+
+| FT                       | Expected evidence                                                                               |
+| ------------------------ | ----------------------------------------------------------------------------------------------- |
+| FT-001 Boot + migrations | `db.test.ts` memory + file reopen; `MigrationRunner`; schema v1 idempotent                      |
+| FT-002 CRUD via IPC      | repos + contracts `db:project:*`, `db:workspace:*`, `db:config:*`, `db:ingestion:*@1.0`         |
+| FT-003 Scoping           | `DatabaseService.setScope` + `SCOPE_VIOLATION` tests                                            |
+| FT-004 Fast lookups      | unit path; note Phase 1 may mark formal P95 microbench as partial / deferred with justification |
+
+Also check: parameterized SQL only, no renderer sqlite, `dbErrorToIpc` envelope, capability `db`, WAL for file DBs, no graph/raw file content storage.
+
+**Output:** `history/016-validation.md` (mirror structure of `history/013-validation.md`).
+Verdict: Ready for arch review? YES/NO + blockers.
+
+**Phase 1 explicit non-failures** (document, do not expand scope):
+
+- Backup/recovery, consumer swap of InMemory 009/010, measured P95 CI benches, native driver adapter for Electron 31.
+
+### 4. Architecture + IPC + security reviews
+
+Skills (review-only):
+
+- `architecture-compliance-review`
+- `ipc-contract-reviewer` (db namespace ownership, `@1.0` naming, cap → schema → dispatch)
+- `security-review` (SQLite path, no SQL injection, renderer isolation, secrets not logged)
+- Optionally `dependency-boundary-checker` / `constitution-compliance-checker`
+
+**Output:** `history/016-arch-review.md` (or `016-review.md` matching 013 style).
+PASS required before merge-readiness. FAIL → fix only allowed paths → re-gate → re-review.
+
+### 5. Merge readiness
+
+Skill: `merge-readiness`. Produce `history/016-merge-readiness.md`.
+
+Checklist:
+
+- All gates green with fresh evidence
+- Arch + IPC reviews PASS
+- One-active-module respected (diff only 016 surfaces + gate docs)
+- Forbidden higher modules untouched
+- Risks accepted (node:sqlite / Electron 31 ceiling documented)
+- Preload artifacts **not** staged unless intentional
+
+**Merge Approved** only when clean.
+
+### 6. Independent merge sequence (after explicit Approve)
+
+Do **not** reorder:
+
+1. Commit Module 016 implementation (feat message; exclude build junk).
+2. Create rollback branch `before-016-merge` at pre-feat or per 013 pattern (`before-013-merge` pointed at feat commit — match project’s proven pattern for 013).
+3. Commit gate artifacts (`history/016-*.md` if not already with feat).
+4. Verify clean working tree.
+5. Fast-forward on `main` (already on main with uncommitted work — effectively sequential commits on main, same as prior modules).
+6. Tag: `core-platform-001-016-complete`.
+7. Run **post-merge-finalizer** + **documentation-sync**:
+   - `project-status.json` mergeMetadata for 016; freeze 016; set next module only when Phase A complete (likely Phase B / 101 — **do not start implementing 101**)
+   - `history/016.md` summary
+   - Update `docs/000-current-status.md` + `docs/handoff.md`
+8. **Do not push** unless user explicitly requests.
+
+### 7. Stop condition
+
+After freeze: Phase A Core Platform complete for modules 001–016. Handoff should state “016 frozen; next is Phase B only when authorized — do not start 101 until user says so.” Session may end there.
 
 ---
 
-## 7. Recommended next action (when unpaused)
+## Critical Files
 
-1. Confirm Scope Guard + Manifest still match `project-status.json` (`nextModule: "013"`).
-2. Run **`module-validation`** only (review-only; against `013-ipc-framework.validation.md` + DoD).
-3. If PASS → **`merge-readiness`**.
-4. If approved → merge + tag + **`post-merge-finalizer`**.
+### Implementation (already present; touch only on defect)
 
-**Rejected alternative:** Jump to 016 or re-implement 013 without validation.
+- `packages/core/src/db/service.ts` — facade, scope, lifecycle
+- `packages/core/src/db/connection.ts` — open/close, WAL, busy timeout
+- `packages/core/src/db/migrations/**` — `0001_initial`, runner
+- `packages/core/src/db/repositories/*.ts` — workspace, project, config, ingestion
+- `packages/core/src/db/transaction.ts`, `errors.ts`, `types.ts`
+- `packages/core/src/db/db.test.ts` — FT coverage
+- `packages/core/src/ipc/contracts/index.ts` — `db:*@1.0` contracts
+- `apps/studio/electron-main/main.ts` — register handlers + grant capability
+
+### Gate artifacts (to create)
+
+- `history/016-validation.md`
+- `history/016-arch-review.md` (or `016-review.md`)
+- `history/016-merge-readiness.md`
+- `history/016.md` (post-merge)
+
+### Status (finalize only)
+
+- `project-status.json`, `docs/handoff.md`, `docs/000-current-status.md`
+
+### Patterns to reuse
+
+- `history/013-validation.md`, `history/013-review.md`, `history/013-merge-readiness.md`, `history/013.md`
+- 013 merge metadata shape in `project-status.json`
+- `IpcServer` capability/schema/dispatch ordering from packages/core IPC
 
 ---
 
-## 8. Informational doc note (no edit this export)
+## Defect Fix Policy (if gates fail)
 
-One table row in `docs/handoff.md` still says “013 … Next Active (Architecture Approved)” while Immediate Next Actions + `project-status.json` correctly describe Phase 1 complete + awaiting validation/merge. Truth = machine status + Immediate Next Actions. Fix only if requested or at a documentation gate.
+| Class                          | Action                                                               |
+| ------------------------------ | -------------------------------------------------------------------- |
+| Build/lint/test failure in 016 | Fix root cause in `packages/core/src/db/**` or contract wiring only  |
+| Spec gap for Phase 1 AC        | Minimal code fix; re-run tests                                       |
+| Phase 2 feature missing        | Document as deferred — do not implement                              |
+| Frozen module drift            | Stop; report; do not “fix” frozen code unless true defect authorized |
 
 ---
 
-## 9. Session disposition
+## Verification (end-to-end)
 
-- Durable state re-loaded from official locations.
-- Scope Guard + Manifest Resolver re-run and recorded here.
-- **No code changes. No validation executed. No other files modified by this export.**
-- **Waiting for user instruction / review share.**
+1. Fresh gate commands all green (section 2).
+2. Validation report maps every FT + security/IPC checklist item to file/test evidence.
+3. Arch review PASS with no Context/Provider coupling and no renderer SQLite.
+4. `git status` clean after merge sequence; tag `core-platform-001-016-complete` present.
+5. `project-status.json`: 016 merged/frozen; `sessionHandoff` accurate.
+6. Diff audit: no files outside Scope Declaration in the 016 commit set.
 
-**End of Session Resume Checkpoint (2026-07-10)**
+---
+
+## Watch Outs (non-negotiable)
+
+- One active module: **016 only**.
+- No 101+ / Memory / Providers / process expansion.
+- No DB ↔ Context/Provider coupling.
+- Do not commit preload build outputs blindly.
+- Do not push origin without user ask.
+- `constitution:check` pre-existing wiring debt: do not expand process docs to paper over it.
+- Independent merge order must not be reordered once validation passes.
+
+---
+
+## Session Memory (after approval, during execution)
+
+Per nemo-rl-session-memory: create/update `session/<timestamp>/` under Ray Studio or `F:\Projects\session` only if useful; prefer project `docs/handoff.md` as durable truth. Checkpoint after validation report and after merge.
+
+---
+
+## Success Criteria
+
+- [ ] Gates re-verified green on current tree
+- [ ] `history/016-validation.md` PASS (Phase 1)
+- [ ] Architecture + IPC + security review PASS
+- [ ] Merge-readiness **Merge Approved**
+- [ ] Commits + `before-016-merge` + tag `core-platform-001-016-complete`
+- [ ] Post-merge finalizer: 016 frozen in status/handoff/history
+- [ ] No forbidden module work; no push unless requested
+
+---
+
+**End of plan export.** Resume docs: `docs/handoff.md` · `project-status.json` · `docs/000-current-status.md`
