@@ -2,7 +2,7 @@
   "name": "@ray-studio/ingestion",
   "version": "0.1.0",
   "private": true,
-  "description": "Ray Studio ingestion package — Tree-sitter parser (Module 103)",
+  "description": "Ray Studio ingestion package — Tree-sitter parser (103) + Symbol Extractor (104)",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -14,11 +14,12 @@
     "./package.json": "./package.json"
   },
   "scripts": {
-    "build": "tsc -p tsconfig.json",
+    "build": "tsc -p tsconfig.json && node --input-type=module -e \"import { cpSync, mkdirSync, readdirSync } from 'node:fs'; import { join } from 'node:path'; const src=join('src','extractor','queries'); const dst=join('dist','extractor','queries'); mkdirSync(dst,{recursive:true}); for (const f of readdirSync(src)) if (f.endsWith('.scm')) cpSync(join(src,f), join(dst,f));\"",
     "lint": "eslint src --ext .ts",
     "test": "vitest run",
     "clean": "rimraf dist"
   },
+
   "dependencies": {
     "tree-sitter-wasms": "^0.1.13",
     "web-tree-sitter": "^0.22.4"

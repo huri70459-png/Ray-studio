@@ -1,0 +1,23 @@
+/**
+ * Greets a person by name.
+ */
+function greet(name) {
+  return 'hello ' + name;
+}
+
+function add(a, b) {
+  return a + b;
+}
+
+class Counter {
+  constructor() {
+    this.value = 0;
+  }
+
+  inc() {
+    this.value += 1;
+    return this.value;
+  }
+}
+
+module.exports = { greet, add, Counter };

@@ -1,0 +1,52 @@
+{
+  "moduleId": "104",
+  "name": "Symbol Extractor",
+  "required": [
+    "prompts/modules/104-symbol-extractor.md",
+    "prompts/templates/implementation.md",
+    "prompts/validation/104-symbol-extractor.validation.md"
+  ],
+  "optional": [
+    "docs/003-monorepo-architecture.md",
+    "docs/002-system-architecture.md",
+    "docs/phase-b2-sequencing-decision.md",
+    "prompts/modules/103-tree-sitter-parser.md",
+    "prompts/validation/103-tree-sitter-parser.validation.md",
+    "implementation-manifests/103-tree-sitter-parser.json",
+    "docs/governance/103/governance-readiness-summary.md",
+    "history/103.md",
+    "history/101.md",
+    "packages/core/src/context/types.ts"
+  ],
+  "forbidden": [
+    "prompts/modules/102-*.md",
+    "prompts/modules/105-*.md",
+    "prompts/modules/201-*.md",
+    "prompts/modules/301-*.md",
+    "packages/core/src/**",
+    "packages/core/src/context/**",
+    "packages/core/src/db/**",
+    "packages/core/src/ipc/**",
+    "packages/core/src/fs/**",
+    "packages/core/src/watcher/**",
+    "packages/core/src/project/**",
+    "packages/core/src/workspace/**",
+    "apps/studio/**",
+    "packages/gateway/**",
+    "packages/mcp/**"
+  ],
+  "dependsOnModules": ["103"],
+  "notes": "Phase B.2 Symbol Extractor (D1 second target). Own packages/ingestion/src/extractor/** only. Consume frozen 103 public API (SyntaxTree/SyntaxNode/query) — do not re-own or rewrite packages/ingestion/src/parser/** except documented defect fixes under separate 103 auth. Prefer ingestion-local symbol model for B.2 freeze (103 is core-free); Draft §19 'types from core' is optional alignment read of SymbolContext shape only — no packages/core edits, no graph storage (201), no 105 dependency graph, no 102 indexer, no 101 live adapters, no extractor IPC. Layer 4 defines B.2 independent freeze gates; full-spec DoD language about 101/105 integration is deferred consumer work. Implementation not authorized by governance artifacts alone.",
+  "estimatedContextTokens": 7600,
+  "priority": "critical",
+  "implementationOrder": 10,
+  "validationRequired": true,
+  "phase": "B",
+  "implementationSlice": "B.2-symbol-extractor",
+  "allowedWritePaths": [
+    "packages/ingestion/src/extractor/**",
+    "packages/ingestion/src/index.ts",
+    "packages/ingestion/package.json"
+  ],
+  "packageName": "@ray-studio/ingestion"
+}

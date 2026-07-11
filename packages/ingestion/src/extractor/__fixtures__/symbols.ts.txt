@@ -1,0 +1,38 @@
+/**
+ * Greets a person by name.
+ */
+export function greet(name: string): string {
+  return `hello ${name}`;
+}
+
+export function add(a: number, b: number): number {
+  return a + b;
+}
+
+/**
+ * Simple counter class.
+ */
+export class Counter {
+  private value = 0;
+
+  /**
+   * Increment the counter.
+   */
+  inc(): number {
+    this.value += 1;
+    return this.value;
+  }
+
+  dec(): number {
+    this.value -= 1;
+    return this.value;
+  }
+}
+
+export interface Named {
+  name: string;
+}
+
+export type Id = string;
+
+export const MAX = 10;
