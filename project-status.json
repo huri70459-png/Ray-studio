@@ -54,13 +54,14 @@
   "module012Status": "✅ Merged (10/10). Commit 20673bf; tag core-platform-001-012-complete; immutable except defects. (2026-07-08)",
   "sessionHandoff": {
     "date": "2026-07-11",
-    "gitHead": "8f4b56b",
+    "gitHead": "1427ec7",
     "featureCommit": "8ede948",
     "finalizeCommit": "8f4b56b",
     "pinCommit": "3257cdf",
-    "note": "feature 8ede948; finalize 8f4b56b; pin 3257cdf; re-verify with git rev-parse after push",
+    "publishPinCommit": "pending-this-publish-pin",
+    "note": "feature 8ede948; finalize 8f4b56b; pin 3257cdf; main+tag pushed to origin; tip after publish pin — re-verify git rev-parse",
     "branch": "main",
-    "pushed": false,
+    "pushed": true,
     "remote": "origin",
     "defaultBranch": "main",
     "activeWork": "none — Module 105 published/frozen; await explicit Module 102 governance authorization (planning label only)",
@@ -285,8 +286,8 @@
       "sequencing": "D1",
       "depends_on": ["103", "104"],
       "accepted_debt": "R1 — keysByFile multi-file ownership (memory-store.ts); accepted Phase B.2; non-blocking",
-      "published_to_origin": false,
-      "note": "Phase B.2 Dependency Graph slice. In-process edges; computeDelta + apply/query; no Memory Engine 201; consume-only 103+104. nextModule 102 is planning label only — requires separate governance authorization."
+      "published_to_origin": true,
+      "note": "Phase B.2 Dependency Graph slice. In-process edges; computeDelta + apply/query; no Memory Engine 201; consume-only 103+104. Published to origin (main + phase-b2-105-complete). nextModule 102 is planning label only — requires separate governance authorization."
     }
   },
   "phaseAPublished": true,
