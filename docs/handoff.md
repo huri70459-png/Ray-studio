@@ -2,13 +2,13 @@
 
 **Project:** Ray Studio  
 **Date:** 2026-07-11  
-**Status:** Phase A + 101 B.1 published · **Phase B.2 D1** · **Modules 103+104 published/frozen** · no active module  
-**Last Updated By:** Grok (Module 104 publication / post-merge finalizer)  
-**Git:** `main` (verify tip with `git rev-parse --short HEAD`; push may be pending — see Publication)  
+**Status:** Phase A + 101 B.1 published · **Phase B.2 D1** · **Modules 103+104 published/frozen on origin** · no active module  
+**Last Updated By:** Grok (docs / status / handoff re-pin after 104 publication)  
+**Git:** `main` = `origin/main` @ **`134c022`**  
 **Feature commit (tag target):** `f68a106`  
-**Checkpoint tag:** `phase-b2-104-complete` @ `f68a106`  
+**Checkpoint tag:** `phase-b2-104-complete` @ `f68a106` (on origin)  
 **Prior checkpoint:** `phase-b2-103-complete` @ `35396af`  
-**Rollback:** `before-104-merge` @ `4d55c4c`  
+**Rollback:** `before-104-merge` @ `4d55c4c` (local)  
 **Working tree:** **dirty** — `planrev.md` (modified, frozen); `phase-b2-sequencing-decision-proposal.md` (untracked, FROZEN advisory)
 
 ---
@@ -17,7 +17,7 @@
 
 ```
 ✓ Sequencing Decision (D1)
-✓ Module 103 Published / Frozen
+✓ Module 103 Published / Frozen (origin)
 ✓ Module 104 Governance + Implementation
 ✓ Layer 4 Validation PASS
 ✓ Architecture Compliance PASS
@@ -25,8 +25,9 @@
 ✓ Before Merge Fallback (before-104-merge)
 ✓ Independent Merge Review APPROVE WITH MINOR COMMENTS
 ✓ Local Commit (f68a106)
-✓ Checkpoint Tag (phase-b2-104-complete)
+✓ Checkpoint Tag (phase-b2-104-complete) on origin
 ✓ History / Status Synchronization
+✓ Publication (origin/main + tag)
 ✓ Module 104 Freeze
 
 → Awaiting Module 105 Governance Authorization
@@ -52,7 +53,8 @@
 **phaseBPublished:** true  
 **phaseB2103Published:** true  
 **phaseB2104Published:** true  
-**checkpointTag:** `phase-b2-104-complete` (@ `f68a106`)
+**checkpointTag:** `phase-b2-104-complete` (@ `f68a106` on origin)  
+**Living-docs tip:** `134c022` (docs pins after feature)
 
 ---
 
@@ -64,7 +66,7 @@
 | Module 101 Phase B.1 Context Engine | Merged / Frozen / Published · tag `phase-b-101-complete` |
 | Phase B.2 sequencing decision (D1) | **Recorded** · `docs/phase-b2-sequencing-decision.md` |
 | Module 103 Tree-sitter Parser | **Published / Frozen** · `35396af` · tag `phase-b2-103-complete` |
-| Module 104 Symbol Extractor | **Published / Frozen** · `f68a106` · tag `phase-b2-104-complete` |
+| Module 104 Symbol Extractor | **Published / Frozen** · feature `f68a106` · tag `phase-b2-104-complete` · tip `134c022` |
 | Plan review → `planrev.md` | **FROZEN** canonical Phase B governance reference |
 | Sequencing proposal | **FROZEN** advisory only (`phase-b2-sequencing-decision-proposal.md`) |
 
@@ -74,6 +76,8 @@
 |------|------|
 | Feature (published; tag target) | `f68a106` |
 | Finalize (status / history freeze) | `087efbb` |
+| Hash pin | `f00eca3` |
+| Origin push flag pin | `134c022` |
 | Rollback branch | `before-104-merge` @ `4d55c4c` |
 | Checkpoint tag | `phase-b2-104-complete` @ `f68a106` |
 | Package | `@ray-studio/ingestion` |
@@ -86,6 +90,7 @@
 - Consume-only 103 `SyntaxTree`; walker + `.scm` assets; ingestion-local `Symbol`
 - Languages: ts, tsx, js, jsx, python
 - No `@ray-studio/core`, no IPC, no graph storage, no Core Platform mutation
+- Tests: ingestion **31/31** (16 parser + 15 extractor); core **48/48**
 
 ---
 
@@ -106,8 +111,8 @@
 | Item | State |
 |------|--------|
 | Sequencing decision | **D1 recorded** |
-| Module 103 | **Published / Frozen** |
-| Module 104 | **Published / Frozen** |
+| Module 103 | **Published / Frozen** (origin) |
+| Module 104 | **Published / Frozen** (origin) |
 | Module 105 governance package | **Not authorized** |
 | Module 105 implementation | **Not authorized** |
 | Modules 102 / 201 / 301 | **Not authorized** |
@@ -160,7 +165,7 @@
 
 ## Immediate Next Actions (Next Session)
 
-1. Verify git (`status`, `git log -4`, tag `phase-b2-104-complete`); push `main` + tags if still pending.
+1. Verify git (`status`, `git log -5`, tag `phase-b2-104-complete`); expect `main` = `origin/main` @ `134c022` (or later docs tip).
 2. **Wait for explicit owner authorization** of **Module 105 governance** (or other explicit task).
 3. After 105 governance auth: produce Ready + Layer 4 + manifest only; stop for verification.
 4. Implementation remains a **separate** later authorization (Scope Guard → Manifest Resolver). Prefer feature branch.
@@ -174,7 +179,7 @@
 - Do not treat `nextModule: "105"` as permission to start 105.
 - Do not expand 103/104 into graph ownership or Core Platform edits.
 - Do not commit untracked preload build artifacts under `apps/studio/electron-main/`.
-- Tag `phase-b2-104-complete` pins engineering tip `f68a106`; later commits on `main` may be docs-only after the tag.
+- Tag `phase-b2-104-complete` pins engineering tip `f68a106`; later commits on `main` are docs-only after the tag (`087efbb` → `f00eca3` → `134c022`).
 
 ---
 
@@ -183,12 +188,13 @@
 ```powershell
 cd "F:\Projects\Ray-studio Creations\Ray Studio"
 git status -sb
-git log -4 --oneline
-git rev-parse --short HEAD origin/main
-git show phase-b2-104-complete --no-patch --format="%h %s"
-git show phase-b2-103-complete --no-patch --format="%h %s"
+git log -5 --oneline
+git rev-parse --short HEAD
+git rev-parse --short origin/main
+git rev-list -n 1 phase-b2-104-complete
+git rev-list -n 1 phase-b2-103-complete
 ```
 
-Expected: tag `phase-b2-104-complete` at `f68a106`; dirty only `planrev.md` + untracked proposal (unless owner cleaned); push origin if still ahead.
+Expected: `main` = `origin/main`; feature tag at `f68a106`; tip ≥ `134c022`; dirty only `planrev.md` + untracked proposal (unless owner cleaned).
 
 ---
