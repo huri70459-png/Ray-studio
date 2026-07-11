@@ -53,7 +53,7 @@ Governed by the **Ray Studio Engineering Constitution v1.0.0** (root file, perma
 - 102, **105**, 200-series (Memory), 300-series (Providers), Gateway
 - Anything outside the approved D1 order without authorization
 
-**Recommended Next Action (new session):** (1) Read `docs/handoff.md` + `docs/phase-b2-sequencing-decision.md`. (2) Confirm `main` = `origin/main` (tip `740b5ff` or later docs pin); feature `f68a106`; tag `phase-b2-104-complete` on origin. (3) Await **explicit Module 105 governance authorization** (Ready + Layer 4 + manifest for B.2 Dependency Graph slice only). Prefer feature branch for 105+. (4) Do **not** start 105 implementation, 102, Memory, or Providers without separate auth. Skills architecture and workflow remain frozen (baseline).
+**Recommended Next Action (new session):** (1) Read `docs/handoff.md` + `docs/phase-b2-sequencing-decision.md`. (2) Confirm `main` = `origin/main` (`git rev-parse --short HEAD`; tip ≥ `19d29f0`); feature `f68a106`; tag `phase-b2-104-complete` on origin. (3) Await **explicit Module 105 governance authorization** (Ready + Layer 4 + manifest for B.2 Dependency Graph slice only). Prefer feature branch for 105+. (4) Do **not** start 105 implementation, 102, Memory, or Providers without separate auth. Skills architecture and workflow remain frozen (baseline).
 
 **Implementation Rules (Deterministic Pipeline)**
 
@@ -82,10 +82,10 @@ Governed by the **Ray Studio Engineering Constitution v1.0.0** (root file, perma
 - Module 101 Phase B.1: **Merged / Frozen / Published** (feat `0322714`; governance `303af68`; tag `phase-b-101-complete` on origin; rollback `before-101-merge`; arch 9.5/10). Ports-first orchestrator only. Core tests **48/48**. See `history/101.md`.
 - Phase B.2 sequencing: **D1 recorded** in `docs/phase-b2-sequencing-decision.md` (103 → 104 → 105-slice → 102 → 101 adapters). Advisory proposal remains **FROZEN** and is not the decision source.
 - Module 103 Phase B.2: **Published / Frozen** (feat `35396af` on `main`; tag `phase-b2-103-complete`; Arch PASS; Merge Readiness APPROVED; parser tests **16/16**; core **48/48**). Package `@ray-studio/ingestion`. See `history/103.md`.
-- Module 104 Phase B.2: **Published / Frozen** (feat `f68a106` on `main` + origin; tag `phase-b2-104-complete` on origin; Arch PASS; Merge Readiness APPROVED; Independent Merge Review APPROVE WITH MINOR COMMENTS; ingestion tests **31/31**; core **48/48**). Extractor under `packages/ingestion/src/extractor/**`; hard dep 103 only; ingestion-local Symbol model. See `history/104.md`. Rollback: `before-104-merge` @ `4d55c4c`. Finalize `087efbb`; pins `f00eca3`, `134c022`; handoff re-pin `740b5ff`.
+- Module 104 Phase B.2: **Published / Frozen** (feat `f68a106` on `main` + origin; tag `phase-b2-104-complete` on origin; Arch PASS; Merge Readiness APPROVED; Independent Merge Review APPROVE WITH MINOR COMMENTS; ingestion tests **31/31**; core **48/48**). Extractor under `packages/ingestion/src/extractor/**`; hard dep 103 only; ingestion-local Symbol model. See `history/104.md`. Rollback: `before-104-merge` @ `4d55c4c`. Docs chain: `087efbb` → `f00eca3` → `134c022` → `740b5ff` → `19d29f0`+.
 - Driver note: `node:sqlite` via `process.getBuiltinModule` (stdlib). Electron 31 host may lack runtime SQLite → `DB_UNAVAILABLE` path documented; Phase 2 adapter if needed.
 - Graph / Memory: Not yet populated; 101 uses Null/Fake ports only (no live graph). 103/104 do not own graph storage.
-- Git: Phase A, Phase B.1, Module **103**, and Module **104** **published** on origin. Feature `f68a106`; tag `phase-b2-104-complete` @ `f68a106`; living-docs tip `740b5ff` (`main` = `origin/main`). Working tree may hold **uncommitted** `planrev.md` + untracked sequencing proposal. See `docs/handoff.md` for new-session resume.
+- Git: Phase A, Phase B.1, Module **103**, and Module **104** **published** on origin. Feature `f68a106`; tag `phase-b2-104-complete` @ `f68a106`; `main` = `origin/main` (living tip via `git rev-parse`). Working tree may hold **uncommitted** `planrev.md` + untracked sequencing proposal. See `docs/handoff.md` for new-session resume.
 
 See full details below and the assessment order document.
 
