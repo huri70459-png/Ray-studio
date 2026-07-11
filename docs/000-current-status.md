@@ -1,7 +1,7 @@
 # 000 — Current Status (Complete Project Information)
 
 **Status:** Living Reference (Sprint 1)
-**Date:** 2026-07-11 (Phase A + 101 B.1 published; Phase B.2 D1 foundation complete; Modules 103+104+105+102 published/frozen; next planning target 101-adapters — not authorized)
+**Date:** 2026-07-11 (Phase A + 101 B.1 published; Phase B.2 D1 sequence complete — 103+104+105+102+101-adapters frozen; nextModule 201 planning only — not authorized)
 **Project:** Ray Studio
 **Location:** F:\Projects\Ray-studio Creations\Ray Studio
 **Version:** 0.1.0 (monorepo foundation)
@@ -20,7 +20,7 @@ Governed by the **Ray Studio Engineering Constitution v1.0.0** (root file, perma
 
 ## For Implementation Agents (Read This First After AGENTS.md)
 
-**Current Execution Phase:** Sprint 1 — Phase A **complete and published**. Phase B.1 Module **101** complete, frozen, published. Phase B.2 strategy **D1 recorded**. **D1 foundation sequence complete:** Modules **103**, **104**, **105**, and **102 published and frozen** (103: `35396af` / `phase-b2-103-complete`; 104: `f68a106` / `phase-b2-104-complete`; 105: `8ede948` / `phase-b2-105-complete`; 102: `1d1fc7a` / `phase-b2-102-complete`). **No active implementation module.** nextModule **101-adapters** is a **planning label only** (not authorized). D1 order: 103 ✅ → 104 ✅ → 105-slice ✅ → 102 ✅ → **101 live adapters** (planning only). New session: start at `docs/handoff.md` + `project-status.json` `sessionHandoff` + `docs/phase-b2-sequencing-decision.md` + `history/102.md`.
+**Current Execution Phase:** Sprint 1 — Phase A **complete and published**. Phase B.1 Module **101** complete, frozen, published. Phase B.2 strategy **D1 recorded**. **D1 sequence complete:** Modules **103**, **104**, **105**, **102**, and **101-adapters published and frozen** (103: `35396af` / `phase-b2-103-complete`; 104: `f68a106` / `phase-b2-104-complete`; 105: `8ede948` / `phase-b2-105-complete`; 102: `1d1fc7a` / `phase-b2-102-complete`; 101-adapters: `036b699` / `phase-b2-101-adapters-complete`). **Active module:** **none**. **nextModule:** `201` (**planning label only — not authorized**). D1 order: 103 ✅ → 104 ✅ → 105-slice ✅ → 102 ✅ → 101 live adapters ✅ → 201 (future). New session: start at `docs/handoff.md` + `project-status.json` `sessionHandoff`. **Do not** start Memory (**201**) or Providers without **explicit owner authorization**.
 
 **Frozen Architectural Baselines** (do not modify without ADR):
 
@@ -31,7 +31,7 @@ Governed by the **Ray Studio Engineering Constitution v1.0.0** (root file, perma
 - prompts/templates/
 - docs/00x (foundational docs)
 - Roadmap / assessment order
-- Modules 001, 009–013, 016, **101 B.1**, **103**, **104**, **105**, **102** (immutable except defects)
+- Modules 001, 009–013, 016, **101 B.1**, **101-adapters**, **103**, **104**, **105**, **102** (immutable except defects)
 
 **Core Platform + Phase B Status**
 
@@ -49,13 +49,15 @@ Governed by the **Ray Studio Engineering Constitution v1.0.0** (root file, perma
 | 104 Symbol Extractor    | Draft (+ L4 B.2 gate) | Exists     | ✅ Published/Frozen (f68a106; Layer 4 PASS; tag phase-b2-104-complete)                 | No (immutable) |
 | 105 Dependency Graph    | Draft (+ L4 B.2 gate) | Exists     | ✅ Published/Frozen (8ede948; Arch+MR+IMR APPROVE WITH MINOR COMMENTS; tag phase-b2-105-complete; R1 accepted debt) | No (immutable) |
 | 102 Index Builder       | Draft (+ L4 B.2 gate) | Exists     | ✅ Published/Frozen (1d1fc7a; Arch PASS WITH MINOR COMMENTS ~9.5/10; MR+IMR APPROVE WITH MINOR COMMENTS; tag phase-b2-102-complete) | No (immutable) |
+| 101 Live Adapters B.2   | Layer 2 Ready (B.1) + L4 B.2 slice | Exists     | ✅ Published/Frozen (036b699; L4 PASS; Arch+MR+IMR APPROVE WITH MINOR COMMENTS; tag phase-b2-101-adapters-complete) | No (immutable) |
 
 **Do NOT touch yet** (higher layers, non-approved, or out of sequence):
 
-- **101-adapters**, **201**, 300-series (Providers), Gateway — **not authorized**
+- **201**, 300-series (Providers), Gateway — **not authorized**
+- Frozen 101 B.1 core / 101-adapters / 102–105 domain rewrites — **not authorized**
 - Anything outside the approved D1 order without authorization
 
-**Recommended Next Action (new session):** (1) Read `docs/handoff.md` + `project-status.json` `sessionHandoff` + `docs/phase-b2-sequencing-decision.md` + `history/102.md`. (2) Confirm `main` = `origin/main`; tag `phase-b2-102-complete` @ `1d1fc7a`; rollback `before-102-merge` @ `05c5f19`. (3) Optionally re-run ingestion **64/64** + core **48/48**. (4) **Do not** start Module **101-adapters**, Memory, or Providers without **explicit owner authorization**. Skills architecture and workflow remain frozen (baseline).
+**Recommended Next Action (new session):** (1) Read `docs/handoff.md` + `project-status.json` `sessionHandoff`. (2) Confirm published product tag `phase-b2-101-adapters-complete` @ `036b699`; `main` == `origin/main`. (3) Optional: Architecture Debt Register for R1. (4) **Do not** start Memory (**201**) or Providers without **explicit owner authorization**. Skills architecture and workflow remain frozen (baseline).
 
 **Implementation Rules (Deterministic Pipeline)**
 
@@ -87,9 +89,10 @@ Governed by the **Ray Studio Engineering Constitution v1.0.0** (root file, perma
 - Module 104 Phase B.2: **Published / Frozen** (feat `f68a106` on `main` + origin; tag `phase-b2-104-complete` on origin; Arch PASS; Merge Readiness APPROVED; Independent Merge Review APPROVE WITH MINOR COMMENTS; ingestion tests **31/31** at freeze; core **48/48**). Extractor under `packages/ingestion/src/extractor/**`; hard dep 103 only; ingestion-local Symbol model. See `history/104.md`. Rollback: `before-104-merge` @ `4d55c4c`.
 - Module 105 Phase B.2 **slice**: **Published / Frozen** (feat `8ede948` on `main`; tag `phase-b2-105-complete` @ `8ede948`; Arch + Merge Readiness + Independent Merge Review **APPROVE WITH MINOR COMMENTS**; ingestion **45/45** at 105 freeze; core **48/48**; tsc PASS). Dependency Graph under `packages/ingestion/src/dependency/**`. B.2: `computeDelta` + in-process apply/query (no **201**). Consume-only 103/104. **R1** (`keysByFile` multi-file ownership) accepted B.2 architectural debt (documented, non-blocking). See `history/105.md`. Rollback: `before-105-merge` @ `7f8337c`.
 - Module 102 Phase B.2 **Index Builder / Incremental Indexer**: **Published / Frozen** (feat `1d1fc7a` on `main` + origin; tag `phase-b2-102-complete` @ `1d1fc7a`; Arch **PASS WITH MINOR COMMENTS** ~9.5/10; Merge Readiness + Independent Merge Review **APPROVE WITH MINOR COMMENTS**; Publication **PASS** 10/10; ingestion **64/64** at freeze; core **48/48**). Domain `packages/ingestion/src/incremental/**`. Coordinator only: classify → 105 impact → 103 parse → 104 extract → 105 rel-delta → `IndexDelta`. Public API `createIncrementalIndexer` / `createIncrementalIndexerSync`. In-process only (no 201/MCP/product watcher/Core edits). **R1** accepted debt — reindex scope policy only; do not rewrite 105. See `history/102.md`. Rollback: `before-102-merge` @ `05c5f19`.
+- Module 101 Live Adapters Phase B.2 **slice** (`101-adapters`): **Published / Frozen** (feat `036b699` on `main` + origin; tag `phase-b2-101-adapters-complete` @ `036b699`; Layer 4 **PASS**; Arch + Merge Readiness + Independent Merge Review **APPROVE WITH MINOR COMMENTS**; Publication **PASS**; ingestion **79/79** at freeze; core **48/48**). Domain `packages/ingestion/src/adapters/**` (+ export wiring). Factories: `createLiveGraphQueryPort` (required), optional lexical `createLiveSemanticSearchPort`, optional inventory `createLiveSummaryPort`. Structural ports only (no runtime `@ray-studio/core` dependency; core does not depend on ingestion). Consume 102 registry/upserts + optional 105 expansion. Layer 2 B.1 **unchanged**. **R1** accepted debt — expansion may be coarse; do not rewrite 105. Manifest `implementation-manifests/101-live-adapters.json`; L4 `prompts/validation/101-live-adapters.validation.md`. See `history/101.md`.
 - Driver note: `node:sqlite` via `process.getBuiltinModule` (stdlib). Electron 31 host may lack runtime SQLite → `DB_UNAVAILABLE` path documented; Phase 2 adapter if needed.
-- Graph / Memory: 101 uses Null/Fake ports only (no live graph). 103/104 do not own graph storage. 105 B.2 uses **in-process** edges only (201 deferred). 102 B.2 coordinates 103→104→105 in-process deltas only (still no durable 201).
-- Git: Phase A, Phase B.1, Modules **103**, **104**, **105**, and **102** **published** on origin (verify tip + `phase-b2-102-complete`). Optional excluded dirt (`planrev.md` / sequencing proposal / `session/**`) — do not stage without owner request. See `docs/handoff.md` + `history/102.md`.
+- Graph / Memory: 101 B.1 Null/Fake remain in core. Live graph/semantic/summary ports exist in **ingestion adapters** (in-process, published/frozen). 103/104 do not own graph storage. 105 B.2 uses **in-process** edges only (201 deferred). 102 B.2 coordinates 103→104→105 in-process deltas only (still no durable 201). Embeddings / 201 durable graph deferred.
+- Git: Phase A, Phase B.1, Modules **103**, **104**, **105**, **102**, and **101-adapters** **published** on origin (verify tag `phase-b2-101-adapters-complete`). Optional excluded dirt (`planrev.md` / sequencing proposal / `session/**`) may remain local — do not stage without owner request. See `docs/handoff.md`.
 
 See full details below and the assessment order document.
 
@@ -109,8 +112,9 @@ See full details below and the assessment order document.
 | 104 Symbol Extractor    | ✅ Published / Frozen (f68a106; tag phase-b2-104-complete; Layer 4 PASS) |
 | 105 Dependency Graph    | ✅ Published / Frozen (8ede948; tag phase-b2-105-complete; R1 accepted B.2 debt) |
 | 102 Index Builder       | ✅ Published / Frozen (1d1fc7a; tag phase-b2-102-complete; Arch ~9.5/10) |
+| 101 Live Adapters B.2   | ✅ Published / Frozen (036b699; tag phase-b2-101-adapters-complete; L4 PASS) |
 
-Phase A Core Platform **complete and frozen**. Phase B.1 Context Engine orchestrator **complete, frozen, and published**. Phase B.2 **D1 decided**; **D1 foundation complete** — Modules **103, 104, 105, and 102 complete, frozen, and published**. nextModule **101-adapters** is planning only. **Do not start 101-adapters / Memory / Providers without explicit authorization.**
+Phase A Core Platform **complete and frozen**. Phase B.1 Context Engine orchestrator **complete, frozen, and published**. Phase B.2 **D1 decided**; **D1 sequence complete** — Modules **103, 104, 105, 102, and 101-adapters complete, frozen, and published**. **Active module: none.** `nextModule: "201"` is a **planning label only**. **Do not start Memory / Providers without explicit authorization.**
 
 **Latest Architecture & Implementation Review (2026-07-08)**
 
