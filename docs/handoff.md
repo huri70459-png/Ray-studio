@@ -73,7 +73,7 @@
 | Role | Hash |
 |------|------|
 | Feature (published; tag target) | `f68a106` |
-| Finalize (status / history freeze) | (finalize commit after this handoff) |
+| Finalize (status / history freeze) | `087efbb` |
 | Rollback branch | `before-104-merge` @ `4d55c4c` |
 | Checkpoint tag | `phase-b2-104-complete` @ `f68a106` |
 | Package | `@ray-studio/ingestion` |
