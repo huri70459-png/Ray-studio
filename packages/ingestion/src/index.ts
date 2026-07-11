@@ -2,6 +2,7 @@
  * @ray-studio/ingestion — public package entry.
  * Module 103: Tree-sitter Parser (Phase B.2 foundation).
  * Module 104: Symbol Extractor (Phase B.2).
+ * Module 105: Dependency Graph (Phase B.2 slice — in-process edges).
  */
 export {
   createTreeSitterParser,
@@ -42,3 +43,23 @@ export type {
   ExtractResult,
   ExtractorLogger,
 } from './extractor/index.js';
+
+export {
+  createDependencyGraph,
+  edgeKey,
+  fileId,
+  normalizePath,
+  compareRelationships,
+} from './dependency/index.js';
+export type {
+  DependencyGraph,
+  DependencyGraphOptions,
+  DependencyLogger,
+  ComputeDeltaInput,
+  Relationship,
+  RelationshipDelta,
+  RelationshipType,
+  DeltaMetrics,
+  SymbolRef,
+  SourceLocation,
+} from './dependency/index.js';

@@ -1,0 +1,54 @@
+{
+  "moduleId": "105",
+  "name": "Dependency Graph",
+  "required": [
+    "prompts/modules/105-dependency-graph.md",
+    "prompts/templates/implementation.md",
+    "prompts/validation/105-dependency-graph.validation.md"
+  ],
+  "optional": [
+    "docs/003-monorepo-architecture.md",
+    "docs/002-system-architecture.md",
+    "docs/phase-b2-sequencing-decision.md",
+    "prompts/modules/103-tree-sitter-parser.md",
+    "prompts/modules/104-symbol-extractor.md",
+    "prompts/validation/103-tree-sitter-parser.validation.md",
+    "prompts/validation/104-symbol-extractor.validation.md",
+    "implementation-manifests/103-tree-sitter-parser.json",
+    "implementation-manifests/104-symbol-extractor.json",
+    "history/103.md",
+    "history/104.md",
+    "history/101.md",
+    "packages/core/src/context/types.ts"
+  ],
+  "forbidden": [
+    "prompts/modules/102-*.md",
+    "prompts/modules/201-*.md",
+    "prompts/modules/301-*.md",
+    "packages/core/src/**",
+    "packages/core/src/context/**",
+    "packages/core/src/db/**",
+    "packages/core/src/ipc/**",
+    "packages/core/src/fs/**",
+    "packages/core/src/watcher/**",
+    "packages/core/src/project/**",
+    "packages/core/src/workspace/**",
+    "apps/studio/**",
+    "packages/gateway/**",
+    "packages/mcp/**"
+  ],
+  "dependsOnModules": ["103", "104"],
+  "notes": "Phase B.2 Dependency Graph slice (D1 third target). Own packages/ingestion/src/dependency/** only. Consume frozen 103 public API (SyntaxTree/query as needed) and frozen 104 Symbol model + extract surface — do not re-own or rewrite packages/ingestion/src/parser/** or packages/ingestion/src/extractor/** except documented defect fixes under separate 103/104 auth. B.2 freeze is independent of Memory Engine (201): relationship compute + in-process edge store / pure deltas only; Draft §19 hard-cite of 201 and full-spec applyDelta→graph storage are deferred consumer/phase work. No packages/core edits, no 102 indexer, no 101 live adapters, no dependency IPC, no Gateway/Providers. Layer 4 defines B.2 independent freeze gates; full-spec DoD language about 201/102/101 integration is deferred. Implementation not authorized by governance artifacts alone.",
+  "estimatedContextTokens": 8200,
+  "priority": "critical",
+  "implementationOrder": 11,
+  "validationRequired": true,
+  "phase": "B",
+  "implementationSlice": "B.2-dependency-graph-slice",
+  "allowedWritePaths": [
+    "packages/ingestion/src/dependency/**",
+    "packages/ingestion/src/index.ts",
+    "packages/ingestion/package.json"
+  ],
+  "packageName": "@ray-studio/ingestion"
+}
