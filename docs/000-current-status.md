@@ -1,7 +1,7 @@
 # 000 — Current Status (Complete Project Information)
 
 **Status:** Living Reference (Sprint 1)
-**Date:** 2026-07-11 (Phase A + 101 B.1 published; Phase B.2 D1 decided; Module 103 published/frozen; tag phase-b2-103-complete)
+**Date:** 2026-07-11 (Phase A + 101 B.1 published; Phase B.2 D1; Modules 103+104 published/frozen; tag phase-b2-104-complete)
 **Project:** Ray Studio
 **Location:** F:\Projects\Ray-studio Creations\Ray Studio
 **Version:** 0.1.0 (monorepo foundation)
@@ -20,7 +20,7 @@ Governed by the **Ray Studio Engineering Constitution v1.0.0** (root file, perma
 
 ## For Implementation Agents (Read This First After AGENTS.md)
 
-**Current Execution Phase:** Sprint 1 — Phase A **complete and published**. Phase B.1 Module **101** complete, frozen, published. Phase B.2 strategy **D1 recorded**. Module **103 Tree-sitter Parser published and frozen** (`35396af`; tag `phase-b2-103-complete`). **Active module: none.** nextModule **104** — planning label only, **not authorized**. D1 order: 103 ✅ → 104 → 105-slice → 102 → 101 live adapters. New session: start at `docs/handoff.md`, then `docs/phase-b2-sequencing-decision.md`.
+**Current Execution Phase:** Sprint 1 — Phase A **complete and published**. Phase B.1 Module **101** complete, frozen, published. Phase B.2 strategy **D1 recorded**. Modules **103 Tree-sitter Parser** and **104 Symbol Extractor published and frozen** (103: `35396af` / `phase-b2-103-complete`; 104: `f68a106` / `phase-b2-104-complete`). **Active module: none.** nextModule **105** — planning label only (B.2 Dependency Graph slice), **not authorized**. D1 order: 103 ✅ → 104 ✅ → 105-slice → 102 → 101 live adapters. New session: start at `docs/handoff.md`, then `docs/phase-b2-sequencing-decision.md`.
 
 **Frozen Architectural Baselines** (do not modify without ADR):
 
@@ -31,7 +31,7 @@ Governed by the **Ray Studio Engineering Constitution v1.0.0** (root file, perma
 - prompts/templates/
 - docs/00x (foundational docs)
 - Roadmap / assessment order
-- Modules 001, 009–013, 016, **101 B.1**, **103** (immutable except defects)
+- Modules 001, 009–013, 016, **101 B.1**, **103**, **104** (immutable except defects)
 
 **Core Platform + Phase B Status**
 
@@ -46,13 +46,14 @@ Governed by the **Ray Studio Engineering Constitution v1.0.0** (root file, perma
 | 016 SQLite Layer        | Architecture Approved | Exists     | ✅ Merged/Frozen (e499422; 9.7/10; tag core-platform-001-016-complete)                  | No (immutable) |
 | 101 Context Engine B.1  | Ready                 | Exists     | ✅ Merged/Frozen (0322714; 9.5/10; tag phase-b-101-complete)                            | No (immutable) |
 | 103 Tree-sitter Parser  | Ready                 | Exists     | ✅ Published/Frozen (35396af; 10/10 gates; tag phase-b2-103-complete)                   | No (immutable) |
+| 104 Symbol Extractor    | Draft (+ L4 B.2 gate) | Exists     | ✅ Published/Frozen (f68a106; Layer 4 PASS; tag phase-b2-104-complete)                 | No (immutable) |
 
 **Do NOT touch yet** (higher layers, non-approved, or out of sequence):
 
-- 102, **104**, 105, 200-series (Memory), 300-series (Providers), Gateway
+- 102, **105**, 200-series (Memory), 300-series (Providers), Gateway
 - Anything outside the approved D1 order without authorization
 
-**Recommended Next Action (new session):** (1) Read `docs/handoff.md` + `docs/phase-b2-sequencing-decision.md`. (2) Confirm `main` = `origin/main`; feature `35396af`; tag `phase-b2-103-complete` on origin (`git rev-parse` / `git log -4`). (3) Await **explicit Module 104 governance authorization** (Ready + Layer 4 + manifest only). Prefer feature branch for 104+. (4) Do **not** start 104 implementation, 102/105, Memory, or Providers without separate auth. Skills architecture and workflow remain frozen (baseline). Session notes: `session/20260711_032137/`.
+**Recommended Next Action (new session):** (1) Read `docs/handoff.md` + `docs/phase-b2-sequencing-decision.md`. (2) Confirm `main` / tags: feature `f68a106`; tag `phase-b2-104-complete` (push status in handoff). (3) Await **explicit Module 105 governance authorization** (Ready + Layer 4 + manifest for B.2 Dependency Graph slice only). Prefer feature branch for 105+. (4) Do **not** start 105 implementation, 102, Memory, or Providers without separate auth. Skills architecture and workflow remain frozen (baseline).
 
 **Implementation Rules (Deterministic Pipeline)**
 
@@ -80,10 +81,11 @@ Governed by the **Ray Studio Engineering Constitution v1.0.0** (root file, perma
 - Module 016 Phase 1: **Merged / Frozen** (feat `e499422`; gates `5434af8`; tag `core-platform-001-016-complete`; arch 9.7/10). See `history/016.md`.
 - Module 101 Phase B.1: **Merged / Frozen / Published** (feat `0322714`; governance `303af68`; tag `phase-b-101-complete` on origin; rollback `before-101-merge`; arch 9.5/10). Ports-first orchestrator only. Core tests **48/48**. See `history/101.md`.
 - Phase B.2 sequencing: **D1 recorded** in `docs/phase-b2-sequencing-decision.md` (103 → 104 → 105-slice → 102 → 101 adapters). Advisory proposal remains **FROZEN** and is not the decision source.
-- Module 103 Phase B.2: **Published / Frozen** (feat `35396af` on `main`; tag `phase-b2-103-complete` on origin; Arch PASS; Merge Readiness APPROVED; ingestion tests **16/16**; core **48/48**). Package `@ray-studio/ingestion`. See `history/103.md`.
+- Module 103 Phase B.2: **Published / Frozen** (feat `35396af` on `main`; tag `phase-b2-103-complete`; Arch PASS; Merge Readiness APPROVED; parser tests **16/16**; core **48/48**). Package `@ray-studio/ingestion`. See `history/103.md`.
+- Module 104 Phase B.2: **Published / Frozen** (feat `f68a106` on `main`; tag `phase-b2-104-complete`; Arch PASS; Merge Readiness APPROVED; Independent Merge Review APPROVE WITH MINOR COMMENTS; ingestion tests **31/31**; core **48/48**). Extractor under `packages/ingestion/src/extractor/**`; hard dep 103 only; ingestion-local Symbol model. See `history/104.md`. Rollback: `before-104-merge` @ `4d55c4c`.
 - Driver note: `node:sqlite` via `process.getBuiltinModule` (stdlib). Electron 31 host may lack runtime SQLite → `DB_UNAVAILABLE` path documented; Phase 2 adapter if needed.
-- Graph / Memory: Not yet populated; 101 uses Null/Fake ports only (no live graph). 103 does not own graph storage.
-- Git: Phase A, Phase B.1, and Module **103** **published** on origin. Feature `35396af`; tag `phase-b2-103-complete` @ `35396af`; living docs advanced by finalize/pin commits after the feature tip. Working tree may hold **uncommitted** `planrev.md` + untracked sequencing proposal. See `docs/handoff.md` for new-session resume.
+- Graph / Memory: Not yet populated; 101 uses Null/Fake ports only (no live graph). 103/104 do not own graph storage.
+- Git: Phase A, Phase B.1, Module **103**, and Module **104** on `main`. Feature `f68a106`; tag `phase-b2-104-complete` @ `f68a106`. Working tree may hold **uncommitted** `planrev.md` + untracked sequencing proposal. See `docs/handoff.md` for new-session resume and push status.
 
 See full details below and the assessment order document.
 
@@ -100,8 +102,9 @@ See full details below and the assessment order document.
 | 016 SQLite Layer        | ✅ Merged / Frozen (e499422; tag core-platform-001-016-complete; 9.7/10) |
 | 101 Context Engine B.1  | ✅ Merged / Frozen (0322714; tag phase-b-101-complete; 9.5/10)          |
 | 103 Tree-sitter Parser  | ✅ Published / Frozen (35396af; tag phase-b2-103-complete; 10/10 gates) |
+| 104 Symbol Extractor    | ✅ Published / Frozen (f68a106; tag phase-b2-104-complete; Layer 4 PASS) |
 
-Phase A Core Platform **complete and frozen**. Phase B.1 Context Engine orchestrator **complete, frozen, and published**. Phase B.2 **D1 decided**; Module **103 complete, frozen, and published**. **Do not start 104 / 102 / 105 / Memory / Providers without explicit authorization.**
+Phase A Core Platform **complete and frozen**. Phase B.1 Context Engine orchestrator **complete, frozen, and published**. Phase B.2 **D1 decided**; Modules **103 and 104 complete, frozen, and published**. **Do not start 105 / 102 / Memory / Providers without explicit authorization.**
 
 **Latest Architecture & Implementation Review (2026-07-08)**
 
