@@ -2,10 +2,11 @@
 
 **Project:** Ray Studio  
 **Date:** 2026-07-11  
-**Status:** Phase A + 101 B.1 published · **Phase B.2 D1 sequence complete** (103+104+105+102+101-adapters frozen on origin) · **no active implementation module**  
-**Last Updated By:** Grok (post-merge finalizer — Module 101 Live Adapters)  
-**Git tip (after finalizer push):** re-verify with `git rev-parse --short HEAD`  
+**Status:** Phase A + 101 B.1 published · **Phase B.2 D1 sequence complete** (103+104+105+102+101-adapters frozen on origin) · **no active implementation module** · session/progress synced  
+**Last Updated By:** Grok (session progress sync — post 101-adapters finalizer)  
+**Git tip (finalizer):** `adb88a0` — re-verify after any later docs-only tip with `git rev-parse --short HEAD`  
 **Feature commit (101-adapters):** `036b699`  
+**Finalize commit (101-adapters):** `adb88a0`  
 **Checkpoint tag (current frozen product):** `phase-b2-101-adapters-complete` @ `036b699`  
 **Prior checkpoint:** `phase-b2-102-complete` @ `1d1fc7a`  
 **Working tree:** optional excluded dirt only (`planrev.md`, sequencing proposal) — **do not stage** without owner request  
@@ -25,7 +26,7 @@
 ✗ Module 201 / 301 — NOT authorized (nextModule "201" is planning label only)
 ```
 
-**Engineering vs Git:** 103/104/105/102/101-adapters committed **directly on `main`** and published. Product feature tip: `036b699`. Status/history freeze is the finalizer commit after the product tag.
+**Engineering vs Git:** 103/104/105/102/101-adapters committed **directly on `main`** and published. Product feature tip: `036b699`. Status/history freeze finalizer: `adb88a0`. Tag peels to product commit (not finalizer).
 
 ---
 
@@ -95,6 +96,7 @@
 | Storage | In-process only; **no** 201 / embeddings / Gateway / Core edits |
 | R1 policy | Expansion may be coarse; **do not** rewrite 105 |
 | Feature commit | `036b699` |
+| Finalize commit | `adb88a0` |
 | Tag | `phase-b2-101-adapters-complete` |
 | Tests (at freeze) | ingestion **79/79** (15 adapters + 64 prior); core **48/48** |
 | Layer 4 | **PASS** |
@@ -180,7 +182,7 @@ Do **not** stage without separate owner request:
 ## Quick Verify
 
 ```text
-git rev-parse --short HEAD
+git rev-parse --short HEAD                          # tip (finalizer adb88a0 or later docs-only)
 git rev-list -n 1 phase-b2-101-adapters-complete    # expect 036b699...
 git status -sb                                      # expect clean product; optional excluded dirt only
 pnpm --filter @ray-studio/ingestion test            # 79/79
