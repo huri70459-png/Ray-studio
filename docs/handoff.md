@@ -4,7 +4,7 @@
 **Date:** 2026-07-11  
 **Status:** Phase A + 101 B.1 published · **Phase B.2 D1** · **Modules 103+104 published/frozen on origin** · no active module  
 **Last Updated By:** Grok (docs / status / handoff re-pin after 104 publication)  
-**Git:** `main` = `origin/main` @ **`134c022`**  
+**Git:** `main` = `origin/main` @ **`740b5ff`**  
 **Feature commit (tag target):** `f68a106`  
 **Checkpoint tag:** `phase-b2-104-complete` @ `f68a106` (on origin)  
 **Prior checkpoint:** `phase-b2-103-complete` @ `35396af`  
@@ -54,7 +54,7 @@
 **phaseB2103Published:** true  
 **phaseB2104Published:** true  
 **checkpointTag:** `phase-b2-104-complete` (@ `f68a106` on origin)  
-**Living-docs tip:** `134c022` (docs pins after feature)
+**Living-docs tip:** `740b5ff` (docs re-pin after origin publication)
 
 ---
 
@@ -66,7 +66,7 @@
 | Module 101 Phase B.1 Context Engine | Merged / Frozen / Published · tag `phase-b-101-complete` |
 | Phase B.2 sequencing decision (D1) | **Recorded** · `docs/phase-b2-sequencing-decision.md` |
 | Module 103 Tree-sitter Parser | **Published / Frozen** · `35396af` · tag `phase-b2-103-complete` |
-| Module 104 Symbol Extractor | **Published / Frozen** · feature `f68a106` · tag `phase-b2-104-complete` · tip `134c022` |
+| Module 104 Symbol Extractor | **Published / Frozen** · feature `f68a106` · tag `phase-b2-104-complete` · tip `740b5ff` |
 | Plan review → `planrev.md` | **FROZEN** canonical Phase B governance reference |
 | Sequencing proposal | **FROZEN** advisory only (`phase-b2-sequencing-decision-proposal.md`) |
 
@@ -165,7 +165,7 @@
 
 ## Immediate Next Actions (Next Session)
 
-1. Verify git (`status`, `git log -5`, tag `phase-b2-104-complete`); expect `main` = `origin/main` @ `134c022` (or later docs tip).
+1. Verify git (`status`, `git log -5`, tag `phase-b2-104-complete`); expect `main` = `origin/main` @ `740b5ff` (or later docs tip).
 2. **Wait for explicit owner authorization** of **Module 105 governance** (or other explicit task).
 3. After 105 governance auth: produce Ready + Layer 4 + manifest only; stop for verification.
 4. Implementation remains a **separate** later authorization (Scope Guard → Manifest Resolver). Prefer feature branch.
@@ -179,7 +179,7 @@
 - Do not treat `nextModule: "105"` as permission to start 105.
 - Do not expand 103/104 into graph ownership or Core Platform edits.
 - Do not commit untracked preload build artifacts under `apps/studio/electron-main/`.
-- Tag `phase-b2-104-complete` pins engineering tip `f68a106`; later commits on `main` are docs-only after the tag (`087efbb` → `f00eca3` → `134c022`).
+- Tag `phase-b2-104-complete` pins engineering tip `f68a106`; later commits on `main` are docs-only after the tag (`087efbb` → `f00eca3` → `134c022` → `740b5ff`).
 
 ---
 
@@ -195,6 +195,6 @@ git rev-list -n 1 phase-b2-104-complete
 git rev-list -n 1 phase-b2-103-complete
 ```
 
-Expected: `main` = `origin/main`; feature tag at `f68a106`; tip ≥ `134c022`; dirty only `planrev.md` + untracked proposal (unless owner cleaned).
+Expected: `main` = `origin/main`; feature tag at `f68a106`; tip ≥ `740b5ff`; dirty only `planrev.md` + untracked proposal (unless owner cleaned).
 
 ---

@@ -51,11 +51,12 @@
   "module012Status": "✅ Merged (10/10). Commit 20673bf; tag core-platform-001-012-complete; immutable except defects. (2026-07-08)",
   "sessionHandoff": {
     "date": "2026-07-11",
-    "gitHead": "134c022",
+    "gitHead": "740b5ff",
     "featureCommit": "f68a106",
     "finalizeCommit": "087efbb",
     "pinCommit": "f00eca3",
     "publishPinCommit": "134c022",
+    "handoffRepinCommit": "740b5ff",
     "note": "main=origin/main at tip; always run git rev-parse HEAD; tip may advance with docs-only pins after feature f68a106",
     "branch": "main",
     "pushed": true,
