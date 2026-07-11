@@ -2,13 +2,13 @@
 
 **Project:** Ray Studio  
 **Date:** 2026-07-11  
-**Status:** Phase A + 101 B.1 published · **Phase B.2 D1** · **Modules 103+104+105 published/frozen on origin** · next planning target **102** (not authorized)  
-**Last Updated By:** Grok (post-merge finalizer — Module 105 publication / freeze)  
-**Git:** `main` — re-verify with `git rev-parse --short HEAD` after push  
-**Feature commit (105):** `8ede948`  
-**Checkpoint tag:** `phase-b2-105-complete` @ `8ede948`  
-**Prior checkpoint:** `phase-b2-104-complete` @ `f68a106`  
-**Rollback (105):** `before-105-merge` @ `7f8337c` (local; retained)  
+**Status:** Phase A + 101 B.1 published · **Phase B.2 D1 foundation complete** · **Modules 103+104+105+102 published/frozen on origin** · next planning target **101-adapters** (not authorized)  
+**Last Updated By:** Grok (post-merge finalizer — Module 102 publication / freeze)  
+**Git tip (published product baseline):** feature `1d1fc7a` · tag `phase-b2-102-complete` — re-verify with `git rev-parse --short HEAD` after finalize push  
+**Feature commit (102):** `1d1fc7a`  
+**Checkpoint tag:** `phase-b2-102-complete` @ `1d1fc7a`  
+**Prior checkpoint:** `phase-b2-105-complete` @ `8ede948`  
+**Rollback (102):** `before-102-merge` @ `05c5f19` (local; retained)  
 **Working tree:** may retain excluded planning dirt (`planrev.md`, sequencing proposal) — **do not stage** without owner request  
 
 ---
@@ -19,37 +19,36 @@
 ✓ Sequencing Decision (D1)
 ✓ Module 103 Published / Frozen (origin)
 ✓ Module 104 Published / Frozen (origin)
-✓ Module 105 Governance + Implementation + Layer 4 + Arch + MR + IMR
-✓ Module 105 Feature commit on main (8ede948)
-✓ Checkpoint tag phase-b2-105-complete @ 8ede948
+✓ Module 105 Published / Frozen (origin)
+✓ Module 102 Governance → Implementation → L4 → Arch → MR → BMF → IMR → Commit → Publication
+✓ Module 102 Feature commit on main (1d1fc7a)
+✓ Checkpoint tag phase-b2-102-complete @ 1d1fc7a (origin)
 ✓ Post-merge finalizer (this handoff / status / history / project-status)
-→ Publication push (main + tag) — complete in this workflow when origin matches
-→ Next: Module 102 planning label only — NOT authorized for governance or implementation
+→ Next: Module 101 live adapter integration — planning label only — NOT authorized
+✗ Module 201 / 301 — NOT authorized
 ```
 
-**Engineering vs Git:** 103/104/105 committed **directly on `main`** (same pattern). Prefer feature branches for **102+** when authorized.
+**Engineering vs Git:** 103/104/105/102 committed **directly on `main`** and published (same B.2 pattern). Prefer feature branches for **101-adapters+** when authorized.
 
 ---
 
 ## New Session — Start Here
 
-1. Read **AGENTS.md** (Constitution-linked rules).
+1. Read **AGENTS.md**.
 2. Read **this file** (`docs/handoff.md`).
-3. Skim **docs/000-current-status.md** + **project-status.json**.
-4. Read **docs/phase-b2-sequencing-decision.md** (D1 — official Phase B.2 order).
-5. Confirm git: `main` = `origin/main`; tag `phase-b2-105-complete` @ `8ede948`; rollback `before-105-merge` @ `7f8337c`.
-6. History: `history/105.md`, `history/104.md`, `history/103.md`.
-7. **Do not** start Module **102**, **201**, or **301** without **explicit new authorization**.
-8. **Do not** treat `nextModule: "102"` as implementation authorization — planning label only.
+3. Skim **docs/000-current-status.md** + **project-status.json** (`sessionHandoff`).
+4. Read **docs/phase-b2-sequencing-decision.md** (D1 order).
+5. Confirm git: `main` = `origin/main`; tag `phase-b2-102-complete` @ `1d1fc7a`; rollback `before-102-merge` @ `05c5f19`.
+6. History: `history/102.md`, `history/105.md`, `history/104.md`, `history/103.md`.
+7. **Do not** start Module **101-adapters**, **201**, or **301** without **explicit new authorization**.
+8. **Do not** treat `nextModule: "101-adapters"` as implementation authorization — planning label only.
 
-**Active module:** none (105 frozen)  
-**nextModule:** `102` planning label only (**not** authorized)  
-**Dependency-approved sequence (D1):** 103 ✅ → 104 ✅ → 105-slice ✅ → **102** → 101 live adapters  
+**Active module:** none (102 frozen)  
+**nextModule:** `101-adapters` planning label only (**not** authorized)  
+**Dependency-approved sequence (D1):** 103 ✅ → 104 ✅ → 105-slice ✅ → 102 ✅ → **101 live adapters** (planning only) → 201 (future)  
 **phaseBPublished:** true  
-**phaseB2103Published:** true  
-**phaseB2104Published:** true  
-**phaseB2105Published:** true  
-**checkpointTag (last frozen):** `phase-b2-105-complete` (@ `8ede948`)  
+**phaseB2102Published:** true  
+**checkpointTag (last frozen product):** `phase-b2-102-complete` (@ `1d1fc7a`)  
 
 ---
 
@@ -63,52 +62,47 @@
 | Module 103 Tree-sitter Parser | **Published / Frozen** · `35396af` · tag `phase-b2-103-complete` |
 | Module 104 Symbol Extractor | **Published / Frozen** · `f68a106` · tag `phase-b2-104-complete` |
 | Module 105 Dependency Graph (B.2) | **Published / Frozen** · `8ede948` · tag `phase-b2-105-complete` |
+| Module 102 Index Builder (B.2) | **Published / Frozen** · `1d1fc7a` · tag `phase-b2-102-complete` |
 | Plan review → `planrev.md` | **FROZEN** canonical Phase B governance reference |
-| Sequencing proposal | **FROZEN** advisory only (`phase-b2-sequencing-decision-proposal.md`) |
+| Sequencing proposal | **FROZEN** advisory only |
 
-### Module 105 B.2 slice (frozen)
+### Phase B.2 D1 foundation sequence (complete)
+
+```
+103 Parser          ✅ Published / Frozen
+    ↓
+104 Symbol Extractor ✅ Published / Frozen
+    ↓
+105 Dependency Graph ✅ Published / Frozen
+    ↓
+102 Index Builder    ✅ Published / Frozen
+```
+
+### Module 102 B.2 (frozen product baseline)
 
 | Item | Detail |
 |------|--------|
 | Package | `@ray-studio/ingestion` |
-| Domain | `packages/ingestion/src/dependency/**` (+ package export wiring) |
-| Hard deps | Frozen **103** + **104** (consume only) |
-| Slice | `computeDelta` + in-process apply/query; **no** Memory Engine **201** |
-| Relationship types (B.2) | `dependsOn`, `calls` required; others typed/deferred |
-| Edge keys | `type\|from\|to`; `fileId` = `file:<normalized path>` |
-| Languages | typescript, tsx, javascript, jsx, python |
-| Tests | ingestion **45/45**; core **48/48**; tsc PASS |
-| Architecture | PASS WITH MINOR COMMENTS |
-| Merge Readiness / IMR | APPROVE WITH MINOR COMMENTS |
-| Accepted debt **R1** | Coarse multi-file `keysByFile` ownership — **accepted for B.2**; upgrade before true single-file incremental / **201** |
+| Domain | `packages/ingestion/src/incremental/**` (+ package export wiring) |
+| Hard deps | Frozen **103** + **104** + **105** (consume only) |
+| Role | B.2 coordinator: classify → impact (105) → parse (103) → extract (104) → rel-delta (105) → **IndexDelta** |
+| Public API | `createIncrementalIndexer` / `createIncrementalIndexerSync` + `IncrementalIndexer` |
+| Storage | In-process only; **no** 201 Entity, MCP, product FS watcher, Core edits |
+| R1 policy | Documented reindex scope; **do not** rewrite 105 |
+| Tests (at freeze) | ingestion **64/64** (19 incremental); core **48/48** |
+| Architecture Review | **PASS WITH MINOR COMMENTS** ~**9.5/10** |
+| Merge Readiness / IMR | **APPROVE WITH MINOR COMMENTS** |
+| Feature commit | `1d1fc7a` |
+| Tag | `phase-b2-102-complete` |
+| Rollback | `before-102-merge` @ `05c5f19` |
+
+### Module 105 B.2 (still frozen; R1 debt remains)
+
+| Item | Detail |
+|------|--------|
 | Feature commit | `8ede948` |
 | Tag | `phase-b2-105-complete` |
-| Rollback | `before-105-merge` @ `7f8337c` |
-
-**Spec / L4 / manifest (105)**
-
-| Artifact | Path | Git |
-|----------|------|-----|
-| Layer 2 | `prompts/modules/105-dependency-graph.md` | Draft (unchanged; freeze via L4) |
-| Layer 4 | `prompts/validation/105-dependency-graph.validation.md` | In feature commit |
-| Manifest | `implementation-manifests/105-dependency-graph.json` | In feature commit |
-| Impl | `packages/ingestion/src/dependency/**` | In feature commit |
-| History | `history/105.md` | Finalizer |
-
----
-
-## Publication gates completed (105)
-
-| Gate | Result |
-|------|--------|
-| Layer 4 validation | PASS |
-| Architecture Review | PASS WITH MINOR COMMENTS |
-| Merge Readiness | APPROVE WITH MINOR COMMENTS |
-| Before Merge Fallback | PASS |
-| Independent Merge Review | APPROVE WITH MINOR COMMENTS |
-| Feature commit | `8ede948` on `main` |
-| Checkpoint tag | `phase-b2-105-complete` @ `8ede948` |
-| Post-merge finalizer | This documentation set |
+| Accepted debt **R1** | Coarse multi-file `keysByFile` ownership — upgrade before true single-file incremental / **201** |
 
 ---
 
@@ -121,24 +115,14 @@ Do **not** stage without separate owner request:
 | `planrev.md` | Pre-existing dirty; FROZEN Phase B baseline |
 | `phase-b2-sequencing-decision-proposal.md` | FROZEN advisory; untracked noise |
 | `session/**` | Local agent memory |
-| Frozen module bodies (103 parser, 104 extractor, Core Platform) | Immutable except defects |
-
----
-
-## Rollback considerations
-
-| Stage | Action |
-|-------|--------|
-| Pre-feature tip | `before-105-merge` @ `7f8337c` |
-| After feature on main | `git revert 8ede948` (prefer over hard reset if published) |
-| After tag | Tag move only with explicit auth; prefer revert + policy |
-| After publish | Revert on main + coordinated tag policy under owner disaster auth |
+| Frozen module bodies (102/103/104/105 domain, Core Platform) | Immutable except defects |
 
 ---
 
 ## Phase B.2 — Current Gate
 
-**Next gate (human only):** Explicit owner authorization for **Module 102** governance package only (when ready). **105 is complete.**
+**Next gate (human only):** **Module 101 live adapter integration** — governance/planning only until explicit auth.  
+D1 foundation (103→104→105→102) is **complete**. Do **not** start **201** or **301** without separate authorization.
 
 | Item | State |
 |------|--------|
@@ -146,18 +130,20 @@ Do **not** stage without separate owner request:
 | Module 103 | **Published / Frozen** (origin) |
 | Module 104 | **Published / Frozen** (origin) |
 | Module 105 | **Published / Frozen** (`8ede948`; `phase-b2-105-complete`) |
-| Module 102 | **Not authorized** (planning label only) |
+| Module 102 | **Published / Frozen** (`1d1fc7a`; `phase-b2-102-complete`) |
+| Module 101-adapters | **Planning label only** — **not authorized** |
 | Modules 201 / 301 | **Not authorized** |
+| Architecture Debt Register | **Recommended, not created** (optional separate auth) |
 
 ---
 
 ## What Is Not Done / Blocked
 
-- Module **102** Incremental Indexer (governance + implementation) — **not authorized**
-- 101 live adapters, context IPC, model-accurate tokenizer, Gateway wiring
-- Memory (200-series / **201**), Providers (300-series)
+- Module **101** live adapter integration (await auth — D1 next after 102)
+- Memory (**201**), Providers (300-series)
 - R1 upgrade (per-file edge ownership) before true single-file incremental / 201
-- Optional `EdgeStore` port when 201 lands
+- Optional consolidated Architecture Debt Register
+- Gateway / full production watcher wiring
 
 ---
 
@@ -165,18 +151,13 @@ Do **not** stage without separate owner request:
 
 | Module | Status |
 |--------|--------|
-| 001 Studio Shell | ✅ Frozen (9.7/10) |
-| 009 Workspace Manager | ✅ Frozen (9.8/10) |
-| 010 Project Manager | ✅ Frozen (9.9/10) |
-| 011 File System Service | ✅ Frozen (10/10) |
-| 012 File Watcher | ✅ Frozen (10/10) |
-| 013 IPC Framework | ✅ Frozen (10/10) |
-| 016 SQLite Layer | ✅ Frozen (9.7/10) |
-| **101 Context Engine B.1** | ✅ Frozen / Published (9.5/10) |
-| **103 Tree-sitter Parser** | ✅ Frozen / Published (`35396af`; `phase-b2-103-complete`) |
-| **104 Symbol Extractor** | ✅ Frozen / Published (`f68a106`; `phase-b2-104-complete`) |
-| **105 Dependency Graph** | ✅ Frozen / Published (`8ede948`; `phase-b2-105-complete`; R1 accepted B.2 debt) |
-| 102 | Draft · **not authorized** (planning label only) |
+| 001–013, 016 Core Platform | ✅ Frozen / Published |
+| **101 Context Engine B.1** | ✅ Frozen / Published |
+| **103 Tree-sitter Parser** | ✅ Frozen / Published |
+| **104 Symbol Extractor** | ✅ Frozen / Published |
+| **105 Dependency Graph** | ✅ Frozen / Published (R1 accepted B.2 debt) |
+| **102 Index Builder** | ✅ Frozen / Published (`1d1fc7a`; `phase-b2-102-complete`) |
+| **101-adapters** | Planning only — **not authorized** |
 
 ---
 
@@ -185,10 +166,22 @@ Do **not** stage without separate owner request:
 ```text
 git rev-parse --short HEAD
 git rev-parse main origin/main
-git rev-list -n 1 phase-b2-105-complete   # expect 8ede948...
-git branch --list before-105-merge        # expect @ 7f8337c
-pnpm --filter @ray-studio/ingestion test  # 45/45
+git rev-list -n 1 phase-b2-102-complete   # expect 1d1fc7a...
+git branch --list before-102-merge        # expect @ 05c5f19
+git status -sb                            # expect optional excluded dirt only
+pnpm --filter @ray-studio/ingestion test  # 64/64
 pnpm --filter @ray-studio/core test       # 48/48
 ```
 
-**Rule reminder:** Do not begin 102/201/301 until a fresh Scope Guard + Manifest Resolver step after explicit owner authorization.
+**Rule reminder:** Modules **102/103/104/105** are immutable except defects. Do not touch Core Platform / 201 / 301 without authorization.
+
+---
+
+## Recommended next authorizations (choose one)
+
+1. **Module 101 live adapter integration** — governance package preparation only (when owner is ready)  
+2. Optional: Architecture Debt Register (`docs/architecture-debt.md`) for R1 + 102 AR notes  
+3. Optional: R1 upgrade design (still not 201 implementation)  
+
+**Do not** authorize 201/301 from this handoff.  
+**Do not** re-open frozen 101 B.1 core except via separately authorized live-adapter work.
