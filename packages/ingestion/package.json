@@ -2,7 +2,7 @@
   "name": "@ray-studio/ingestion",
   "version": "0.1.0",
   "private": true,
-  "description": "Ray Studio ingestion package — Tree-sitter parser (103) + Symbol Extractor (104) + Dependency Graph B.2 slice (105)",
+  "description": "Ray Studio ingestion package — Tree-sitter parser (103) + Symbol Extractor (104) + Dependency Graph B.2 (105) + Incremental Index Builder B.2 (102)",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",

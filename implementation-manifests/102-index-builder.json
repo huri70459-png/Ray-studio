@@ -1,0 +1,61 @@
+{
+  "moduleId": "102",
+  "name": "Index Builder",
+  "required": [
+    "prompts/modules/102-incremental-indexer.md",
+    "prompts/templates/implementation.md",
+    "prompts/validation/102-index-builder.validation.md"
+  ],
+  "optional": [
+    "docs/003-monorepo-architecture.md",
+    "docs/002-system-architecture.md",
+    "docs/phase-b2-sequencing-decision.md",
+    "prompts/modules/103-tree-sitter-parser.md",
+    "prompts/modules/104-symbol-extractor.md",
+    "prompts/modules/105-dependency-graph.md",
+    "prompts/validation/103-tree-sitter-parser.validation.md",
+    "prompts/validation/104-symbol-extractor.validation.md",
+    "prompts/validation/105-dependency-graph.validation.md",
+    "implementation-manifests/103-tree-sitter-parser.json",
+    "implementation-manifests/104-symbol-extractor.json",
+    "implementation-manifests/105-dependency-graph.json",
+    "history/103.md",
+    "history/104.md",
+    "history/105.md",
+    "history/101.md",
+    "packages/core/src/context/types.ts",
+    "packages/core/src/watcher/**"
+  ],
+  "forbidden": [
+    "prompts/modules/201-*.md",
+    "prompts/modules/301-*.md",
+    "packages/core/src/**",
+    "packages/core/src/context/**",
+    "packages/core/src/db/**",
+    "packages/core/src/ipc/**",
+    "packages/core/src/fs/**",
+    "packages/core/src/watcher/**",
+    "packages/core/src/project/**",
+    "packages/core/src/workspace/**",
+    "apps/studio/**",
+    "packages/gateway/**",
+    "packages/mcp/**",
+    "packages/ingestion/src/parser/**",
+    "packages/ingestion/src/extractor/**",
+    "packages/ingestion/src/dependency/**"
+  ],
+  "dependsOnModules": ["103", "104", "105"],
+  "notes": "Phase B.2 Index Builder / Incremental Indexer (D1 fourth target after 103→104→105-slice). Layer 2 file remains prompts/modules/102-incremental-indexer.md (Draft title Incremental Indexer); authorization short name is Index Builder — no Layer 2 rename required for B.2. Own packages/ingestion/src/incremental/** only. Consume frozen public APIs of 103 (createTreeSitterParser / SyntaxTree), 104 (createSymbolExtractor / Symbol), and 105 (createDependencyGraph / computeDelta / applyDelta / dependents) — do not rewrite parser/**, extractor/**, or dependency/** except documented defect fixes under separate 103/104/105 auth. B.2 freeze is independent of Memory Engine (201): coordination + in-process IndexDelta planning/apply surface only; Draft §11 graph persistence, §12 MCP, embeddings, live 101 adapters, and full-spec 201 upserts are deferred. R1 (105 keysByFile multi-file ownership) is accepted B.2 debt — 102 must not expand 105 scope to 'fix' R1; document reindex scope policy under R1. No packages/core edits (optional read of watcher/context types only), no 201/301, no indexer IPC required for merge. Layer 4 defines B.2 independent freeze gates. Implementation not authorized by governance artifacts alone.",
+  "estimatedContextTokens": 9000,
+  "priority": "critical",
+  "implementationOrder": 12,
+  "validationRequired": true,
+  "phase": "B",
+  "implementationSlice": "B.2-index-builder",
+  "allowedWritePaths": [
+    "packages/ingestion/src/incremental/**",
+    "packages/ingestion/src/index.ts",
+    "packages/ingestion/package.json"
+  ],
+  "packageName": "@ray-studio/ingestion"
+}

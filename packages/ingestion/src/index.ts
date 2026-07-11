@@ -3,6 +3,7 @@
  * Module 103: Tree-sitter Parser (Phase B.2 foundation).
  * Module 104: Symbol Extractor (Phase B.2).
  * Module 105: Dependency Graph (Phase B.2 slice — in-process edges).
+ * Module 102: Incremental Index Builder (Phase B.2 coordinator).
  */
 export {
   createTreeSitterParser,
@@ -63,3 +64,24 @@ export type {
   SymbolRef,
   SourceLocation,
 } from './dependency/index.js';
+
+export {
+  createIncrementalIndexer,
+  createIncrementalIndexerSync,
+  classifyChange,
+  calculateAffectedSet,
+  compareSymbolRecords,
+  emptyIndexDelta,
+} from './incremental/index.js';
+export type {
+  IncrementalIndexer,
+  IncrementalIndexerOptions,
+  SymbolRecord,
+  IndexDelta,
+  IndexMetrics,
+  ChangeKind,
+  ClassifiedChange,
+  IndexerLogger,
+  ReindexOptions,
+  RenameOptions,
+} from './incremental/index.js';
